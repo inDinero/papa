@@ -1,5 +1,5 @@
 module IndFlow
-  class CLI::MergeRelease
+  class Release::Merge
     def initialize(version:)
       @version = version
     end

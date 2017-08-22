@@ -1,5 +1,5 @@
 module IndFlow
-  class CLI::AddToRelease
+  class Release::Add
     def initialize(version:, feature_branches:)
       @version = version
       @feature_branches = feature_branches

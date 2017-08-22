@@ -1,5 +1,5 @@
 module IndFlow
-  class CLI::FinishRelease
+  class Release::Start
     def initialize(version:)
       @version = version
     end
@@ -8,6 +8,9 @@ module IndFlow
       release_branch_name = "release/#{@version}"
 
       queue = CommandQueue.new
+      queue.add Git.checkout(branch_name: 'develop')
+      queue.add Git.fetch(remote: 'origin')
+      queue.add Git.branch(branch_name: release_branch_name)
       queue.add Git.checkout(branch_name: release_branch_name)
       queue.add Git.push(remote: 'origin', branch_name: release_branch_name)
 
