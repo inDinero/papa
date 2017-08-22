@@ -8,7 +8,7 @@ module IndFlow
       @exit_status = nil
     end
 
-    def execute
+    def run
       return if @command.nil?
       puts "DEBUG: Running command **#{@command}**..."
       output = `#{@command}`
