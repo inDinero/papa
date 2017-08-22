@@ -1,35 +1,39 @@
 module IndFlow
   class Git
     def self.status
-      Commander.send_command 'git status'
+      Command.new 'git status'
     end
 
     def self.fetch(remote:)
-      Commander.send_command "git fetch #{remote}"
+      Command.new "git fetch #{remote}"
     end
 
     def self.checkout(branch_name:)
-      Commander.send_command "git checkout #{branch_name}"
+      Command.new "git checkout #{branch_name}"
     end
 
     def self.branch(branch_name:)
-      Commander.send_command "git branch #{branch_name}"
+      Command.new "git branch #{branch_name}"
     end
 
     def self.merge(branch_name:)
-      Commander.send_command "git branch #{branch_name}"
+      Command.new "git merge #{branch_name} --no-ff"
+    end
+
+    def self.pull(remote:, branch_name:)
+      Command.new "git pull #{remote} #{branch_name}"
     end
 
     def self.push(remote:, branch_name:)
-      Commander.send_command "git push #{remote} #{branch_name}"
+      Command.new "git push #{remote} #{branch_name}"
     end
 
     def self.rebase(base_branch_name:)
-      Commander.send_command "git rebase #{base_branch_name}"
+      Command.new "git rebase #{base_branch_name}"
     end
 
     def self.tag(tag_name:)
-      Commander.send_command "git tag #{tag_name}"
+      Command.new "git tag #{tag_name}"
     end
 
     def self.push_tag(remote:, tag_name:)
