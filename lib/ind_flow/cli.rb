@@ -5,13 +5,13 @@ require 'ind_flow/sandbox'
 
 module IndFlow
   class CLI < Thor
-    desc 'release [COMMAND]', 'foo'
+    desc 'release [COMMAND]', 'Perform actions on release branches'
     subcommand 'release', Release
 
-    desc 'hotfix [COMMAND]', 'foo'
+    desc 'hotfix [COMMAND]', 'Perform actions on hotfix branches'
     subcommand 'hotfix', Hotfix
 
-    desc 'sandbox [COMMAND]', 'foo'
+    desc 'sandbox [COMMAND]', 'Test out ind_flow in a sandboxed git environment'
     subcommand 'sandbox', Sandbox
   end
 end
