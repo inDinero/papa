@@ -1,20 +1,9 @@
 module IndFlow
-  class Hotfix::Start
+  class Hotfix::Start < Common::Start
     def initialize(version:)
+      @build_type = 'hotfix'
+      @base_branch = 'master'
       @version = version
-    end
-
-    def run
-      hotfix_branch_name = "hotfix/#{@version}"
-
-      queue = CommandQueue.new
-      queue.add Git.checkout(branch_name: 'master')
-      queue.add Git.fetch(remote: 'origin')
-      queue.add Git.branch(branch_name: hotfix_branch_name)
-      queue.add Git.checkout(branch_name: hotfix_branch_name)
-      queue.add Git.push(remote: 'origin', branch_name: hotfix_branch_name)
-
-      queue.list_queue
     end
   end
 end

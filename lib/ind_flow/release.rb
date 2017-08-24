@@ -4,6 +4,8 @@ module IndFlow
     option :version, aliases: '-v', required: true
     def start
       version = options[:version]
+
+      require 'ind_flow/common/start'
       require 'ind_flow/release/start'
       Release::Start.new(version: version).run
     end
