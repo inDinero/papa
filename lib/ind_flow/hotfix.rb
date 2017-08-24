@@ -39,6 +39,7 @@ module IndFlow
       version = options[:version]
       additional_branches = options[:additional_branches]
 
+      require 'ind_flow/common/merge'
       require 'ind_flow/hotfix/merge'
       Hotfix::Merge.new(version: version, additional_branches: additional_branches).run
     end

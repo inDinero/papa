@@ -37,6 +37,7 @@ module IndFlow
     def merge
       version = options[:version]
 
+      require 'ind_flow/common/merge'
       require 'ind_flow/release/merge'
       Release::Merge.new(version: version).run
     end
