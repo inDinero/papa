@@ -10,16 +10,20 @@ module IndFlow
 
     def run
       return if @command.nil?
-      puts "DEBUG: Running command **#{@command}**..."
+      # puts "DEBUG: Running command **#{@command}**..."
       output = `#{@command}`
       exit_status = $?.exitstatus
-      puts "DEBUG: Command **#{@command}** returned #{exit_status}."
+      # puts "DEBUG: Command **#{@command}** returned #{exit_status}."
       @output = output
       @exit_status = exit_status
       self
     end
 
-    def is_nonzero_exit_status?
+    def success?
+      @exit_status == 0
+    end
+
+    def failed?
       @exit_status != 0
     end
   end

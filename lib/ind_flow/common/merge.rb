@@ -16,7 +16,7 @@ module IndFlow
         end
       end
 
-      queue.list_queue
+      queue.run
     end
   end
 end

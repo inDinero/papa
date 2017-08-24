@@ -10,7 +10,7 @@ module IndFlow
       queue.add Git.checkout(branch_name: @build_branch)
       queue.add Git.push(remote: 'origin', branch_name: @build_branch)
 
-      queue.list_queue
+      queue.run
     end
   end
 end
