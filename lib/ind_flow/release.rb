@@ -41,5 +41,16 @@ module IndFlow
       require 'ind_flow/release/merge'
       Release::Merge.new(version: version).run
     end
+
+    desc 'patch', 'Add a patch to release branch'
+    option :version, aliases: '-v', required: true
+    option :patch_branch, aliases: '-b', required: true
+    def patch 
+      version = options[:version]
+      patch_branch = options[:patch_branch]
+
+      require 'ind_flow/release/patch'
+      Release::Patch.new(version: version, patch_branch: patch_branch).run
+    end
   end
 end
