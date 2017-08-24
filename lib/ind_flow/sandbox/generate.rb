@@ -64,7 +64,7 @@ module IndFlow
     def add_remote
       puts "Enter the remote URL for your GitHub repository:"
       # origin = STDIN.gets.chomp
-      origin = "git@github.com:b-ggs/ind_flow.git"
+      origin = "git@github.com:b-ggs/ind_flow_sandbox.git"
       `git remote add origin #{origin}`
     end
 
