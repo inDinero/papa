@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["boggs"]
   spec.email         = ["hello@boggs.xyz"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "Helper gem for inDinero's git workflow"
+  spec.description   = "Helper gem for inDinero's git workflow"
+  spec.homepage      = "https://github.com/b-ggs/ind_flow"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -31,6 +31,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "thor", "~> 0.20.0"
+  spec.add_dependency "pry", "~> 0.10.4"
+  spec.add_dependency "pry-byebug", "~> 3.4.0"
 
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"

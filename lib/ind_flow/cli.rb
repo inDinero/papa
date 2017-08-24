@@ -1,6 +1,7 @@
 require 'ind_flow/common'
 require 'ind_flow/release'
 require 'ind_flow/hotfix'
+require 'ind_flow/sandbox'
 
 module IndFlow
   class CLI < Thor
@@ -9,5 +10,8 @@ module IndFlow
 
     desc 'hotfix [COMMAND]', 'foo'
     subcommand 'hotfix', Hotfix
+
+    desc 'sandbox [COMMAND]', 'foo'
+    subcommand 'sandbox', Sandbox
   end
 end
