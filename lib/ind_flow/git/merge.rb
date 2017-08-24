@@ -19,7 +19,7 @@ module IndFlow
 
     def display_error_message
       super
-      puts "ERROR: A merge conflict occurred while merging #{current_branch} into #{@branch_name}"
+      puts "ERROR: A merge conflict occurred while merging #{@branch_name} into #{current_branch}"
     end
   end
 end

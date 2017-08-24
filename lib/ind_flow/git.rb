@@ -9,7 +9,8 @@ module IndFlow
     end
 
     def self.checkout(branch_name:)
-      Command.new "git checkout #{branch_name}"
+      require 'ind_flow/git/checkout'
+      Git::Checkout.new(branch_name)
     end
 
     def self.branch(branch_name:)

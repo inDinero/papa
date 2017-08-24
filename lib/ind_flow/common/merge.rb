@@ -5,14 +5,15 @@ module IndFlow
 
       queue = CommandQueue.new
 
+      queue.add Git.checkout(branch_name: @build_branch)
       @base_branches.each do |branch|
         queue.add Git.checkout(branch_name: branch)
         queue.add Git.merge(branch_name: @build_branch)
         queue.add Git.push(remote: 'origin', branch_name: branch)
 
         if @tag_name && branch == 'master'
-          queue.add Git.tag(tag_name: @version)
-          queue.add Git.push_tag(remote: 'origin', tag_name: @version)
+          queue.add Git.tag(tag_name: @tag_name)
+          queue.add Git.push_tag(remote: 'origin', tag_name: @tag_name)
         end
       end
 
