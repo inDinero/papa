@@ -17,20 +17,30 @@ module IndFlow
       end
     end
 
-    def run
-      list_queue
-      puts "Are you sure you want to run the following commands? (y, N)"
-      resp = STDIN.gets.chomp
-      if resp.downcase == 'y'
+
+    def run(options = {})
+      errors = []
+
+      if options[:skip_confirmation] || confirm
         @queue.each do |command|
           if command.run.failed?
-            puts "Command failed"
+            command.display_error_message
+            command.cleanup
             break
           end
         end
       else
         puts "Stopped."
       end
+      errors
+    end
+
+    private
+
+    def confirm
+      list_queue
+      puts "Are you sure you want to run the following commands? (y, N)"
+      STDIN.gets.chomp.downcase == 'y'
     end
   end
 end

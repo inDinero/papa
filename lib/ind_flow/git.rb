@@ -17,7 +17,12 @@ module IndFlow
     end
 
     def self.merge(branch_name:)
-      Command.new "git merge #{branch_name} --no-ff"
+      require 'ind_flow/git/merge'
+      Git::Merge.new(branch_name)
+    end
+
+    def self.merge_abort
+      Command.new 'git merge --abort'
     end
 
     def self.pull(remote:, branch_name:)
@@ -29,7 +34,12 @@ module IndFlow
     end
 
     def self.rebase(base_branch_name:)
-      Command.new "git rebase #{base_branch_name}"
+      require 'ind_flow/git/rebase'
+      Git::Rebase.new(base_branch_name)
+    end
+
+    def self.rebase_abort
+      Command.new 'git rebase --abort'
     end
 
     def self.tag(tag_name:)
