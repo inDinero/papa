@@ -15,6 +15,7 @@ module IndFlow
       version = options[:version]
       bugfix_branches = options[:bugfix_branches]
 
+      require 'ind_flow/common/add'
       require 'ind_flow/hotfix/add'
       Hotfix::Add.new(version: version, bugfix_branches: bugfix_branches).run
     end

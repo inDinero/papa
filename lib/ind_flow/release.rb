@@ -15,6 +15,7 @@ module IndFlow
       version = options[:version]
       feature_branches = options[:feature_branches]
 
+      require 'ind_flow/common/add'
       require 'ind_flow/release/add'
       Release::Add.new(version: version, feature_branches: feature_branches).run
     end

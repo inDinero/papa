@@ -1,3 +1,4 @@
+require 'ind_flow/common'
 require 'ind_flow/release'
 require 'ind_flow/hotfix'
 
