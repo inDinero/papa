@@ -10,7 +10,7 @@ module IndFlow
         queue.add Git.merge(branch_name: build_branch)
         queue.add Git.push(remote: 'origin', branch_name: branch)
 
-        if branch == 'master'
+        if @tag_name && branch == 'master'
           queue.add Git.tag(tag_name: @version)
           queue.add Git.push_tag(remote: 'origin', tag_name: @version)
         end
