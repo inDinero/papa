@@ -27,6 +27,7 @@ module IndFlow
     def finish
       version = options[:version]
 
+      require 'ind_flow/common/finish'
       require 'ind_flow/hotfix/finish'
       Hotfix::Finish.new(version: version).run
     end
