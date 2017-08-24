@@ -4,16 +4,14 @@ module IndFlow
       @base_branch_name = base_branch_name
       command = "git rebase #{@base_branch_name}"
       super(command)
-      current_branch
+      current_branch # Just to store the current branch before executing
     end
 
     def cleanup
       super
-      @build_branch ||= 'develop'
-      
       queue = CommandQueue.new
       queue.add Git.rebase_abort
-      queue.add Git.checkout(branch_name: @build_branch)
+      queue.add Git.checkout(branch_name: current_branch)
       queue.run(skip_confirmation: true)
     end
 

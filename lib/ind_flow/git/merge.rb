@@ -4,16 +4,14 @@ module IndFlow
       @branch_name = branch_name
       command = "git merge #{@branch_name} --no-ff"
       super(command)
-      current_branch
+      current_branch # Just to store the current branch before executing
     end
 
     def cleanup
       super
-      @build_branch ||= 'develop'
-
       queue = CommandQueue.new
       queue.add Git.merge_abort
-      queue.add Git.checkout(branch_name: @build_branch)
+      queue.add Git.checkout(branch_name: current_branch)
       queue.run(skip_confirmation: true)
     end
 
