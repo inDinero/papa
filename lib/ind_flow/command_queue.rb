@@ -17,13 +17,12 @@ module IndFlow
       end
     end
 
-
     def run(options = {})
-      errors = []
-
+      success = true
       if options[:skip_confirmation] || confirm
         @queue.each do |command|
           if command.run.failed?
+            success = false
             command.display_error_message
             command.cleanup
             break
@@ -32,7 +31,7 @@ module IndFlow
       else
         puts "Stopped."
       end
-      errors
+      success
     end
 
     private
