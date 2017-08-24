@@ -2,7 +2,8 @@ module IndFlow
   class CommandQueue
     attr_accessor :queue
 
-    def initialize
+    def initialize(options = {})
+      @suppress_output = options[:suppress_output]
       @queue = []
     end
 
@@ -11,35 +12,25 @@ module IndFlow
     end
 
     def list_queue
-      puts 'In queue:'
+      puts 'Running:'
       @queue.each do |command|
         puts "  #{command.command}"
       end
     end
 
-    def run(options = {})
+    def run
       success = true
-      if options[:skip_confirmation] || confirm
-        @queue.each do |command|
-          if command.run.failed?
-            success = false
-            command.display_error_message
-            command.cleanup
-            break
-          end
+      list_queue unless @suppress_output
+      @queue.each do |command|
+        if command.run.failed?
+          success = false
+          command.display_error_message
+          command.cleanup
+          break
         end
-      else
-        puts "Stopped."
       end
+      puts "Done!" unless @suppress_output
       success
-    end
-
-    private
-
-    def confirm
-      list_queue
-      puts "Are you sure you want to run the following commands? (y, N)"
-      STDIN.gets.chomp.downcase == 'y'
     end
   end
 end

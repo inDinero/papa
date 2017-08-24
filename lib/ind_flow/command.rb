@@ -42,6 +42,8 @@ module IndFlow
       @exit_status != 0
     end
 
+    private
+
     def current_branch
       @current_branch ||= `git symbolic-ref --short HEAD`.chomp
     end
