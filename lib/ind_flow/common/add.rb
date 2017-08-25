@@ -16,8 +16,6 @@ module IndFlow
         queue.add Git.push(remote: 'origin', branch_name: @build_branch)
         if queue.run
           success_branches << branch
-        else
-          break
         end
       end
 
