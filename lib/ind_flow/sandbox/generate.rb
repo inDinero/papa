@@ -28,6 +28,16 @@ module IndFlow
           commit: 'APP-5 - Fix gem source',
           branch: 'bugfix/5-fix-gem-source',
           base_branch: 'master'
+        },
+        {
+          commit: 'APP-6 - Add pidgeotto gem',
+          branch: 'feature/6-add-pidgeotto-gem',
+          base_branch: 'develop'
+        },
+        {
+          commit: 'APP-7 - Add pidgeot gem',
+          branch: 'feature/7-add-pidgeot-gem',
+          base_branch: 'develop'
         }
       ]
     end
