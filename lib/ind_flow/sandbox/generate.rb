@@ -1,6 +1,7 @@
 module IndFlow
   class Sandbox::Generate
-    def initialize
+    def initialize(options = {})
+      @temp_directory = options[:temp_directory] || '/tmp/ind_flow_sandbox'
       @details = [
         {
           commit: 'APP-1 - Add butterfree gem',
@@ -43,7 +44,6 @@ module IndFlow
     private
 
     def create_temp_directory
-      @temp_directory = '/tmp/ind_flow_sandbox'
       `rm -rf #{@temp_directory}`
       Dir.mkdir @temp_directory
     end
@@ -63,6 +63,7 @@ module IndFlow
 
     def add_remote
       puts "Enter the remote URL for your GitHub repository:"
+      # TODO: Put back in
       # origin = STDIN.gets.chomp
       origin = "git@github.com:b-ggs/ind_flow_sandbox.git"
       `git remote add origin #{origin}`

@@ -1,5 +1,10 @@
-require "bundler/setup"
-require "ind_flow"
+require 'bundler/setup'
+require 'ind_flow'
+require File.expand_path('../support/helpers.rb', __FILE__)
+
+# TODO: Comment out
+require 'pry'
+require 'pry-byebug'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -11,4 +16,6 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.include Helpers
 end
