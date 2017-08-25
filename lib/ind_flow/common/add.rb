@@ -7,12 +7,13 @@ module IndFlow
 
       @branches.each do |branch|
         queue = CommandQueue.new
+        queue.add Git.fetch(remote: 'origin')
         queue.add Git.checkout(branch_name: @build_branch)
         queue.add Git.checkout(branch_name: branch)
-        queue.add Git.pull(remote: 'origin', branch_name: branch)
         queue.add Git.rebase(base_branch_name: @build_branch)
         queue.add Git.checkout(branch_name: @build_branch)
         queue.add Git.merge(branch_name: branch)
+        queue.add Git.push(remote: 'origin', branch_name: @build_branch)
         if queue.run
           success_branches << branch
         else
@@ -20,10 +21,18 @@ module IndFlow
         end
       end
 
+      cleanup
+
       @failed_branches = @branches - success_branches
       if !@failed_branches.empty?
         report_failure
       end
+    end
+
+    def cleanup
+      queue = CommandQueue.new(suppress_output: true)
+      @branches.each { |branch| queue.add Git.delete_branch(branch_name: branch) }
+      queue.run
     end
 
     def report_failure

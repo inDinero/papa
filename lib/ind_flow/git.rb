@@ -17,6 +17,10 @@ module IndFlow
       Command.new "git branch #{branch_name}"
     end
 
+    def self.delete_branch(branch_name:)
+      Command.new "git branch -D #{branch_name}"
+    end
+
     def self.merge(branch_name:)
       require 'ind_flow/git/merge'
       Git::Merge.new(branch_name)

@@ -3,10 +3,9 @@ module IndFlow
     def run
       @build_branch ||= "#{@build_type}/#{@version}"
 
-      success_branches = []
-
       @base_branches.each do |branch|
         queue = CommandQueue.new
+        queue.add Git.fetch(remote: 'origin')
         queue.add Git.checkout(branch_name: @build_branch)
         queue.add Git.checkout(branch_name: branch)
         queue.add Git.merge(branch_name: @build_branch)
