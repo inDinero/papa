@@ -4,7 +4,7 @@ module IndFlow
 
     def initialize(command, options = {})
       @command = command
-      @suppress_output = true
+      @suppress_output = options.include?(:suppress_output) ? options[:suppress_output] : true
       @output = nil
       @exit_status = nil
     end

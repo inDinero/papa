@@ -1,9 +1,13 @@
 module IndFlow
   class Sandbox::Generate
+    attr_accessor :remote_repository_directory, :local_repository_directory, :git_details
+
     def initialize(options = {})
       @remote_repository_directory = '/tmp/ind_flow_sandbox_remote_repository'
       @local_repository_directory = '/tmp/ind_flow_sandbox_local_repository'
-      @details = [
+      @options = options
+      @suppress_output = options.include?(:suppress_output) ? options[:suppress_output] : true
+      @git_details = [
         {
           commit: 'APP-1 - Add butterfree gem',
           branch: 'feature/1-add-butterfree-gem',
@@ -72,51 +76,60 @@ module IndFlow
     end
 
     def create_remote_repository_directory
-      `rm -rf #{@remote_repository_directory}`
+      Command.new("rm -rf #{@remote_repository_directory}", @options).run
       Dir.mkdir @remote_repository_directory
     end
 
     def initialize_remote_repository
       Dir.chdir @remote_repository_directory
-      `git init --bare`
+      Command.new('git init --bare', @options).run
     end
 
     def clone_remote_repository
-      `rm -rf #{@local_repository_directory}`
+
+      Command.new("rm -rf #{@local_repository_directory}", @options).run
       Dir.mkdir @local_repository_directory
-      `git clone #{@remote_repository_directory} #{@local_repository_directory}`
+      Command.new("git clone #{@remote_repository_directory} #{@local_repository_directory}", @options).run
       Dir.chdir @local_repository_directory
     end
 
     def initialize_master_and_develop
-      `cp #{gemfile_path('master')} #{@local_repository_directory}`
-      `git add .`
-      `git commit -m "Initial commit"`
-      `git push origin master`
-      `git checkout -b develop`
-      `git push origin develop`
+      [
+        "cp #{gemfile_path('master')} #{@local_repository_directory}",
+        'git add .',
+        'git commit -m "Initial commit"',
+        'git push origin master',
+        'git checkout -b develop',
+        'git push origin develop'
+      ].each do |command|
+        Command.new(command, @options).run
+      end
     end
 
     def initialize_branches
-      @details.each do |detail|
+      @git_details.each do |detail|
         commit = detail[:commit]
         branch = detail[:branch]
         base_branch = detail[:base_branch]
 
-        `git checkout #{base_branch}`
-        `git checkout -b #{branch}`
-        `rm #{temp_gemfile_path}`
-        `cp #{gemfile_path(branch)} #{@local_repository_directory}`
-        `git add .`
-        `git commit -m "#{commit}"`
-        `git push origin #{branch} --force`
+        [
+          "git checkout #{base_branch}",
+          "git checkout -b #{branch}",
+          "rm #{temp_gemfile_path}",
+          "cp #{gemfile_path(branch)} #{@local_repository_directory}",
+          "git add .",
+          "git commit -m \"#{commit}\"",
+          "git push origin #{branch} --force"
+        ].each do |command|
+          Command.new(command, @options).run
+        end
       end
     end
 
     def cleanup
-      `git checkout develop`
-      @details.each do |detail|
-        `git branch -D #{detail[:branch]}`
+      Command.new('git checkout develop', @options).run
+      @git_details.each do |detail|
+        Command.new("git branch -D #{detail[:branch]}", @options).run
       end
     end
   end
