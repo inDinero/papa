@@ -1,10 +1,9 @@
 require 'spec_helper'
-require 'ind_flow/sandbox'
-require 'ind_flow/sandbox/generate'
 
 RSpec.describe 'ind_flow release start' do
   let(:version) { '0.0.1' }
   let(:release_branch) { "release/#{version}" }
+  let(:command) { ind_flow "release start -v #{version}" }
 
   before do
     generator = IndFlow::Sandbox::Generate.new
@@ -13,8 +12,7 @@ RSpec.describe 'ind_flow release start' do
   end
 
   it 'starts a new release branch and pushes it to origin' do
-    resp = ind_flow "release start -v #{version}"
-    expect(resp.output).not_to include('There was a problem running')
+    expect(command.output).not_to include('There was a problem running')
     expect(`git branch`).to include(release_branch)
     expect(`git log`).to include('Initial commit')
     expect(`git status`).not_to include('Your branch is ahead of')
@@ -34,14 +32,15 @@ RSpec.describe 'ind_flow release start' do
     end
 
     it 'should not create a new release branch' do
-      resp = ind_flow "release start -v #{version}"
-      expect(resp.output).to include('There was a problem running')
+      expect(command.output).to include('There was a problem running')
     end
   end
 
   context 'when version is not specified' do
-    it 'should not create a new release branch' do
-      resp = ind_flow 'release start'
+    let(:command) { ind_flow 'release start' }
+
+    it 'should not continue' do
+      command
       expect(`git branch`).not_to include(release_branch)
     end
   end
