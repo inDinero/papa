@@ -22,7 +22,7 @@ module IndFlow
       Release::Add.new(version: version, feature_branches: feature_branches).run
     end
 
-    desc 'finish', 'Finish a release branch'
+    desc 'finish', 'Merge the release branch to master and develop'
     option :version, aliases: '-v', required: true
     def finish
       version = options[:version]
@@ -30,16 +30,6 @@ module IndFlow
       require 'ind_flow/common/finish'
       require 'ind_flow/release/finish'
       Release::Finish.new(version: version).run
-    end
-
-    desc 'merge', 'Merge the release branch to the base branches'
-    option :version, aliases: '-v', required: true
-    def merge
-      version = options[:version]
-
-      require 'ind_flow/common/merge'
-      require 'ind_flow/release/merge'
-      Release::Merge.new(version: version).run
     end
 
     desc 'patch', 'Add a patch to release branch'
