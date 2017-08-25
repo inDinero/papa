@@ -19,7 +19,30 @@ RSpec.shared_examples 'finish' do
       merge_commits.each do |merge_commit|
         expect(`git log`).to include(merge_commit)
       end
-      expect(`git log`).to include("Merge branch '#{build_branch}' into #{base_branch}")
+      if base_branch == 'master'
+        expect(`git log`).to include("Merge branch '#{build_branch}'")
+      else
+        expect(`git log`).to include("Merge branch '#{build_branch}' into #{base_branch}")
+      end
+    end
+  end
+
+  context 'when version is not specified' do
+    let(:command) { ind_flow "#{build_type} finish" }
+
+    it 'should not continue' do
+      command
+      ['develop', 'master'].each do |base_branch|
+        `git checkout #{base_branch} > /dev/null 2>&1`
+        merge_commits.each do |merge_commit|
+          expect(`git log`).not_to include(merge_commit)
+        end
+        if base_branch == 'master'
+          expect(`git log`).not_to include("Merge branch '#{build_branch}'")
+        else
+          expect(`git log`).not_to include("Merge branch '#{build_branch}' into #{base_branch}")
+        end
+      end
     end
   end
 end
