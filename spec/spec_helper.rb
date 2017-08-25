@@ -3,6 +3,7 @@ require 'ind_flow'
 require 'ind_flow/sandbox'
 require 'ind_flow/sandbox/generate'
 Dir['./spec/support/*.rb'].sort.each { |f| require f }
+Dir['./spec/support/shared/*.rb'].sort.each { |f| require f }
 
 # TODO: Comment out
 require 'pry'
