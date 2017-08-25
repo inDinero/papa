@@ -1,5 +1,5 @@
 module IndFlow
-  class Release::Merge < Common::Merge
+  class Release::Finish < Common::Finish
     def initialize(version:)
       @build_type = 'release'
       @version = version

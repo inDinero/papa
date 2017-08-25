@@ -1,5 +1,5 @@
 module IndFlow
-  class Common::Merge
+  class Common::Finish
     def run
       @build_branch ||= "#{@build_type}/#{@version}"
 

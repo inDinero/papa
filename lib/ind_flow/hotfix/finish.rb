@@ -1,5 +1,5 @@
 module IndFlow
-  class Hotfix::Merge < Common::Merge
+  class Hotfix::Finish < Common::Finish
     def initialize(version:, additional_branches:)
       @build_type = 'hotfix'
       @version = version
