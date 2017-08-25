@@ -1,6 +1,8 @@
 require 'bundler/setup'
 require 'ind_flow'
-require File.expand_path('../support/helpers.rb', __FILE__)
+require 'ind_flow/sandbox'
+require 'ind_flow/sandbox/generate'
+Dir['./spec/support/*.rb'].sort.each { |f| require f }
 
 # TODO: Comment out
 require 'pry'
