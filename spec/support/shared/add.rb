@@ -42,7 +42,7 @@ RSpec.shared_examples 'add' do
 
   shared_examples 'should not continue' do
     it 'should not continue' do
-      command.call
+      command
       merge_commits.each do |merge_commit|
         expect(`git log`).not_to include(merge_commit)
       end
@@ -50,12 +50,12 @@ RSpec.shared_examples 'add' do
   end
 
   context 'when version is not specified' do
-    let(:command) { lambda { ind_flow "#{build_type} add -b #{branches.join(' ')}" } }
+    let(:command) { ind_flow "#{build_type} add -b #{branches.join(' ')}" }
     it_behaves_like 'should not continue'
   end
 
   context 'when branch(es) is(are) not specified' do
-    let(:command) { lambda { ind_flow "#{build_type} add -v #{version}" } }
+    let(:command) { ind_flow "#{build_type} add -v #{version}" }
     it_behaves_like 'should not continue'
   end
 end
