@@ -27,6 +27,7 @@ module IndFlow
     option :additional_branches, aliases: '-b', type: :array
     def finish
       version = options[:version]
+      additional_branches = options[:additional_branches]
 
       require 'ind_flow/common/finish'
       require 'ind_flow/hotfix/finish'
