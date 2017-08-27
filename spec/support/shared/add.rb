@@ -22,7 +22,7 @@ RSpec.shared_examples 'add' do
     merge_commits.each do |merge_commit|
       expect(`git log`).to include(merge_commit)
     end
-    expect(`git status`).not_to include('Your branch is ahead of')
+    expect(`git log origin/#{base_branch}..#{base_branch}`).to be_empty
   end
 
   it 'cleans up and removes stale branches from local' do

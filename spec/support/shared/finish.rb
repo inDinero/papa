@@ -24,7 +24,7 @@ RSpec.shared_examples 'finish' do
       else
         expect(`git log`).to include("Merge branch '#{build_branch}' into #{base_branch}")
       end
-      expect(`git status`).not_to include('Your branch is ahead of')
+      expect(`git log origin/#{base_branch}..#{base_branch}`).to be_empty
     end
   end
 

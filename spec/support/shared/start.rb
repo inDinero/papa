@@ -14,7 +14,7 @@ RSpec.shared_examples 'start' do
     expect(command.output).not_to include('There was a problem running')
     expect(`git branch`).to include(build_branch)
     expect(`git log`).to include('Initial commit')
-    expect(`git status`).not_to include('Your branch is ahead of')
+    expect(`git log origin/#{build_branch}..#{build_branch}`).to be_empty
   end
 
   context 'when the branch already exists' do
