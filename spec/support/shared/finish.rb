@@ -12,7 +12,7 @@ RSpec.shared_examples 'finish' do
     ind_flow "#{build_type} add -v #{version} -b #{branches.join(' ')}"
   end
 
-  it 'merges the build branch to master and develop' do
+  it 'merges the build branch to master and develop and pushes it to origin' do
     expect(command.output).not_to include('There was a problem running')
     ['develop', 'master'].each do |base_branch|
       `git checkout #{base_branch} > /dev/null 2>&1`
@@ -24,6 +24,7 @@ RSpec.shared_examples 'finish' do
       else
         expect(`git log`).to include("Merge branch '#{build_branch}' into #{base_branch}")
       end
+      expect(`git status`).not_to include('Your branch is ahead of')
     end
   end
 
