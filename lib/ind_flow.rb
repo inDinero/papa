@@ -5,8 +5,5 @@ require 'ind_flow/command'
 require 'ind_flow/command_queue'
 require 'ind_flow/git'
 
-require 'pry'
-require 'pry-byebug'
-
 module IndFlow
 end

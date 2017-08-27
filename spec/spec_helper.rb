@@ -5,10 +5,6 @@ require 'ind_flow/sandbox/generate'
 Dir['./spec/support/*.rb'].sort.each { |f| require f }
 Dir['./spec/support/shared/*.rb'].sort.each { |f| require f }
 
-# TODO: Comment out
-require 'pry'
-require 'pry-byebug'
-
 RSpec.configure do |config|
   PROJECT_ROOT = File.expand_path(File.dirname(__dir__), '../../..')
 
