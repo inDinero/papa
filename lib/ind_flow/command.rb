@@ -2,36 +2,27 @@ module IndFlow
   class Command
     attr_accessor :command, :output, :exit_status
 
-    def initialize(command, options = {})
+    def initialize(command)
       @command = command
-      @suppress_output = options.include?(:suppress_output) ? options[:suppress_output] : true
       @output = nil
       @exit_status = nil
     end
 
     def run
       return if @command.nil?
-      # puts "DEBUG: Running '#{@command}'..."
-      command =
-        if @suppress_output
-          @command + '> /dev/null 2>&1'
-        else
-          @command
-        end
-      output = `#{command}`
+      output = `#{@command} > /dev/null 2>&1`
       exit_status = $?.exitstatus
-      # puts "DEBUG: '#{@command}' returned #{exit_status}."
       @output = output
       @exit_status = exit_status
       self
     end
 
     def display_error_message
-      puts "ERROR: There was a problem running '#{command}'"
+      Output.stderr "ERROR: There was a problem running '#{command}'"
     end
 
     def cleanup
-      puts 'Cleaning up...'
+      Output.stderr 'Cleaning up...'
     end
 
     def success?

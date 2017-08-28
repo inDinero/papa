@@ -2,8 +2,7 @@ module IndFlow
   class CommandQueue
     attr_accessor :queue
 
-    def initialize(options = {})
-      @suppress_output = options[:suppress_output]
+    def initialize
       @queue = []
     end
 
@@ -12,24 +11,24 @@ module IndFlow
     end
 
     def list_queue
-      puts 'Running:'
+      Output.stdout 'Running:'
       @queue.each do |command|
-        puts "  #{command.command}"
+        Output.stdout "  #{command.command}"
       end
     end
 
     def run
       success = true
-      list_queue unless @suppress_output
+      list_queue
       @queue.each do |command|
         if command.run.failed?
           success = false
-          command.display_error_message
           command.cleanup
+          command.display_error_message
           break
         end
       end
-      puts "Done!" unless @suppress_output
+      Output.stdout "Done!"
       success
     end
   end

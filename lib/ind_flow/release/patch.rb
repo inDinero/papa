@@ -22,7 +22,7 @@ module IndFlow
     end
 
     def cleanup
-      queue = CommandQueue.new(suppress_output: true)
+      queue = CommandQueue.new
       @branches.each { |branch| queue.add Git.delete_branch(branch_name: branch) }
       queue.run
     end

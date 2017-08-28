@@ -13,7 +13,7 @@ module IndFlow
 
     def cleanup
       super
-      queue = CommandQueue.new(suppress_output: true)
+      queue = CommandQueue.new
       queue.add Git.rebase_abort
       queue.add Git.checkout(branch_name: current_branch)
       queue.run
@@ -21,7 +21,7 @@ module IndFlow
 
     def display_error_message
       super
-      puts "ERROR: There was a problem rebasing #{current_branch} from #{@base_branch_name}"
+      Output.stderr "ERROR: There was a problem rebasing #{current_branch} from #{@base_branch_name}"
     end
   end
 end

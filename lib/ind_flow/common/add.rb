@@ -28,18 +28,18 @@ module IndFlow
     end
 
     def cleanup
-      queue = CommandQueue.new(suppress_output: true)
+      queue = CommandQueue.new
       @branches.each { |branch| queue.add Git.delete_branch(branch_name: branch) }
       queue.run
     end
 
     def report_failure
-      puts "These branches failed:"
+      Output.stderr "These branches failed:"
       @failed_branches.each do |branch|
-        puts "  #{branch}"
+        Output.stderr "  #{branch}"
       end
-      puts "When the above problems are resolved, you can re-run this with:"
-      puts "  ind_flow #{@build_type} add -v #{@version} -b #{@failed_branches.join(' ')}"
+      Output.stderr "When the above problems are resolved, you can re-run this with:"
+      Output.stderr "  ind_flow #{@build_type} add -v #{@version} -b #{@failed_branches.join(' ')}"
     end
   end
 end

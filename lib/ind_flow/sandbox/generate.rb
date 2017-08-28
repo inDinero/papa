@@ -2,11 +2,9 @@ module IndFlow
   class Sandbox::Generate
     attr_accessor :remote_repository_directory, :local_repository_directory, :git_details
 
-    def initialize(options = {})
+    def initialize
       @remote_repository_directory = '/tmp/ind_flow_sandbox_remote_repository'
       @local_repository_directory = '/tmp/ind_flow_sandbox_local_repository'
-      @options = options
-      @suppress_output = options.include?(:suppress_output) ? options[:suppress_output] : true
       @git_details = [
         {
           commit: 'APP-1 - Add butterfree gem',
@@ -76,20 +74,19 @@ module IndFlow
     end
 
     def create_remote_repository_directory
-      Command.new("rm -rf #{@remote_repository_directory}", @options).run
+      Command.new("rm -rf #{@remote_repository_directory}").run
       Dir.mkdir @remote_repository_directory
     end
 
     def initialize_remote_repository
       Dir.chdir @remote_repository_directory
-      Command.new('git init --bare', @options).run
+      Command.new('git init --bare').run
     end
 
     def clone_remote_repository
-
-      Command.new("rm -rf #{@local_repository_directory}", @options).run
+      Command.new("rm -rf #{@local_repository_directory}").run
       Dir.mkdir @local_repository_directory
-      Command.new("git clone #{@remote_repository_directory} #{@local_repository_directory}", @options).run
+      Command.new("git clone #{@remote_repository_directory} #{@local_repository_directory}").run
       Dir.chdir @local_repository_directory
     end
 
@@ -102,7 +99,7 @@ module IndFlow
         'git checkout -b develop',
         'git push origin develop'
       ].each do |command|
-        Command.new(command, @options).run
+        Command.new(command).run
       end
     end
 
@@ -121,15 +118,15 @@ module IndFlow
           "git commit -m \"#{commit}\"",
           "git push origin #{branch} --force"
         ].each do |command|
-          Command.new(command, @options).run
+          Command.new(command).run
         end
       end
     end
 
     def cleanup
-      Command.new('git checkout develop', @options).run
+      Command.new('git checkout develop').run
       @git_details.each do |detail|
-        Command.new("git branch -D #{detail[:branch]}", @options).run
+        Command.new("git branch -D #{detail[:branch]}").run
       end
     end
   end

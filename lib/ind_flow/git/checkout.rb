@@ -8,7 +8,7 @@ module IndFlow
 
     def display_error_message
       super
-      puts "ERROR: Branch #{@branch_name} doesn't exist."
+      Output.stderr "ERROR: Branch #{@branch_name} doesn't exist."
     end
   end
 end

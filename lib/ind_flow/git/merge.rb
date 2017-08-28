@@ -13,7 +13,7 @@ module IndFlow
 
     def cleanup
       super
-      queue = CommandQueue.new(suppress_output: true)
+      queue = CommandQueue.new
       queue.add Git.merge_abort
       queue.add Git.checkout(branch_name: current_branch)
       queue.run
@@ -21,7 +21,7 @@ module IndFlow
 
     def display_error_message
       super
-      puts "ERROR: A merge conflict occurred while merging #{@branch_name} into #{current_branch}"
+      Output.stderr "ERROR: A merge conflict occurred while merging #{@branch_name} into #{current_branch}"
     end
   end
 end
