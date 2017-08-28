@@ -6,7 +6,7 @@ RSpec.shared_examples 'start' do
 
   before do
     generator = IndFlow::Sandbox::Generate.new
-    generator.run
+    generator.run silent: true
     Dir.chdir generator.local_repository_directory
   end
 

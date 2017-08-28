@@ -11,20 +11,20 @@ RSpec.shared_examples 'add' do
 
   before do
     generator = IndFlow::Sandbox::Generate.new
-    generator.run
+    generator.run silent: true
     Dir.chdir generator.local_repository_directory
     ind_flow "#{build_type} start -v #{version}"
   end
 
   it 'adds a branch to the build branch and pushes it to origin' do
     expect(command[:stderr]).not_to include('There was a problem running')
-    expect(command[:exit_status]).to eq(1)
+    expect(command[:exit_status]).to eq(0)
 
     expect(`git branch`).to include(build_branch)
     merge_commits.each do |merge_commit|
       expect(`git log`).to include(merge_commit)
     end
-    expect(`git log origin/#{base_branch}..#{base_branch}`).to be_empty
+    expect(`git log origin/#{build_branch}..#{build_branch}`).to be_empty
   end
 
   it 'cleans up and removes stale branches from local' do
@@ -85,7 +85,7 @@ RSpec.shared_examples 'add with merge conflict' do
 
   before do
     generator = IndFlow::Sandbox::Generate.new
-    generator.run
+    generator.run silent: true
     Dir.chdir generator.local_repository_directory
     ind_flow "#{build_type} start -v #{version}"
   end

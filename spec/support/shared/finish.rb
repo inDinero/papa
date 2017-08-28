@@ -6,7 +6,7 @@ RSpec.shared_examples 'finish' do
 
   before do
     generator = IndFlow::Sandbox::Generate.new
-    generator.run
+    generator.run silent: true
     Dir.chdir generator.local_repository_directory
     ind_flow "#{build_type} start -v #{version}"
     ind_flow "#{build_type} add -v #{version} -b #{branches.join(' ')}"
