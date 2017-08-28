@@ -4,7 +4,7 @@ module IndFlow
       @build_branch ||= "#{@build_type}/#{@version}"
 
       success = true
-      success_branches = []
+      @success_branches = []
 
       @branches.each do |branch|
         queue = CommandQueue.new

@@ -44,12 +44,12 @@ module IndFlow
       ]
     end
 
-    def run
+    def run(options = {})
       @project_directory = File.expand_path(File.dirname(__dir__))
       @branches_directory = File.join @project_directory, 'sandbox', 'branches'
       setup_remote_repository
       setup_local_repository
-      success_message
+      success_message unless options[:silent]
     end
 
     private

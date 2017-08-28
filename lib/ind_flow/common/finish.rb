@@ -4,7 +4,7 @@ module IndFlow
       @build_branch ||= "#{@build_type}/#{@version}"
 
       success = true
-      success_branches = []
+      @success_branches = []
 
       @base_branches.each do |branch|
         queue = CommandQueue.new
@@ -18,7 +18,7 @@ module IndFlow
           queue.add Git.push_tag(remote: 'origin', tag_name: @tag_name)
         end
         if queue.run
-          success_branches << branch
+          @success_branches << branch
         else
           success = false
         end
@@ -35,7 +35,7 @@ module IndFlow
     def report_failure
       failed_branches = @branches - @success_branches
 
-      Output.stderr "These branches failed:'
+      Output.stderr 'These branches failed:'
       failed_branches.each do |branch|
         Output.stderr "  #{branch}"
       end
