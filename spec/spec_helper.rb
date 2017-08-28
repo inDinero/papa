@@ -1,7 +1,9 @@
 require 'bundler/setup'
+require 'open3'
 require 'ind_flow'
 require 'ind_flow/sandbox'
 require 'ind_flow/sandbox/generate'
+require 'ind_flow/output'
 Dir['./spec/support/*.rb'].sort.each { |f| require f }
 Dir['./spec/support/shared/*.rb'].sort.each { |f| require f }
 

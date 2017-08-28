@@ -13,7 +13,9 @@ RSpec.shared_examples 'finish' do
   end
 
   it 'merges the build branch to master and develop and pushes it to origin' do
-    expect(command.output).not_to include('There was a problem running')
+    expect(command[:stderr]).not_to include('There was a problem running')
+    expect(command[:exit_status]).to eq(0)
+
     ['develop', 'master'].each do |base_branch|
       `git checkout #{base_branch} > /dev/null 2>&1`
       merge_commits.each do |merge_commit|
@@ -32,7 +34,9 @@ RSpec.shared_examples 'finish' do
     let(:command) { ind_flow "#{build_type} finish" }
 
     it 'should not continue' do
-      command
+      expect(command[:stderr]).to include('No value provided for required options')
+      expect(command[:exit_status]).to eq(1)
+
       ['develop', 'master'].each do |base_branch|
         `git checkout #{base_branch} > /dev/null 2>&1`
         merge_commits.each do |merge_commit|

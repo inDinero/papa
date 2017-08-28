@@ -11,7 +11,9 @@ RSpec.shared_examples 'start' do
   end
 
   it "starts a new build branch and pushes it to origin" do
-    expect(command.output).not_to include('There was a problem running')
+    expect(command[:stdout]).not_to include('There was a problem running')
+    expect(command[:exit_status]).to eq(0)
+
     expect(`git branch`).to include(build_branch)
     expect(`git log`).to include('Initial commit')
     expect(`git log origin/#{build_branch}..#{build_branch}`).to be_empty
@@ -26,12 +28,13 @@ RSpec.shared_examples 'start' do
         "git commit -m \"Add foo\"",
         "git push origin #{build_branch}"
       ].each do |command|
-        IndFlow::Command.new(command).run
+        `#{command} #{IndFlow::Output::REDIRECT_TO_NULL}`
       end
     end
 
     it "should not create a new build branch" do
-      expect(command.output).to include('There was a problem running')
+      expect(command[:stderr]).to include('There was a problem running')
+      expect(command[:exit_status]).to eq(1)
     end
   end
 
@@ -39,7 +42,9 @@ RSpec.shared_examples 'start' do
     let(:command) { ind_flow "#{build_type} start" }
 
     it 'should not continue' do
-      command
+      expect(command[:stderr]).to include('No value provided for required options \'--version\'')
+      expect(command[:exit_status]).to eq(1)
+
       expect(`git branch`).not_to include(build_branch)
     end
   end

@@ -17,7 +17,9 @@ RSpec.shared_examples 'add' do
   end
 
   it 'adds a branch to the build branch and pushes it to origin' do
-    expect(command.output).not_to include('There was a problem running')
+    expect(command[:stderr]).not_to include('There was a problem running')
+    expect(command[:exit_status]).to eq(1)
+
     expect(`git branch`).to include(build_branch)
     merge_commits.each do |merge_commit|
       expect(`git log`).to include(merge_commit)
@@ -26,7 +28,8 @@ RSpec.shared_examples 'add' do
   end
 
   it 'cleans up and removes stale branches from local' do
-    command
+    expect(command[:exit_status]).to eq(0)
+
     branches.each do |branch|
       expect(`git branch`).not_to include(branch)
     end
@@ -36,13 +39,14 @@ RSpec.shared_examples 'add' do
     let(:branches) { [ "#{build_type}/404-not-found" ] }
 
     it 'should not add to the build branch' do
-      expect(command.output).to include('There was a problem running')
+      expect(command[:stderr]).to include('There was a problem running')
+      expect(command[:exit_status]).to eq(1)
     end
   end
 
   shared_examples 'should not continue' do
     it 'should not continue' do
-      command
+      expect(command[:exit_status]).to eq(1)
       merge_commits.each do |merge_commit|
         expect(`git log`).not_to include(merge_commit)
       end
@@ -51,12 +55,22 @@ RSpec.shared_examples 'add' do
 
   context 'when version is not specified' do
     let(:command) { ind_flow "#{build_type} add -b #{branches.join(' ')}" }
+
     it_behaves_like 'should not continue'
+
+    it 'should return a helpful error' do
+      expect(command[:stderr]).to include('No value provided for required options \'--version\'')
+    end
   end
 
   context 'when branch(es) is(are) not specified' do
     let(:command) { ind_flow "#{build_type} add -v #{version}" }
+
     it_behaves_like 'should not continue'
+
+    it 'should return a helpful error' do
+      expect(command[:stderr]).to include('No value provided for required options')
+    end
   end
 end
 
@@ -77,7 +91,9 @@ RSpec.shared_examples 'add with merge conflict' do
   end
 
   it 'should merge the branches with no conflicts' do
-    expect(command.output).to include(error_message)
+    expect(command[:stderr]).to include(error_message)
+    expect(command[:exit_status]).to eq(1)
+
     expected_success_branches.each do |branch|
       expect(`git log`).to include("Merge branch '#{branch}' into #{build_branch}")
     end
