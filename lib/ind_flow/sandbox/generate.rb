@@ -49,6 +49,8 @@ module IndFlow
       @branches_directory = File.join @project_directory, 'sandbox', 'branches'
       setup_remote_repository
       setup_local_repository
+      success_message
+      exit 0
     end
 
     private
@@ -127,6 +129,13 @@ module IndFlow
       @git_details.each do |detail|
         `git branch -D #{detail[:branch]} #{Output::REDIRECT_TO_NULL}`
       end
+    end
+
+    def success_message
+      Output.stdout <<-STDOUT
+Your sandbox is now available at:
+  #{@local_repository_directory}
+      STDOUT
     end
   end
 end

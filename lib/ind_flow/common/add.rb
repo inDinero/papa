@@ -3,6 +3,7 @@ module IndFlow
     def run
       @build_branch ||= "#{@build_type}/#{@version}"
 
+      exit_status = 0
       success_branches = []
 
       @branches.each do |branch|
@@ -16,6 +17,8 @@ module IndFlow
         queue.add Git.push(remote: 'origin', branch_name: @build_branch)
         if queue.run
           success_branches << branch
+        else
+          exit_status = 1
         end
       end
 
@@ -25,6 +28,8 @@ module IndFlow
       if !@failed_branches.empty?
         report_failure
       end
+
+      exit exit_status
     end
 
     def cleanup

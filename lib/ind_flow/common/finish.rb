@@ -3,6 +3,8 @@ module IndFlow
     def run
       @build_branch ||= "#{@build_type}/#{@version}"
 
+      exit_status = 0
+
       @base_branches.each do |branch|
         queue = CommandQueue.new
         queue.add Git.fetch(remote: 'origin')
@@ -14,7 +16,11 @@ module IndFlow
           queue.add Git.tag(tag_name: @tag_name)
           queue.add Git.push_tag(remote: 'origin', tag_name: @tag_name)
         end
-        queue.run
+        if !queue.run
+          exit_status = 1
+        end
+        
+        exit exit_status
       end
     end
   end
