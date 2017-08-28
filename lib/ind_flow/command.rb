@@ -10,7 +10,7 @@ module IndFlow
 
     def run
       return if @command.nil?
-      output = `#{@command} > /dev/null 2>&1`
+      output = `#{@command} #{Output::REDIRECT_TO_NULL}`
       exit_status = $?.exitstatus
       @output = output
       @exit_status = exit_status

@@ -99,7 +99,7 @@ module IndFlow
         'git checkout -b develop',
         'git push origin develop'
       ].each do |command|
-        Command.new(command).run
+        `#{command} #{Output::REDIRECT_TO_NULL}`
       end
     end
 
@@ -108,7 +108,6 @@ module IndFlow
         commit = detail[:commit]
         branch = detail[:branch]
         base_branch = detail[:base_branch]
-
         [
           "git checkout #{base_branch}",
           "git checkout -b #{branch}",
@@ -118,15 +117,15 @@ module IndFlow
           "git commit -m \"#{commit}\"",
           "git push origin #{branch} --force"
         ].each do |command|
-          Command.new(command).run
+          `#{command} #{Output::REDIRECT_TO_NULL}`
         end
       end
     end
 
     def cleanup
-      Command.new('git checkout develop').run
+      `git checkout develop #{Output::REDIRECT_TO_NULL}`
       @git_details.each do |detail|
-        Command.new("git branch -D #{detail[:branch]}").run
+        `git branch -D #{detail[:branch]} #{Output::REDIRECT_TO_NULL}`
       end
     end
   end
