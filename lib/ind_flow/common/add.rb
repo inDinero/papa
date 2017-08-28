@@ -3,7 +3,7 @@ module IndFlow
     def run
       @build_branch ||= "#{@build_type}/#{@version}"
 
-      exit_status = 0
+      success = true
       success_branches = []
 
       @branches.each do |branch|
@@ -16,21 +16,21 @@ module IndFlow
         queue.add Git.merge(branch_name: branch)
         queue.add Git.push(remote: 'origin', branch_name: @build_branch)
         if queue.run
-          success_branches << branch
+          @success_branches << branch
         else
-          exit_status = 1
+          success = false
         end
       end
 
       cleanup
 
-      @failed_branches = @branches - success_branches
-      if !@failed_branches.empty?
+      if !success
         report_failure
+        exit 1
       end
-
-      exit exit_status
     end
+
+    private
 
     def cleanup
       queue = CommandQueue.new
@@ -39,11 +39,13 @@ module IndFlow
     end
 
     def report_failure
-      Output.stderr "These branches failed:"
-      @failed_branches.each do |branch|
+      failed_branches = @branches - @success_branches
+
+      Output.stderr 'These branches failed:'
+      failed_branches.each do |branch|
         Output.stderr "  #{branch}"
       end
-      Output.stderr "When the above problems are resolved, you can re-run this with:"
+      Output.stderr 'When the above problems are resolved, you can re-run this with:'
       Output.stderr "  ind_flow #{@build_type} add -v #{@version} -b #{@failed_branches.join(' ')}"
     end
   end

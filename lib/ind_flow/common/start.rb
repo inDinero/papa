@@ -9,9 +9,7 @@ module IndFlow
       queue.add Git.branch(branch_name: @build_branch)
       queue.add Git.checkout(branch_name: @build_branch)
       queue.add Git.push(remote: 'origin', branch_name: @build_branch)
-      if queue.run
-        exit 0
-      else
+      if !queue.run
         exit 1
       end
     end

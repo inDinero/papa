@@ -50,7 +50,6 @@ module IndFlow
       setup_remote_repository
       setup_local_repository
       success_message
-      exit 0
     end
 
     private
