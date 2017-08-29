@@ -2,10 +2,10 @@ require 'spec_helper'
 
 RSpec.shared_examples 'start' do
   let(:build_branch) { "#{build_type}/#{version}" }
-  let(:command) { ind_flow "#{build_type} start -v #{version}" }
+  let(:command) { papa "#{build_type} start -v #{version}" }
 
   before do
-    generator = IndFlow::Sandbox::Generate.new
+    generator = Papa::Sandbox::Generate.new
     generator.run silent: true
     Dir.chdir generator.local_repository_directory
   end
@@ -28,7 +28,7 @@ RSpec.shared_examples 'start' do
         "git commit -m \"Add foo\"",
         "git push origin #{build_branch}"
       ].each do |command|
-        `#{command} #{IndFlow::Output::REDIRECT_TO_NULL}`
+        `#{command} #{Papa::Output::REDIRECT_TO_NULL}`
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.shared_examples 'start' do
   end
 
   context 'when version is not specified' do
-    let(:command) { ind_flow "#{build_type} start" }
+    let(:command) { papa "#{build_type} start" }
 
     it 'should not continue' do
       expect(command[:stderr]).to include('No value provided for required options \'--version\'')

@@ -7,13 +7,13 @@ RSpec.shared_examples 'add' do
       "Merge branch '#{branch}' into #{build_branch}"
     end
   end
-  let(:command) { ind_flow "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
+  let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
 
   before do
-    generator = IndFlow::Sandbox::Generate.new
+    generator = Papa::Sandbox::Generate.new
     generator.run silent: true
     Dir.chdir generator.local_repository_directory
-    ind_flow "#{build_type} start -v #{version}"
+    papa "#{build_type} start -v #{version}"
   end
 
   it 'adds a branch to the build branch and pushes it to origin' do
@@ -54,7 +54,7 @@ RSpec.shared_examples 'add' do
   end
 
   context 'when version is not specified' do
-    let(:command) { ind_flow "#{build_type} add -b #{branches.join(' ')}" }
+    let(:command) { papa "#{build_type} add -b #{branches.join(' ')}" }
 
     it_behaves_like 'should not continue'
 
@@ -64,7 +64,7 @@ RSpec.shared_examples 'add' do
   end
 
   context 'when branch(es) is(are) not specified' do
-    let(:command) { ind_flow "#{build_type} add -v #{version}" }
+    let(:command) { papa "#{build_type} add -v #{version}" }
 
     it_behaves_like 'should not continue'
 
@@ -81,13 +81,13 @@ RSpec.shared_examples 'add with merge conflict' do
       "Merge branch '#{branch}' into #{build_branch}"
     end
   end
-  let(:command) { ind_flow "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
+  let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
 
   before do
-    generator = IndFlow::Sandbox::Generate.new
+    generator = Papa::Sandbox::Generate.new
     generator.run silent: true
     Dir.chdir generator.local_repository_directory
-    ind_flow "#{build_type} start -v #{version}"
+    papa "#{build_type} start -v #{version}"
   end
 
   it 'should merge the branches with no conflicts' do

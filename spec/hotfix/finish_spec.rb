@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'ind_flow hotfix finish' do
+RSpec.describe 'papa hotfix finish' do
   let(:build_type) { 'hotfix' }
   let(:version) { '0.0.1' }
   let(:branches) do

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-RSpec.describe  'ind_flow sandbox generate' do
-  let(:command) { ind_flow 'sandbox generate' }
-  let(:remote_repo_directory) { '/tmp/ind_flow_sandbox_remote_repository' }
-  let(:local_repo_directory) { '/tmp/ind_flow_sandbox_local_repository' }
+RSpec.describe  'papa sandbox generate' do
+  let(:command) { papa 'sandbox generate' }
+  let(:remote_repo_directory) { '/tmp/papa_sandbox_remote_repository' }
+  let(:local_repo_directory) { '/tmp/papa_sandbox_local_repository' }
   let(:local_branches) {  ['develop', 'master'] }
   let(:remote_branches) {
     [
@@ -39,7 +39,7 @@ RSpec.describe  'ind_flow sandbox generate' do
       remote_branches.each do |branch|
         expect(`git branch --remote`).to include("origin/#{branch}")
 
-        `git checkout #{branch} #{IndFlow::Output::REDIRECT_TO_NULL}`
+        `git checkout #{branch} #{Papa::Output::REDIRECT_TO_NULL}`
         expect(`git rev-list --count HEAD`.chomp).to eq('2')
       end
     end
@@ -48,13 +48,13 @@ RSpec.describe  'ind_flow sandbox generate' do
   it_behaves_like 'sandbox'
 
   context 'when override origin is specified' do
-    let(:command) { ind_flow "sandbox generate --override-origin #{remote_repo_directory}" }
+    let(:command) { papa "sandbox generate --override-origin #{remote_repo_directory}" }
 
     before do
-      `rm -rf #{remote_repo_directory} #{IndFlow::Output::REDIRECT_TO_NULL}`
+      `rm -rf #{remote_repo_directory} #{Papa::Output::REDIRECT_TO_NULL}`
       Dir.mkdir remote_repo_directory
       Dir.chdir remote_repo_directory
-      `git init --bare #{IndFlow::Output::REDIRECT_TO_NULL}`
+      `git init --bare #{Papa::Output::REDIRECT_TO_NULL}`
     end
 
     it_behaves_like 'sandbox'

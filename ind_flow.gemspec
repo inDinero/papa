@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "ind_flow/version"
+require "papa/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "ind_flow"
-  spec.version       = IndFlow::VERSION
+  spec.name          = "papa"
+  spec.version       = Papa::VERSION
   spec.authors       = ["boggs"]
   spec.email         = ["hello@boggs.xyz"]
 
   spec.summary       = "Helper gem for inDinero's git workflow"
   spec.description   = "Helper gem for inDinero's git workflow"
-  spec.homepage      = "https://github.com/b-ggs/ind_flow"
+  spec.homepage      = "https://github.com/b-ggs/papa"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

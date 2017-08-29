@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'ind_flow release add' do
+RSpec.describe 'papa release add' do
   let(:build_type) { 'release' }
   let(:version) { '0.0.1' }
   let(:branches) do

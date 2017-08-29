@@ -1,9 +1,9 @@
 require 'bundler/setup'
 require 'open3'
-require 'ind_flow'
-require 'ind_flow/sandbox'
-require 'ind_flow/sandbox/generate'
-require 'ind_flow/output'
+require 'papa'
+require 'papa/sandbox'
+require 'papa/sandbox/generate'
+require 'papa/output'
 Dir['./spec/support/*.rb'].sort.each { |f| require f }
 Dir['./spec/support/shared/*.rb'].sort.each { |f| require f }
 

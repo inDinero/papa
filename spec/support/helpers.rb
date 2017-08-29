@@ -1,8 +1,8 @@
-require 'ind_flow/command'
+require 'papa/command'
 
 module Helpers
-  def ind_flow(command)
-    base_command = "ruby -I #{PROJECT_ROOT}/lib #{PROJECT_ROOT}/exe/ind_flow"
+  def papa(command)
+    base_command = "ruby -I #{PROJECT_ROOT}/lib #{PROJECT_ROOT}/exe/papa"
     stdout, stderr, exit_status = Open3.capture3("#{base_command} #{command}")
     {
       stdout: stdout,
