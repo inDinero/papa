@@ -46,6 +46,7 @@ module IndFlow
     end
 
     def run(options = {})
+      Output.stdout('Generating sandbox...')
       @project_directory = File.expand_path(File.dirname(__dir__))
       @branches_directory = File.join @project_directory, 'sandbox', 'branches'
       setup_remote_repository
@@ -67,18 +68,13 @@ module IndFlow
       if @options[:override_origin]
         create_local_repository_directory
         initialize_local_repository
+        remove_old_branches_from_origin
       else
         create_remote_repository_directory
         initialize_remote_repository
         create_local_repository_directory
         clone_remote_repository
       end
-    end
-
-    def setup_local_repository
-      initialize_master_and_develop
-      initialize_branches
-      cleanup
     end
 
     def create_local_repository_directory
@@ -107,14 +103,30 @@ module IndFlow
       Dir.chdir @local_repository_directory
     end
 
+    def setup_local_repository
+      initialize_master_and_develop
+      initialize_branches
+      cleanup
+    end
+
+    def remove_old_branches_from_origin
+      `git fetch #{Output::REDIRECT_TO_NULL}`
+      ['hotfix', 'release'].each do |branch|
+        `git branch -r | grep #{branch}`.split("\n").each do |branch|
+          branch = branch.strip.split('origin/').last
+          `git push -d origin #{branch}`
+        end
+      end
+    end
+
     def initialize_master_and_develop
       [
         "cp #{gemfile_path('master')} #{@local_repository_directory}",
         'git add .',
         'git commit -m "Initial commit"',
-        'git push origin master',
+        'git push origin master --force',
         'git checkout -b develop',
-        'git push origin develop'
+        'git push origin develop --force'
       ].each do |command|
         `#{command} #{Output::REDIRECT_TO_NULL}`
       end
