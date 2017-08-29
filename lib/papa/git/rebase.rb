@@ -19,7 +19,7 @@ module Papa
       queue.run
     end
 
-    def display_error_message
+    def failure_message
       super
       Output.stderr "ERROR: There was a problem rebasing #{current_branch} from #{@base_branch_name}"
     end

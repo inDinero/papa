@@ -24,7 +24,7 @@ module Papa
         if command.run.failed?
           success = false
           command.cleanup
-          command.display_error_message
+          command.failure_message
           break
         end
       end

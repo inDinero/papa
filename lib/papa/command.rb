@@ -17,7 +17,7 @@ module Papa
       self
     end
 
-    def display_error_message
+    def failure_message
       Output.stderr "ERROR: There was a problem running '#{command}'"
     end
 

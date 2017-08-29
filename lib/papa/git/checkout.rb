@@ -6,7 +6,7 @@ module Papa
       super(command)
     end
 
-    def display_error_message
+    def failure_message
       super
       Output.stderr "ERROR: Branch #{@branch_name} doesn't exist."
     end

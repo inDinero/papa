@@ -19,7 +19,7 @@ module Papa
       queue.run
     end
 
-    def display_error_message
+    def failure_message
       super
       Output.stderr "ERROR: A merge conflict occurred while merging #{@branch_name} into #{current_branch}"
     end
