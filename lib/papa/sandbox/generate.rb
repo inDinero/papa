@@ -46,7 +46,7 @@ module Papa
     end
 
     def run(options = {})
-      Output.stdout('Generating sandbox...')
+      Output.stdout('Generating sandbox...') unless options[:silent]
       @project_directory = File.expand_path(File.dirname(__dir__))
       @branches_directory = File.join @project_directory, 'sandbox', 'branches'
       setup_remote_repository
