@@ -24,13 +24,22 @@ module Papa
 
       cleanup
 
+      success_message if !@success_branches.empty?
+
       if !success
-        report_failure
+        failure_message
         exit 1
       end
     end
 
     private
+
+    def success_message
+      Output.stdout "Successfully added these branches to #{@build_branch}:"
+      @success_branches.each do |branch|
+        Output.stdout "  #{branch}"
+      end
+    end
 
     def cleanup
       queue = CommandQueue.new
@@ -38,10 +47,10 @@ module Papa
       queue.run
     end
 
-    def report_failure
+    def failure_message
       failed_branches = @branches - @success_branches
 
-      Output.stderr 'These branches failed:'
+      Output.stderr "Failed to add these branches to #{@build_branch}:"
       failed_branches.each do |branch|
         Output.stderr "  #{branch}"
       end

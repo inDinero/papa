@@ -23,8 +23,10 @@ module Papa
           success = false
         end
 
+        success_message if !@success_branches.empty?
+
         if !success
-          report_failure
+          failure_message
           exit 1
         end
       end
@@ -32,10 +34,17 @@ module Papa
 
     private
 
-    def report_failure
-      failed_branches = @branches - @success_branches
+    def success_message
+      Output.stdout "Successfully merged #{@build_branch} to these branches:"
+      @success_branches.each do |branch|
+        Output.stdout "  #{branch}"
+      end
+    end
 
-      Output.stderr 'These branches failed:'
+    def failure_message
+      failed_branches = @base_branches - @success_branches
+
+      Output.stderr "Failed to merge #{@build_branch} to these branches:"
       failed_branches.each do |branch|
         Output.stderr "  #{branch}"
       end

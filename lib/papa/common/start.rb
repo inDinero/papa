@@ -9,9 +9,22 @@ module Papa
       queue.add Git.branch(branch_name: @build_branch)
       queue.add Git.checkout(branch_name: @build_branch)
       queue.add Git.push(remote: 'origin', branch_name: @build_branch)
-      if !queue.run
+      if queue.run
+        success_message
+      else
+        failure_message
         exit 1
       end
+    end
+
+    private
+
+    def success_message
+      Output.stdout "Successfully started new #{@build_type} branch #{@build_branch}"
+    end
+
+    def failure_message
+      Output.stderr "There was a problem starting #{@build_type} branch: #{@build_branch}"
     end
   end
 end
