@@ -39,6 +39,7 @@ module Papa
       version = options[:version]
       patch_branch = options[:patch_branch]
 
+      require 'papa/common/add'
       require 'papa/release/patch'
       Release::Patch.new(version: version, patch_branch: patch_branch).run
     end
