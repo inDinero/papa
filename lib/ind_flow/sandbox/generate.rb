@@ -2,7 +2,8 @@ module IndFlow
   class Sandbox::Generate
     attr_accessor :remote_repository_directory, :local_repository_directory, :git_details
 
-    def initialize
+    def initialize(options = {})
+      @options = options
       @remote_repository_directory = '/tmp/ind_flow_sandbox_remote_repository'
       @local_repository_directory = '/tmp/ind_flow_sandbox_local_repository'
       @git_details = [
@@ -63,15 +64,32 @@ module IndFlow
     end
 
     def setup_remote_repository
-      create_remote_repository_directory
-      initialize_remote_repository
+      if @options[:override_origin]
+        create_local_repository_directory
+        initialize_local_repository
+      else
+        create_remote_repository_directory
+        initialize_remote_repository
+        create_local_repository_directory
+        clone_remote_repository
+      end
     end
 
     def setup_local_repository
-      clone_remote_repository
       initialize_master_and_develop
       initialize_branches
       cleanup
+    end
+
+    def create_local_repository_directory
+      Command.new("rm -rf #{@local_repository_directory}").run
+      Dir.mkdir @local_repository_directory
+    end
+
+    def initialize_local_repository
+      Dir.chdir @local_repository_directory
+      Command.new('git init').run
+      Command.new("git remote add origin #{@options[:override_origin]}").run
     end
 
     def create_remote_repository_directory
@@ -85,8 +103,6 @@ module IndFlow
     end
 
     def clone_remote_repository
-      Command.new("rm -rf #{@local_repository_directory}").run
-      Dir.mkdir @local_repository_directory
       Command.new("git clone #{@remote_repository_directory} #{@local_repository_directory}").run
       Dir.chdir @local_repository_directory
     end
@@ -135,6 +151,15 @@ module IndFlow
 Your sandbox is now available at:
   #{@local_repository_directory}
       STDOUT
+    end
+
+    def override_origin(origin)
+      [
+        'git remote remove origin',
+        'git remote add origin #{origin}'
+      ].each do |command|
+        `#{command} #{Output::REDIRECT_TO_NULL}`
+      end
     end
   end
 end
