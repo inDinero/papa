@@ -50,7 +50,7 @@ module Papa
       end
       # TODO: Handle master or develop failure
       # Output.stderr "When the above problems are resolved, you can re-run this with:"
-      # Output.stderr "  papa #{@build_type} finish -v #{@version} -b #{@failed_branches.join(' ')}"
+      # Output.stderr "  papa #{@build_type} finish -v #{@version} -b #{failed_branches.join(' ')}"
     end
   end
 end

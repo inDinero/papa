@@ -55,7 +55,7 @@ module Papa
         Output.stderr "  #{branch}"
       end
       Output.stderr 'When the above problems are resolved, you can re-run this with:'
-      Output.stderr "  papa #{@build_type} add -v #{@version} -b #{@failed_branches.join(' ')}"
+      Output.stderr "  papa #{@build_type} add -v #{@version} -b #{failed_branches.join(' ')}"
     end
   end
 end
