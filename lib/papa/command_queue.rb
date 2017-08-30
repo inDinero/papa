@@ -28,7 +28,6 @@ module Papa
           break
         end
       end
-      Output.stdout "Done!"
       success
     end
   end
