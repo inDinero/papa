@@ -12,7 +12,7 @@ RSpec.describe 'papa hotfix add' do
 
   it_behaves_like 'add'
 
-j context 'when there is a merge conflict' do
+  context 'when there is a merge conflict' do
     #TODO: Use bugfix branches instead of feature branches, but this should work the same as is.
     let(:branches) do
       [
