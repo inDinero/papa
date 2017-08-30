@@ -32,16 +32,16 @@ module Papa
       Release::Finish.new(version: version).run
     end
 
-    desc 'patch', 'Add a patch to release branch'
-    option :version, aliases: '-v', required: true
-    option :patch_branch, aliases: '-b', required: true
-    def patch 
-      version = options[:version]
-      patch_branch = options[:patch_branch]
-
-      require 'papa/common/add'
-      require 'papa/release/patch'
-      Release::Patch.new(version: version, patch_branch: patch_branch).run
-    end
+    # desc 'patch', 'Add a patch to release branch'
+    # option :version, aliases: '-v', required: true
+    # option :patch_branch, aliases: '-b', required: true
+    # def patch 
+    #   version = options[:version]
+    #   patch_branch = options[:patch_branch]
+    #
+    #   require 'papa/common/add'
+    #   require 'papa/release/patch'
+    #   Release::Patch.new(version: version, patch_branch: patch_branch).run
+    # end
   end
 end
