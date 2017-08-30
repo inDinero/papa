@@ -19,7 +19,7 @@ module Papa
         },
         {
           commit: 'APP-3 - Add pidgey gem',
-          branch: 'patch/0.0.1/3-add-pidgey-gem',
+          branch: 'patch/17.8.1/3-add-pidgey-gem',
           base_branch: 'develop'
         },
         {

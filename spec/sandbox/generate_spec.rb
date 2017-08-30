@@ -9,7 +9,7 @@ RSpec.describe  'papa sandbox generate' do
     [
       'feature/1-add-butterfree-gem',
       'feature/2-add-beedrill-gem',
-      'patch/0.0.1/3-add-pidgey-gem',
+      'patch/17.8.1/3-add-pidgey-gem',
       'bugfix/4-fix-charmeleon-spelling',
       'bugfix/5-fix-gem-source',
       'feature/6-add-pidgeotto-gem',
