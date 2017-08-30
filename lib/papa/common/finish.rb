@@ -22,13 +22,13 @@ module Papa
         else
           success = false
         end
+      end
 
-        success_message if !@success_branches.empty?
+      success_message if !@success_branches.empty?
 
-        if !success
-          failure_message
-          exit 1
-        end
+      if !success
+        failure_message
+        exit 1
       end
     end
 
