@@ -12,6 +12,7 @@ module Papa
         queue.add Git.checkout(branch_name: @build_branch)
         queue.add Git.checkout(branch_name: branch)
         queue.add Git.rebase(base_branch_name: @build_branch)
+        queue.add Git.force_push(remote: 'origin', branch_name: branch)
         queue.add Git.checkout(branch_name: @build_branch)
         queue.add Git.merge(branch_name: branch)
         queue.add Git.push(remote: 'origin', branch_name: @build_branch)

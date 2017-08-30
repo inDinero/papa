@@ -38,6 +38,10 @@ module Papa
       Command.new "git push #{remote} #{branch_name}"
     end
 
+    def self.force_push(remote:, branch_name:)
+      Command.new "git push #{remote} #{branch_name} --force-with-lease"
+    end
+
     def self.rebase(base_branch_name:)
       require 'papa/git/rebase'
       Git::Rebase.new(base_branch_name)
