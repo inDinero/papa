@@ -91,7 +91,7 @@ RSpec.shared_examples 'add with merge conflict' do
   end
 
   it 'should merge the branches with no conflicts' do
-    expect(command[:stderr]).to include(error_message)
+    expect(command[:stderr]).to include(expected_failed_branches)
     expect(command[:exit_status]).to eq(1)
 
     expected_success_branches.each do |branch|

@@ -12,7 +12,7 @@ RSpec.describe 'papa hotfix add' do
 
   it_behaves_like 'add'
 
-  context 'when there is a merge conflict' do
+j context 'when there is a merge conflict' do
     #TODO: Use bugfix branches instead of feature branches, but this should work the same as is.
     let(:branches) do
       [
@@ -21,13 +21,13 @@ RSpec.describe 'papa hotfix add' do
         'feature/1-add-butterfree-gem'
       ]
     end
-    let(:error_message) { "These branches failed:\n  feature/7-add-pidgeot-gem" }
     let(:expected_success_branches) { 
       [
         'feature/6-add-pidgeotto-gem',
         'feature/1-add-butterfree-gem'
       ]
     }
+    let(:expected_failed_branches) { 'feature/7-add-pidgeot-gem' }
 
     it_behaves_like 'add with merge conflict'
   end

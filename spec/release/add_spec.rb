@@ -20,13 +20,13 @@ RSpec.describe 'papa release add' do
         'feature/1-add-butterfree-gem'
       ]
     end
-    let(:error_message) { "These branches failed:\n  feature/7-add-pidgeot-gem" }
     let(:expected_success_branches) { 
       [
         'feature/6-add-pidgeotto-gem',
         'feature/1-add-butterfree-gem'
       ]
     }
+    let(:expected_failed_branches) { 'feature/7-add-pidgeot-gem' }
 
     it_behaves_like 'add with merge conflict'
   end
