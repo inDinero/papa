@@ -1,7 +1,7 @@
 require 'bundler/setup'
 require 'open3'
 require 'papa'
-require 'papa/sandbox'
+require 'papa/cli/sandbox'
 require 'papa/sandbox/generate'
 require 'papa/output'
 Dir['./spec/support/*.rb'].sort.each { |f| require f }

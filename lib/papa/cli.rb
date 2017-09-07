@@ -1,9 +1,9 @@
 require 'papa/common'
-require 'papa/release'
-require 'papa/hotfix'
-require 'papa/integration'
+require 'papa/cli/release'
+require 'papa/cli/hotfix'
+require 'papa/cli/integration'
 require 'papa/cli/deploy'
-require 'papa/sandbox'
+require 'papa/cli/sandbox'
 
 module Papa
   class CLI < Thor
