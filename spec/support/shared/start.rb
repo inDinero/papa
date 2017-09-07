@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.shared_examples 'start' do
   let(:build_branch) { "#{build_type}/#{version}" }
-  let(:command) { papa "#{build_type} start -v #{version}" }
+  let(:command) { papa "#{build_type} start #{option} #{option_value}" }
 
   before do
     generator = Papa::Sandbox::Generate.new
@@ -38,11 +38,11 @@ RSpec.shared_examples 'start' do
     end
   end
 
-  context 'when version is not specified' do
+  context 'when options are not specified' do
     let(:command) { papa "#{build_type} start" }
 
     it 'should not continue' do
-      expect(command[:stderr]).to include('No value provided for required options \'--version\'')
+      expect(command[:stderr]).to include("No value provided for required options '#{option}'")
       expect(command[:exit_status]).to eq(1)
 
       expect(`git branch`).not_to include(build_branch)

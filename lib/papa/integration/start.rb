@@ -11,7 +11,7 @@ module Papa
     private
 
     def generate_integration_branch_name
-      "integration/#{DateTime.now.strftime('%y.%d.%d.%H.%M').gsub('.0', '.')}"
+      "integration/#{DateTime.now.strftime('%y.%m.%d.%H.%M').gsub('.0', '.')}"
     end
   end
 end
