@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+* Added `integration [start]`
+* Added `deploy` via larga
+* Hard reset local feature and bugfix branches to remote versions before adding
+
 ## 0.1.0
 * Initial release
 * Added `release [start, add, finish]`, `hotfix [start, add, finish]` and `sandbox [generate]` commands
