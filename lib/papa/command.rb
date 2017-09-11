@@ -2,15 +2,21 @@ module Papa
   class Command
     attr_accessor :command, :output, :exit_status
 
-    def initialize(command)
+    def initialize(command, options = {})
       @command = command
       @output = nil
       @exit_status = nil
+      @output_redirect =
+        if options[:silent]
+          Output::REDIRECT_TO_NULL
+        else
+          ''
+        end
     end
 
     def run
       return if @command.nil?
-      output = `#{@command} #{Output::REDIRECT_TO_NULL}`
+      output = `#{@command} #{@output_redirect}`
       exit_status = $?.exitstatus
       @output = output
       @exit_status = exit_status
@@ -22,11 +28,11 @@ module Papa
     end
 
     def cleanup
-      Output.stderr 'Cleaning up...'
+      # Override me
     end
 
     def success?
-      @exit_status == 0
+      !failed?
     end
 
     def failed?

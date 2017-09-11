@@ -7,15 +7,24 @@ module Papa
 
     def run
       queue = CommandQueue.new
+      queue.add Larga.type
       queue.add Larga.deploy(@options)
+      if queue.run
+        success_message
+      else
+        failure_message
+        exit 1
+      end
     end
 
     private
 
     def success_message
+      Output.stdout 'Successfully deployed larga instance.'
     end
 
     def failure_message
+      # TODO
     end
 
     def build_options

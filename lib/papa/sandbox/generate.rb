@@ -99,7 +99,7 @@ module Papa
     end
 
     def clone_remote_repository
-      Command.new("git clone #{@remote_repository_directory} #{@local_repository_directory}").run
+      Command.new("git clone #{@remote_repository_directory} #{@local_repository_directory}", silent: true).run
       Dir.chdir @local_repository_directory
     end
 

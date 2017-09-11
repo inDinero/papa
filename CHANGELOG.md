@@ -2,6 +2,7 @@
 
 ## 0.2.0
 * Added `integration [start]`
+* Added `deploy` via larga
 
 ## 0.1.0
 * Initial release
