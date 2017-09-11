@@ -5,11 +5,14 @@ module Papa
     end
 
     def self.fetch(remote:)
-      Command.new "git fetch #{remote}"
+      require 'papa/git/fetch'
+
+      Git::Fetch.new(remote)
     end
 
     def self.checkout(branch_name:)
       require 'papa/git/checkout'
+
       Git::Checkout.new(branch_name)
     end
 
@@ -23,6 +26,7 @@ module Papa
 
     def self.merge(branch_name:)
       require 'papa/git/merge'
+
       Git::Merge.new(branch_name)
     end
 
@@ -44,6 +48,7 @@ module Papa
 
     def self.rebase(base_branch_name:)
       require 'papa/git/rebase'
+
       Git::Rebase.new(base_branch_name)
     end
 
