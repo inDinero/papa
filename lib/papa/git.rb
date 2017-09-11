@@ -63,5 +63,9 @@ module Papa
     def self.push_tag(remote:, tag_name:)
       push(remote: remote, branch_name: tag_name)
     end
+
+    def self.hard_reset(remote:, branch_name:)
+      Command.new "git reset --hard #{remote}/#{branch_name}"
+    end
   end
 end
