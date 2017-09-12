@@ -1,13 +1,35 @@
+require 'date'
+
 module Papa
   class Output
     REDIRECT_TO_NULL = '> /dev/null 2>&1'
 
     def self.stdout(message, options = {})
-      puts message
+      puts build_output(message)
     end
 
     def self.stderr(message, options = {})
-      STDERR.puts message
+      STDERR.puts build_output(message)
+    end
+    
+    def self.success(message)
+      puts
+      puts message.green
+      puts
+    end
+
+    def self.failure(message)
+      STDERR.puts
+      STDERR.puts message.red
+      STDERR.puts
+    end
+
+    def self.build_output(message)
+      "[#{timestamp}] - #{message}"
+    end
+
+    def self.timestamp
+      DateTime.now.strftime('%H:%M:%S')
     end
   end
 end

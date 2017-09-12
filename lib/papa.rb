@@ -1,5 +1,6 @@
 require 'thor'
 require 'papa/thor'
+require 'papa/string'
 require 'papa/version'
 require 'papa/cli'
 require 'papa/command'
