@@ -10,25 +10,28 @@ module Papa
       @queue.push command
     end
 
-    def list_queue
-      Output.stdout 'Running:'
-      @queue.each do |command|
-        Output.stdout "  #{command.command}"
-      end
-    end
+    # def list_queue
+    #   Output.stdout 'Running:'
+    #   @queue.each do |command|
+    #     Output.stdout "  #{command.command}"
+    #   end
+    # end
 
     def run
       success = true
-      list_queue
+      message = nil
       @queue.each do |command|
         if command.run.failed?
           success = false
           command.cleanup
-          command.failure_message
+          message = command.failure_message
           break
         end
       end
-      success
+      {
+        success: success,
+        message: message
+      }
     end
   end
 end

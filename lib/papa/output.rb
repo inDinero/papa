@@ -14,14 +14,12 @@ module Papa
     
     def self.success(message)
       puts
-      puts message.green
-      puts
+      puts message.strip.green
     end
 
     def self.failure(message)
       STDERR.puts
-      STDERR.puts message.red
-      STDERR.puts
+      STDERR.puts message.strip.red
     end
 
     def self.build_output(message)

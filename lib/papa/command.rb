@@ -8,14 +8,15 @@ module Papa
       @exit_status = nil
       @output_redirect =
         if options[:silent]
-          Output::REDIRECT_TO_NULL
-        else
           ''
+        else
+          Output::REDIRECT_TO_NULL
         end
     end
 
     def run
       return if @command.nil?
+      Output.stdout "Running #{@command.bold}..."
       output = `#{@command} #{@output_redirect}`
       exit_status = $?.exitstatus
       @output = output
@@ -24,7 +25,9 @@ module Papa
     end
 
     def failure_message
-      Output.stderr "ERROR: There was a problem running '#{command}'"
+      message = "There was a problem running #{command.bold}."
+      Output.stderr "ERROR: #{message}"
+      message
     end
 
     def cleanup
