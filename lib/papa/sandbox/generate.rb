@@ -46,7 +46,7 @@ module Papa
     end
 
     def run(options = {})
-      Output.stdout('Generating sandbox...') unless options[:silent]
+      Output.stdout('Started generation of sandbox...') unless options[:silent]
       @project_directory = File.expand_path(File.dirname(__dir__))
       @branches_directory = File.join @project_directory, 'sandbox', 'branches'
       setup_remote_repository
@@ -159,10 +159,7 @@ module Papa
     end
 
     def success_message
-      Output.stdout <<-STDOUT
-Your sandbox is now available at:
-  #{@local_repository_directory}
-      STDOUT
+      Output.success "Your sandbox is now available at:\n  #{@local_repository_directory}"
     end
 
     def override_origin(origin)
