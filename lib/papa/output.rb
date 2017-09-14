@@ -11,6 +11,10 @@ module Papa
     def self.stderr(message, options = {})
       STDERR.puts build_output(message)
     end
+
+    def self.error(message)
+      stderr("ERROR: #{message}")
+    end
     
     def self.success(message)
       puts
