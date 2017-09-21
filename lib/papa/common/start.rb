@@ -9,7 +9,10 @@ module Papa
       queue.add Git.branch(branch_name: @build_branch)
       queue.add Git.checkout(branch_name: @build_branch)
       queue.add Git.push(remote: 'origin', branch_name: @build_branch)
-      if queue.run
+
+      resp = queue.run
+
+      if resp[:success]
         success_message
       else
         failure_message
