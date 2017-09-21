@@ -1,10 +1,13 @@
+require 'open3'
+
 module Papa
   class Command
-    attr_accessor :command, :output, :exit_status
+    attr_accessor :command, :stdout, :stderr, :exit_status
 
     def initialize(command, options = {})
       @command = command
-      @output = nil
+      @stdout = nil
+      @stderr = nil
       @exit_status = nil
       @output_redirect =
         if options[:silent]
@@ -17,9 +20,9 @@ module Papa
     def run
       return if @command.nil?
       Output.stdout "Running #{@command.bold}..."
-      output = `#{@command} #{@output_redirect}`
-      exit_status = $?.exitstatus
-      @output = output
+      stdout, stderr, exit_status = Open3.capture3(@command)
+      @stdout = stdout
+      @stderr = stderr
       @exit_status = exit_status
       self
     end
