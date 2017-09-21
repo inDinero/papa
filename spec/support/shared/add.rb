@@ -17,7 +17,6 @@ RSpec.shared_examples 'add' do
   end
 
   it 'adds a branch to the build branch and pushes it to origin' do
-    expect(command[:stderr]).not_to include('There was a problem running')
     expect(command[:exit_status]).to eq(0)
 
     expect(`git branch`).to include(build_branch)
@@ -39,7 +38,6 @@ RSpec.shared_examples 'add' do
     let(:branches) { [ "#{build_type}/404-not-found" ] }
 
     it 'should not add to the build branch' do
-      expect(command[:stderr]).to include('There was a problem running')
       expect(command[:exit_status]).to eq(1)
     end
   end

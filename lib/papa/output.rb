@@ -15,7 +15,7 @@ module Papa
     def self.error(message)
       stderr("ERROR: #{message}")
     end
-    
+
     def self.success(message)
       puts
       puts message.strip.green
@@ -24,6 +24,12 @@ module Papa
     def self.failure(message)
       STDERR.puts
       STDERR.puts message.strip.red
+    end
+
+    def self.failure_reason(messages)
+      messages.each do |message|
+        STDERR.puts "  #{message}"
+      end
     end
 
     def self.build_output(message)

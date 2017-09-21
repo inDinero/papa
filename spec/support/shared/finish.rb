@@ -13,7 +13,6 @@ RSpec.shared_examples 'finish' do
   end
 
   it 'merges the build branch to master and develop and pushes it to origin' do
-    expect(command[:stderr]).not_to include('There was a problem running')
     expect(command[:exit_status]).to eq(0)
 
     ['develop', 'master'].each do |base_branch|

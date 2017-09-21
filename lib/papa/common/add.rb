@@ -22,13 +22,12 @@ module Papa
         queue.add Git.merge(branch_name: branch)
         queue.add Git.push(remote: 'origin', branch_name: @build_branch)
 
-        resp = queue.run
-        if resp[:success]
+        if queue.run
           @success_branches << branch
         else
           failed_branch = {
             branch: branch,
-            message: resp[:message]
+            message: queue.last_error
           }
           @failed_branches << failed_branch
           success = false

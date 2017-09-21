@@ -6,30 +6,20 @@ module Papa
 
     def initialize(command, options = {})
       @command = command
-      @stdout = nil
-      @stderr = nil
-      @exit_status = nil
-      @output_redirect =
-        if options[:silent]
-          ''
-        else
-          Output::REDIRECT_TO_NULL
-        end
     end
 
     def run
-      return if @command.nil?
-      Output.stdout "Running #{@command.bold}..."
-      stdout, stderr, exit_status = Open3.capture3(@command)
-      @stdout = stdout
-      @stderr = stderr
-      @exit_status = exit_status
+      return if command.nil?
+      Output.stdout "Running #{command.bold}..."
+      @stdout, @stderr, status = Open3.capture3(command)
+      @exit_status = status.exitstatus
       self
     end
 
     def failure_message
-      message = "There was a problem running #{command.bold}."
-      Output.stderr "ERROR: #{message}"
+      message = "Error while running #{command.bold}"
+      Output.error message
+      Output.error stderr
       message
     end
 
@@ -42,7 +32,7 @@ module Papa
     end
 
     def failed?
-      @exit_status != 0
+      exit_status != 0
     end
 
     private

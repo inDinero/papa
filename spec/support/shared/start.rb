@@ -11,7 +11,6 @@ RSpec.shared_examples 'start' do
   end
 
   it "starts a new build branch and pushes it to origin" do
-    expect(command[:stdout]).not_to include('There was a problem running')
     expect(command[:exit_status]).to eq(0)
 
     expect(`git branch`).to include(build_branch)
@@ -33,7 +32,6 @@ RSpec.shared_examples 'start' do
     end
 
     it "should not create a new build branch" do
-      expect(command[:stderr]).to include('There was a problem running')
       expect(command[:exit_status]).to eq(1)
     end
   end

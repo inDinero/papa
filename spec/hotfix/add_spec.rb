@@ -21,7 +21,7 @@ RSpec.describe 'papa hotfix add' do
         'feature/1-add-butterfree-gem'
       ]
     end
-    let(:expected_success_branches) { 
+    let(:expected_success_branches) {
       [
         'feature/6-add-pidgeotto-gem',
         'feature/1-add-butterfree-gem'

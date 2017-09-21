@@ -19,7 +19,7 @@ RSpec.describe  'papa sandbox generate' do
 
   shared_examples 'sandbox' do
     it 'generates the sandbox env successfully' do
-      expect(command[:stdout]).to include('Generating sandbox...')
+      expect(command[:stdout]).to include('Started generation of sandbox...')
       expect(command[:stderr]).to be_empty
       expect(command[:exit_status]).to eq(0)
 
