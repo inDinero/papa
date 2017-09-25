@@ -1,6 +1,4 @@
 require 'open3'
-require 'pry'
-require 'pry-byebug'
 
 module Papa
   class Command
@@ -8,15 +6,6 @@ module Papa
 
     def initialize(command, options = {})
       @command = command
-      @stdout = nil
-      @stderr = nil
-      @exit_status = nil
-      @output_redirect =
-        if options[:silent]
-          ''
-        else
-          Output::REDIRECT_TO_NULL
-        end
     end
 
     def run

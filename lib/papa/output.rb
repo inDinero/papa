@@ -26,6 +26,12 @@ module Papa
       STDERR.puts message.strip.red
     end
 
+    def self.failure_reason(messages)
+      messages.each do |message|
+        STDERR.puts "  #{message}"
+      end
+    end
+
     def self.build_output(message)
       "[#{timestamp}] - #{message}"
     end
