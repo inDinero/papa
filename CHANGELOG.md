@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+* Used open3 for easier output and exit status handling
+* Added more descriptive output messages
+
 ## 0.2.0
 * Added `integration [start]`
 * Added `deploy` via larga
