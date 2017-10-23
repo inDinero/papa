@@ -1,6 +1,8 @@
 module Papa
   class Common::Add
     def run
+      check_branches
+
       @build_branch ||= "#{@build_type}/#{@version}"
 
       success = true
@@ -46,6 +48,13 @@ module Papa
     end
 
     private
+
+    def check_branches
+      return unless @branches.empty?
+      require 'papa/helpers/vi'
+      vi_file_helper = Helpers::Vi.new
+      @branches = vi_file_helper.run
+    end
 
     def success_cleanup
       queue = CommandQueue.new

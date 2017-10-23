@@ -12,10 +12,10 @@ module Papa
 
     desc 'add', 'Add feature branches to a release branch'
     option :version, aliases: '-v', required: true
-    option :feature_branches, aliases: '-b', type: :array, required: true
+    option :feature_branches, aliases: '-b', type: :array
     def add
       version = options[:version]
-      feature_branches = options[:feature_branches]
+      feature_branches = options[:feature_branches] || []
 
       require 'papa/common/add'
       require 'papa/release/add'

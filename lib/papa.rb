@@ -7,6 +7,7 @@ require 'papa/command'
 require 'papa/command_queue'
 require 'papa/git'
 require 'papa/output'
+require 'papa/helpers'
 
 module Papa
 end
