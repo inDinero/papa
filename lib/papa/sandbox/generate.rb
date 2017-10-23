@@ -45,13 +45,13 @@ module Papa
       ]
     end
 
-    def run(options = {})
-      Output.stdout('Started generation of sandbox...') unless options[:silent]
+    def run
+      Output.stdout('Started generation of sandbox...') unless @options[:silent]
       @project_directory = File.expand_path(File.dirname(__dir__))
       @branches_directory = File.join @project_directory, 'sandbox', 'branches'
       setup_remote_repository
       setup_local_repository
-      success_message unless options[:silent]
+      success_message unless @options[:silent]
     end
 
     private
@@ -78,28 +78,28 @@ module Papa
     end
 
     def create_local_repository_directory
-      Command.new("rm -rf #{@local_repository_directory}").run
+      Command.new("rm -rf #{@local_repository_directory}", @options).run
       Dir.mkdir @local_repository_directory
     end
 
     def initialize_local_repository
       Dir.chdir @local_repository_directory
-      Command.new('git init').run
-      Command.new("git remote add origin #{@options[:override_origin]}").run
+      Command.new('git init', @options).run
+      Command.new("git remote add origin #{@options[:override_origin]}", @options).run
     end
 
     def create_remote_repository_directory
-      Command.new("rm -rf #{@remote_repository_directory}").run
+      Command.new("rm -rf #{@remote_repository_directory}", @options).run
       Dir.mkdir @remote_repository_directory
     end
 
     def initialize_remote_repository
       Dir.chdir @remote_repository_directory
-      Command.new('git init --bare').run
+      Command.new('git init --bare', @options).run
     end
 
     def clone_remote_repository
-      Command.new("git clone #{@remote_repository_directory} #{@local_repository_directory}", silent: true).run
+      Command.new("git clone #{@remote_repository_directory} #{@local_repository_directory}", @options).run
       Dir.chdir @local_repository_directory
     end
 

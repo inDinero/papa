@@ -10,8 +10,8 @@ RSpec.shared_examples 'add' do
   let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
 
   before do
-    generator = Papa::Sandbox::Generate.new
-    generator.run silent: true
+    generator = Papa::Sandbox::Generate.new(silent: true)
+    generator.run
     Dir.chdir generator.local_repository_directory
     papa "#{build_type} start -v #{version}"
   end
@@ -82,8 +82,8 @@ RSpec.shared_examples 'add with merge conflict' do
   let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
 
   before do
-    generator = Papa::Sandbox::Generate.new
-    generator.run silent: true
+    generator = Papa::Sandbox::Generate.new(silent: true)
+    generator.run
     Dir.chdir generator.local_repository_directory
     papa "#{build_type} start -v #{version}"
   end

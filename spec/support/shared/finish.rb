@@ -5,8 +5,8 @@ RSpec.shared_examples 'finish' do
   let(:command) { papa "#{build_type} finish -v #{version}" }
 
   before do
-    generator = Papa::Sandbox::Generate.new
-    generator.run silent: true
+    generator = Papa::Sandbox::Generate.new(silent: true)
+    generator.run
     Dir.chdir generator.local_repository_directory
     papa "#{build_type} start -v #{version}"
     papa "#{build_type} add -v #{version} -b #{branches.join(' ')}"

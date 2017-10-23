@@ -5,8 +5,8 @@ RSpec.shared_examples 'start' do
   let(:command) { papa "#{build_type} start #{option} #{option_value}" }
 
   before do
-    generator = Papa::Sandbox::Generate.new
-    generator.run silent: true
+    generator = Papa::Sandbox::Generate.new(silent: true)
+    generator.run
     Dir.chdir generator.local_repository_directory
   end
 

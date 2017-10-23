@@ -2,15 +2,16 @@ require 'open3'
 
 module Papa
   class Command
-    attr_accessor :command, :stdout, :stderr, :exit_status
+    attr_accessor :command, :stdout, :stderr, :exit_status, :silent
 
     def initialize(command, options = {})
       @command = command
+      @silent = options.has_key?(:silent) ? options[:silent] : false
     end
 
     def run
       return if command.nil?
-      Output.stdout "Running #{command.bold}..."
+      Output.stdout "Running #{command.bold}..." unless silent
       @stdout, @stderr, status = Open3.capture3(command)
       @exit_status = status.exitstatus
       self
