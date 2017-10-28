@@ -12,7 +12,7 @@ RSpec.shared_examples 'add' do
   before do
     generator = Papa::Sandbox::Generate.new(silent: true)
     generator.run
-    Dir.chdir generator.local_repository_directory
+    Dir.chdir generator.local_path
     papa "#{build_type} start -v #{version}"
   end
 
@@ -60,16 +60,6 @@ RSpec.shared_examples 'add' do
       expect(command[:stderr]).to include('No value provided for required options \'--version\'')
     end
   end
-
-  context 'when branch(es) is(are) not specified' do
-    let(:command) { papa "#{build_type} add -v #{version}" }
-
-    it_behaves_like 'should not continue'
-
-    it 'should return a helpful error' do
-      expect(command[:stderr]).to include('No value provided for required options')
-    end
-  end
 end
 
 RSpec.shared_examples 'add with merge conflict' do
@@ -84,7 +74,7 @@ RSpec.shared_examples 'add with merge conflict' do
   before do
     generator = Papa::Sandbox::Generate.new(silent: true)
     generator.run
-    Dir.chdir generator.local_repository_directory
+    Dir.chdir generator.local_path
     papa "#{build_type} start -v #{version}"
   end
 

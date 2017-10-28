@@ -7,7 +7,7 @@ RSpec.shared_examples 'start' do
   before do
     generator = Papa::Sandbox::Generate.new(silent: true)
     generator.run
-    Dir.chdir generator.local_repository_directory
+    Dir.chdir generator.local_path
   end
 
   it "starts a new build branch and pushes it to origin" do

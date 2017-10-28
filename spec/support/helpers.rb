@@ -1,5 +1,3 @@
-require 'papa/command'
-
 module Helpers
   def papa(command)
     base_command = "ruby -I #{PROJECT_ROOT}/lib #{PROJECT_ROOT}/exe/papa"

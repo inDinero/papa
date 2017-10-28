@@ -7,7 +7,7 @@ RSpec.shared_examples 'finish' do
   before do
     generator = Papa::Sandbox::Generate.new(silent: true)
     generator.run
-    Dir.chdir generator.local_repository_directory
+    Dir.chdir generator.local_path
     papa "#{build_type} start -v #{version}"
     papa "#{build_type} add -v #{version} -b #{branches.join(' ')}"
   end

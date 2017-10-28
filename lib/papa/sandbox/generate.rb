@@ -1,11 +1,13 @@
+require 'papa/helpers/path'
+
 module Papa
   class Sandbox::Generate
-    attr_accessor :remote_repository_directory, :local_repository_directory, :git_details
+    attr_accessor :remote_path, :local_path, :git_details, :options
 
     def initialize(options = {})
       @options = options
-      @remote_repository_directory = '/tmp/papa_sandbox_remote_repository'
-      @local_repository_directory = '/tmp/papa_sandbox_local_repository'
+      @remote_path = Helpers::Path.generate_sandbox_path('remote', options)
+      @local_path = Helpers::Path.generate_sandbox_path('local', options)
       @git_details = [
         {
           commit: 'APP-1 - Add butterfree gem',
@@ -46,12 +48,12 @@ module Papa
     end
 
     def run
-      Output.stdout('Started generation of sandbox...') unless @options[:silent]
+      Output.stdout('Started generation of sandbox...') unless options[:silent]
       @project_directory = File.expand_path(File.dirname(__dir__))
       @branches_directory = File.join @project_directory, 'sandbox', 'branches'
       setup_remote_repository
       setup_local_repository
-      success_message unless @options[:silent]
+      success_message unless options[:silent]
     end
 
     private
@@ -61,46 +63,46 @@ module Papa
     end
 
     def temp_gemfile_path
-      File.join @local_repository_directory, 'Gemfile'
+      File.join @local_path, 'Gemfile'
     end
 
     def setup_remote_repository
-      if @options[:override_origin]
-        create_local_repository_directory
+      if options[:override_origin]
+        create_local_path
         initialize_local_repository
         remove_old_branches_from_origin
       else
-        create_remote_repository_directory
+        create_remote_path
         initialize_remote_repository
-        create_local_repository_directory
+        create_local_path
         clone_remote_repository
       end
     end
 
-    def create_local_repository_directory
-      Command.new("rm -rf #{@local_repository_directory}", @options).run
-      Dir.mkdir @local_repository_directory
+    def create_local_path
+      Command.new("rm -rf #{@local_path}", options).run
+      Dir.mkdir @local_path
     end
 
     def initialize_local_repository
-      Dir.chdir @local_repository_directory
-      Command.new('git init', @options).run
-      Command.new("git remote add origin #{@options[:override_origin]}", @options).run
+      Dir.chdir @local_path
+      Command.new('git init', options).run
+      Command.new("git remote add origin #{options[:override_origin]}", options).run
     end
 
-    def create_remote_repository_directory
-      Command.new("rm -rf #{@remote_repository_directory}", @options).run
-      Dir.mkdir @remote_repository_directory
+    def create_remote_path
+      Command.new("rm -rf #{@remote_path}", options).run
+      Dir.mkdir @remote_path
     end
 
     def initialize_remote_repository
-      Dir.chdir @remote_repository_directory
-      Command.new('git init --bare', @options).run
+      Dir.chdir @remote_path
+      Command.new('git init --bare', options).run
     end
 
     def clone_remote_repository
-      Command.new("git clone #{@remote_repository_directory} #{@local_repository_directory}", @options).run
-      Dir.chdir @local_repository_directory
+      Command.new("git clone #{@remote_path} #{@local_path}", options).run
+      Dir.chdir @local_path
     end
 
     def setup_local_repository
@@ -121,7 +123,7 @@ module Papa
 
     def initialize_master_and_develop
       [
-        "cp #{gemfile_path('master')} #{@local_repository_directory}",
+        "cp #{gemfile_path('master')} #{@local_path}",
         'git add .',
         'git commit -m "Initial commit"',
         'git push origin master --force',
@@ -141,7 +143,7 @@ module Papa
           "git checkout #{base_branch}",
           "git checkout -b #{branch}",
           "rm #{temp_gemfile_path}",
-          "cp #{gemfile_path(branch)} #{@local_repository_directory}",
+          "cp #{gemfile_path(branch)} #{@local_path}",
           "git add .",
           "git commit -m \"#{commit}\"",
           "git push origin #{branch} --force"
@@ -159,7 +161,7 @@ module Papa
     end
 
     def success_message
-      Output.success "Your sandbox is now available at:\n  #{@local_repository_directory}"
+      Output.success "Your sandbox is now available at:\n  #{@local_path}"
     end
 
     def override_origin(origin)
