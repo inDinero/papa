@@ -1,39 +1,161 @@
-# Papa
+# Papa [![Gem Version](https://badge.fury.io/rb/papa.svg)](https://badge.fury.io/rb/papa) [![Build Status](https://travis-ci.org/b-ggs/papa.svg?branch=master)](https://travis-ci.org/b-ggs/papa) [![Maintainability](https://api.codeclimate.com/v1/badges/cec506e3421dc3e08eeb/maintainability)](https://codeclimate.com/github/b-ggs/papa/maintainability)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/papa`. To experiment with that code, run `bin/console` for an interactive prompt.
+Helper tool for inDinero's git workflow. Ako ang papa mo.
 
-TODO: Delete this and the text above, and describe your gem
+## Contents
 
-## Installation
+* [Getting Started](#getting-started)
+* [Commands](#commands)
+	* [papa release](#papa-release)
+	* [papa hotfix](#papa-hotfix)
+	* [papa integration](#papa-integration)
+	* [papa deploy](#papa-deploy)
+	* [papa sandbox](#papa-sandbox)
 
-Add this line to your application's Gemfile:
+## Getting Started
 
-```ruby
-gem 'papa'
+Install `papa` from Rubygems.
+
+```
+$ gem install papa
 ```
 
-And then execute:
+That's it, you're ready to go!
 
-    $ bundle
+## Commands
 
-Or install it yourself as:
+### `papa release`
 
-    $ gem install papa
+#### Starting a release branch
 
-## Usage
+This will create a new release branch based on the current `develop` branch. The release branch will be pushed to origin.
 
-TODO: Write usage instructions here
+```
+$ papa release start -v, --version=VERSION
+```
 
-## Development
+###### Sample Usage:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```
+$ papa release start -v 17.12.0
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+#### Adding feature branches to a release branch
 
-## Contributing
+This will rebase all new feature branches from the release branch and then subsequently merge the updated feature branch into the release branch. The updated release branch will be pushed to origin.
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/b-ggs/papa.
+```
+$ papa release add -v, --version=VERSION [-b, --feature-branches=one two three]
+```
 
-## License
+If `--feature-branches` is not specified, it will prompt a vi session where you can enter the branch names separated by line breaks.
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+##### Sample Usage:
+
+If you want to specify the feature branches using `--feature-branches`:
+
+```
+$ papa release add -v 17.12.0 -b feature/1 feature/2 feature/3
+```
+
+If you want to use vi to specify the feature branches:
+
+```
+$ papa release add -v 17.12.0
+```
+
+#### Finishing a release branch
+
+The finished release branch will be merged to `master` and `develop`. The updated `master` and `develop` branches will be pushed to origin.
+
+```
+$ papa release finish -v, --version=VERSION
+```
+
+##### Sample Usage:
+
+```
+$ papa release finish -v 17.12.0
+```
+
+### `papa hotfix`
+
+#### Starting a hotfix branch
+
+This will create a new hotfix branch based on the current `master` branch. The hotfix branch will be pushed to origin.
+
+```
+$ papa hotfix start -v, --version=VERSION
+```
+
+###### Sample Usage:
+
+```
+$ papa hotfix start -v 17.12.0
+```
+
+#### Adding bugfix branches to a hotfix branch
+
+This will rebase all new bugfix branches from the hotfix branch and then subsequently merge the updated bugfix branch into the release branch. The updated release branch will be pushed to origin.
+
+```
+$ papa hotfix add -v, --version=VERSION [-b, --bugfix-branches=one two three]
+```
+
+If `--bugfix-branches` is not specified, it will prompt a vi session where you can enter the branch names separated by line breaks.
+
+##### Sample Usage:
+
+If you want to specify the bugfix branches using `--bugfix-branches`:
+
+```
+$ papa hotfix add -v 17.12.0 -b bugfix/1 bugfix/2 bugfix/3
+```
+
+If you want to use vi to specify the bugfix branches:
+
+```
+$ papa hotfix add -v 17.12.0
+```
+
+#### Finishing a hotfix branch
+
+The finished hotfix branch will be merged to `master` and `develop`. The updated `master` and `develop` branches will be pushed to origin.
+
+```
+$ papa release hotfix -v, --version=VERSION
+```
+
+##### Sample Usage:
+
+```
+$ papa release hotfix -v 17.12.0
+```
+
+### `papa integration`
+
+#### Starting an integration branch
+
+This will create a new integration branch based on the specified base branch. The integration branch will be pushed to origin.
+
+```
+$ papa integration start -b, --base-branch=BASE_BRANCH
+```
+
+##### Sample Usage:
+
+```
+$ papa integration start -b develop
+```
+
+### `papa deploy`
+
+### `papa sandbox`
+
+#### Generating a new sandbox
+
+This will generate a git repository that you can use to test out `papa`.
+
+```
+$ papa sandbox generate
+```
