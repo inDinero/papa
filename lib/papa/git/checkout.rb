@@ -8,7 +8,9 @@ module Papa
 
     def failure_message
       super
-      Output.stderr "ERROR: Branch #{@branch_name} doesn't exist."
+      message = "Failed to checkout #{@branch_name.bold}. Check whether this branch exists."
+      Output.error message
+      message
     end
   end
 end

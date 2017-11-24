@@ -21,7 +21,9 @@ module Papa
 
     def failure_message
       super
-      Output.stderr "ERROR: There was a problem rebasing #{current_branch} from #{@base_branch_name}"
+      message = "Failed to rebase #{current_branch} from #{@base_branch_name}. Merge conflict?"
+      Output.error message
+      message
     end
   end
 end

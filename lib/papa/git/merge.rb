@@ -21,7 +21,9 @@ module Papa
 
     def failure_message
       super
-      Output.stderr "ERROR: A merge conflict occurred while merging #{@branch_name} into #{current_branch}"
+      message = "Failed to merge #{@branch_name} into #{current_branch}. Merge conflict?"
+      Output.error message
+      message
     end
   end
 end

@@ -12,10 +12,10 @@ module Papa
 
     desc 'add', 'Add bugfix branches to a hotfix branch'
     option :version, aliases: '-v', required: true
-    option :bugfix_branches, aliases: '-b', type: :array, required: true
+    option :bugfix_branches, aliases: '-b', type: :array
     def add
       version = options[:version]
-      bugfix_branches = options[:bugfix_branches]
+      bugfix_branches = options[:bugfix_branches] || []
 
       require 'papa/common/add'
       require 'papa/hotfix/add'

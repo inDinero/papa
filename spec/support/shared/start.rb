@@ -5,13 +5,12 @@ RSpec.shared_examples 'start' do
   let(:command) { papa "#{build_type} start #{option} #{option_value}" }
 
   before do
-    generator = Papa::Sandbox::Generate.new
-    generator.run silent: true
-    Dir.chdir generator.local_repository_directory
+    generator = Papa::Sandbox::Generate.new(silent: true)
+    generator.run
+    Dir.chdir generator.local_path
   end
 
   it "starts a new build branch and pushes it to origin" do
-    expect(command[:stdout]).not_to include('There was a problem running')
     expect(command[:exit_status]).to eq(0)
 
     expect(`git branch`).to include(build_branch)
@@ -33,7 +32,6 @@ RSpec.shared_examples 'start' do
     end
 
     it "should not create a new build branch" do
-      expect(command[:stderr]).to include('There was a problem running')
       expect(command[:exit_status]).to eq(1)
     end
   end

@@ -1,6 +1,6 @@
 module Papa
   class CommandQueue
-    attr_accessor :queue
+    attr_accessor :queue, :last_command, :success, :last_error
 
     def initialize
       @queue = []
@@ -10,25 +10,18 @@ module Papa
       @queue.push command
     end
 
-    def list_queue
-      Output.stdout 'Running:'
-      @queue.each do |command|
-        Output.stdout "  #{command.command}"
-      end
-    end
-
     def run
-      success = true
-      list_queue
+      @success = true
+      message = nil
       @queue.each do |command|
         if command.run.failed?
-          success = false
+          @success = false
           command.cleanup
-          command.failure_message
+          @last_error = command.failure_message
           break
         end
       end
-      success
+      @success
     end
   end
 end
