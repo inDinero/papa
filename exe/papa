@@ -3,4 +3,4 @@
 
 require 'papa'
 
-Papa::CLI.start ARGV
+Papa::CLI::Main.start ARGV
