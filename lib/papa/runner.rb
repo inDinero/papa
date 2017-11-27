@@ -2,12 +2,8 @@ module Papa
   class Runner
     attr_accessor :queue, :last_command, :success, :last_error
 
-    def initialize
-      @queue = []
-    end
-
-    def add(command)
-      @queue.push command
+    def initialize(queue)
+      @queue = queue || []
     end
 
     def run
