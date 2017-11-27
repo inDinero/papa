@@ -1,3 +1,6 @@
+require 'papa/command/larga/type'
+require 'papa/command/larga/deploy'
+
 module Papa
   module Task
     class Deploy
@@ -7,10 +10,13 @@ module Papa
       end
 
       def run
-        queue = Runner.new
-        queue.add Larga.type
-        queue.add Larga.deploy(@options)
-        if queue.run
+        queue = [
+          Command::Larga::Type.new,
+          Command::Larga::Deploy.new(@options)
+        ]
+        runner = Runner.new(queue)
+
+        if runner.run
           success_message
         else
           failure_message
