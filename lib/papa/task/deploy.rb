@@ -1,5 +1,6 @@
 require 'papa/command/larga/type'
 require 'papa/command/larga/deploy'
+require 'papa/runner'
 
 module Papa
   module Task

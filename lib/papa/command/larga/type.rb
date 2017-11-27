@@ -3,7 +3,7 @@ require 'papa/command/base'
 module Papa
   module Command
     module Larga
-      class Type < Command
+      class Type < Command::Base
         def initialize
           command = 'type larga'
           super(command)
