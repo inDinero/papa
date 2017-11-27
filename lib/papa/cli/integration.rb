@@ -7,7 +7,7 @@ module Papa
         base_branch = options[:base_branch]
 
         require 'papa/task/integration/start'
-        Integration::Start.new(base_branch: base_branch).run
+        Task::Integration::Start.new(base_branch: base_branch).run
       end
     end
   end

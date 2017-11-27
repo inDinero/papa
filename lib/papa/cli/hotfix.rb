@@ -7,7 +7,7 @@ module Papa
         version = options[:version]
 
         require 'papa/task/hotfix/start'
-        Hotfix::Start.new(version: version).run
+        Task::Hotfix::Start.new(version: version).run
       end
 
       desc 'add', 'Add bugfix branches to a hotfix branch'
@@ -18,7 +18,7 @@ module Papa
         bugfix_branches = options[:bugfix_branches] || []
 
         require 'papa/task/hotfix/add'
-        Hotfix::Add.new(version: version, bugfix_branches: bugfix_branches).run
+        Task::Hotfix::Add.new(version: version, bugfix_branches: bugfix_branches).run
       end
 
       desc 'finish', 'Merge the hotfix branch to the base branches'
@@ -29,7 +29,7 @@ module Papa
         additional_branches = options[:additional_branches]
 
         require 'papa/task/hotfix/finish'
-        Hotfix::Finish.new(version: version, additional_branches: additional_branches).run
+        Task::Hotfix::Finish.new(version: version, additional_branches: additional_branches).run
       end
     end
   end
