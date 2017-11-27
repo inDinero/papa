@@ -4,11 +4,11 @@ module Papa
   module Command
     module Larga
       class Deploy < Command::Base
-        def initialize(branch, lifespan, protection, hostname)
-          @branch = branch
-          @lifespan = lifespan
-          @protection = protection
-          @hostname = hostname
+        def initialize(options)
+          @branch = options[:branch]
+          @lifespan = options[:lifespan]
+          @protection = options[:protection]
+          @hostname = options[:hostname]
 
           command = "larga #{build_options.join(' ')}"
           super(command, silent: false)

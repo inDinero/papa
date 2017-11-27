@@ -17,10 +17,8 @@ module Papa
 
         def cleanup
           super
-          queue = Runner.new
-          queue.add Git.merge_abort
-          queue.add Git.checkout(branch_name: current_branch)
-          queue.run
+          Command::Git::MergeAbort.new.run
+          Command::Git::Checkout.new(current_branch).run
         end
 
         def failure_message

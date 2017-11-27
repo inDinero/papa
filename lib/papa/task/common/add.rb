@@ -6,6 +6,7 @@ require 'papa/command/git/rebase'
 require 'papa/command/git/push_force'
 require 'papa/command/git/merge'
 require 'papa/command/git/push'
+require 'papa/command/git/branch_delete'
 require 'papa/runner'
 
 module Papa
@@ -43,7 +44,7 @@ module Papa
             else
               failed_branch = {
                 branch: branch,
-                message: queue.last_error
+                message: runner.last_error
               }
               @failed_branches << failed_branch
               success = false
@@ -71,9 +72,8 @@ module Papa
         end
 
         def success_cleanup
-          queue = Runner.new
-          @branches.each { |branch| queue.add Git.delete_branch(branch_name: branch) }
-          queue.run
+          queue = @branches.map { |branch| Command::Git::BranchDelete.new(branch) }
+          Runner.new(queue).run
         end
 
         def success_message
