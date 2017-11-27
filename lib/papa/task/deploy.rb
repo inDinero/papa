@@ -7,7 +7,7 @@ module Papa
       end
 
       def run
-        queue = CommandQueue.new
+        queue = Runner.new
         queue.add Larga.type
         queue.add Larga.deploy(@options)
         if queue.run

@@ -5,7 +5,7 @@ module Papa
         def run
           @build_branch ||= "#{@build_type}/#{@version}"
 
-          @queue = CommandQueue.new
+          @queue = Runner.new
           @queue.add Git.fetch(remote: 'origin')
           @queue.add Git.checkout(branch_name: @base_branch)
           @queue.add Git.branch(branch_name: @build_branch)

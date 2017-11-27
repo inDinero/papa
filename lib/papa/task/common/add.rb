@@ -15,7 +15,7 @@ module Papa
 
           @branches.each_with_index do |branch, index|
             Output.stdout "Adding branch #{branch.bold} (#{index + 1} of #{@branches.count})..."
-            queue = CommandQueue.new
+            queue = Runner.new
             queue.add Git.fetch(remote: 'origin')
             queue.add Git.checkout(branch_name: @build_branch)
             queue.add Git.checkout(branch_name: branch)
@@ -59,7 +59,7 @@ module Papa
         end
 
         def success_cleanup
-          queue = CommandQueue.new
+          queue = Runner.new
           @branches.each { |branch| queue.add Git.delete_branch(branch_name: branch) }
           queue.run
         end

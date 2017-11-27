@@ -1,5 +1,5 @@
 module Papa
-  class CommandQueue
+  class Runner
     attr_accessor :queue, :last_command, :success, :last_error
 
     def initialize

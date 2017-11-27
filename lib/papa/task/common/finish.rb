@@ -9,7 +9,7 @@ module Papa
           @success_branches = []
 
           @base_branches.each do |branch|
-            queue = CommandQueue.new
+            queue = Runner.new
             queue.add Git.fetch(remote: 'origin')
             queue.add Git.checkout(branch_name: @build_branch)
             queue.add Git.checkout(branch_name: branch)

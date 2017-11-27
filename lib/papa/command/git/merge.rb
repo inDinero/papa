@@ -17,7 +17,7 @@ module Papa
 
         def cleanup
           super
-          queue = CommandQueue.new
+          queue = Runner.new
           queue.add Git.merge_abort
           queue.add Git.checkout(branch_name: current_branch)
           queue.run
