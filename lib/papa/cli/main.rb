@@ -1,3 +1,8 @@
+require 'papa/cli/release'
+require 'papa/cli/hotfix'
+require 'papa/cli/integration'
+require 'papa/cli/sandbox'
+
 module Papa
   module CLI
     class Main < Thor
