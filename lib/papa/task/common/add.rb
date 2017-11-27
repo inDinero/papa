@@ -1,4 +1,12 @@
 require 'papa/helper/output'
+require 'papa/command/git/fetch'
+require 'papa/command/git/checkout'
+require 'papa/command/git/reset_hard'
+require 'papa/command/git/rebase'
+require 'papa/command/git/push_force'
+require 'papa/command/git/merge'
+require 'papa/command/git/push'
+require 'papa/runner'
 
 module Papa
   module Task
@@ -17,18 +25,20 @@ module Papa
 
           @branches.each_with_index do |branch, index|
             Helper::Output.stdout "Adding branch #{branch.bold} (#{index + 1} of #{@branches.count})..."
-            queue = Runner.new
-            queue.add Git.fetch(remote: 'origin')
-            queue.add Git.checkout(branch_name: @build_branch)
-            queue.add Git.checkout(branch_name: branch)
-            queue.add Git.hard_reset(remote: 'origin', branch_name: branch)
-            queue.add Git.rebase(base_branch_name: @build_branch)
-            queue.add Git.force_push(remote: 'origin', branch_name: branch)
-            queue.add Git.checkout(branch_name: @build_branch)
-            queue.add Git.merge(branch_name: branch)
-            queue.add Git.push(remote: 'origin', branch_name: @build_branch)
+            queue = [
+              Command::Git::Fetch.new('origin'),
+              Command::Git::Checkout.new(@build_branch),
+              Command::Git::Checkout.new(branch),
+              Command::Git::ResetHard.new('origin', branch),
+              Command::Git::Rebase.new(@build_branch),
+              Command::Git::PushForce.new('origin', branch),
+              Command::Git::Checkout.new(@build_branch),
+              Command::Git::Merge.new(branch),
+              Command::Git::Push.new('origin', @build_branch)
+            ]
+            runner = Runner.new(queue)
 
-            if queue.run
+            if runner.run
               @success_branches << branch
             else
               failed_branch = {

@@ -1,3 +1,10 @@
+require 'papa/command/git/fetch'
+require 'papa/command/git/checkout'
+require 'papa/command/git/merge'
+require 'papa/command/git/push'
+require 'papa/command/git/tag'
+require 'papa/command/git/tag_push'
+require 'papa/runner'
 require 'papa/helper/output'
 
 module Papa
@@ -11,17 +18,20 @@ module Papa
           @success_branches = []
 
           @base_branches.each do |branch|
-            queue = Runner.new
-            queue.add Git.fetch(remote: 'origin')
-            queue.add Git.checkout(branch_name: @build_branch)
-            queue.add Git.checkout(branch_name: branch)
-            queue.add Git.merge(branch_name: @build_branch)
-            queue.add Git.push(remote: 'origin', branch_name: branch)
+            queue = [
+              Command::Git::Fetch.new('origin'),
+              Command::Git::Checkout.new(@build_branch),
+              Command::Git::Checkout.new(branch),
+              Command::Git::Merge.new(@build_branch),
+              Command::Git::Push.new('origin', branch)
+            ]
             if @tag_name && branch == 'master'
-              queue.add Git.tag(tag_name: @tag_name)
-              queue.add Git.push_tag(remote: 'origin', tag_name: @tag_name)
+              queue << Command::Git::Tag.new(@tag_name)
+              queue << Command::Git::TagPush.new('origin', @tag_name)
             end
-            if queue.run
+            runner = Runner.new(queue)
+
+            if runner.run
               @success_branches << branch
             else
               success = false
