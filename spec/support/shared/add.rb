@@ -75,6 +75,7 @@ RSpec.shared_examples 'add with merge conflict' do
     generator = Papa::Task::Sandbox::Generate.new(silent: true)
     generator.run
     Dir.chdir generator.local_path
+    papa "#{build_type} start -v #{version}"
   end
 
   it 'should merge the branches with no conflicts' do
