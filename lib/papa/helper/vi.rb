@@ -1,4 +1,5 @@
 require 'papa/helper/path'
+require 'papa/command/base'
 
 module Papa
   module Helper
@@ -48,7 +49,7 @@ module Papa
       end
 
       def delete_file
-        Command.new("rm #{path}", silent: true).run
+        Command::Base.new("rm #{path}", silent: true).run
       end
 
       def validate_branches
