@@ -49,22 +49,22 @@ module Papa
         private
 
         def success_message
-          Helper::Output.stdout "Successfully merged #{@build_branch} to these branches:"
-          @success_branches.each do |branch|
-            Helper::Output.stdout "  #{branch}"
+          output = ''
+          output << "Successfully merged #{@build_branch} to these branches:\n"
+          @success_branches.each_with_index do |branch, index|
+            output << " #{index + 1}.) #{branch}\n"
           end
+          Helper::Output.success output
         end
 
         def failure_message
           failed_branches = @base_branches - @success_branches
-
-          Helper::Output.stderr "Failed to merge #{@build_branch} to these branches:"
-          failed_branches.each do |branch|
-            Helper::Output.stderr "  #{branch}"
+          output = ''
+          output << "Failed to merge #{@build_branch} to these branches:\n"
+          failed_branches.each_with_index do |branch, index|
+            output << " #{index + 1}.) #{branch}\n"
           end
-          # TODO: Handle master or develop failure
-          # Helper::Output.stderr "When the above problems are resolved, you can re-run this with:"
-          # Helper::Output.stderr "  papa #{@build_type} finish -v #{@version} -b #{failed_branches.join(' ')}"
+          Helper::Output.failure output
         end
       end
     end
