@@ -6,8 +6,7 @@ module Papa
       def start
         version = options[:version]
 
-        require 'papa/common/start'
-        require 'papa/release/start'
+        require 'papa/task/release/start'
         Release::Start.new(version: version).run
       end
 
@@ -18,8 +17,7 @@ module Papa
         version = options[:version]
         feature_branches = options[:feature_branches] || []
 
-        require 'papa/common/add'
-        require 'papa/release/add'
+        require 'papa/task/release/add'
         Release::Add.new(version: version, feature_branches: feature_branches).run
       end
 
@@ -28,8 +26,7 @@ module Papa
       def finish
         version = options[:version]
 
-        require 'papa/common/finish'
-        require 'papa/release/finish'
+        require 'papa/task/release/finish'
         Release::Finish.new(version: version).run
       end
     end

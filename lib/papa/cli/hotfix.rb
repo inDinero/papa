@@ -6,8 +6,7 @@ module Papa
       def start
         version = options[:version]
 
-        require 'papa/common/start'
-        require 'papa/hotfix/start'
+        require 'papa/task/hotfix/start'
         Hotfix::Start.new(version: version).run
       end
 
@@ -18,8 +17,7 @@ module Papa
         version = options[:version]
         bugfix_branches = options[:bugfix_branches] || []
 
-        require 'papa/common/add'
-        require 'papa/hotfix/add'
+        require 'papa/task/hotfix/add'
         Hotfix::Add.new(version: version, bugfix_branches: bugfix_branches).run
       end
 
@@ -30,8 +28,7 @@ module Papa
         version = options[:version]
         additional_branches = options[:additional_branches]
 
-        require 'papa/common/finish'
-        require 'papa/hotfix/finish'
+        require 'papa/task/hotfix/finish'
         Hotfix::Finish.new(version: version, additional_branches: additional_branches).run
       end
     end

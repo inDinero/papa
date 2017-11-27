@@ -14,13 +14,12 @@ module Papa
       option :branch, aliases: '-b', required: true
       option :hostname, aliases: '-h'
       def deploy
-        require 'papa/deploy'
-        require 'papa/larga'
+        require 'papa/task/deploy'
 
         branch = options[:branch]
         hostname = options[:hostname]
 
-        Deploy.new(branch: branch, hostname: hostname).run
+        Task::Deploy.new(branch: branch, hostname: hostname).run
       end
 
       desc 'sandbox [COMMAND]', 'Test out papa in a sandboxed git environment'

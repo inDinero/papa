@@ -1,9 +1,6 @@
 require 'bundler/setup'
 require 'open3'
-require 'papa'
-require 'papa/cli/sandbox'
-require 'papa/sandbox/generate'
-require 'papa/output'
+require 'papa/task/sandbox/generate'
 Dir['./spec/support/*.rb'].sort.each { |f| require f }
 Dir['./spec/support/shared/*.rb'].sort.each { |f| require f }
 

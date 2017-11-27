@@ -5,9 +5,8 @@ module Papa
       option :base_branch, aliases: '-b', required: true
       def start
         base_branch = options[:base_branch]
-        
-        require 'papa/common/start'
-        require 'papa/integration/start'
+
+        require 'papa/task/integration/start'
         Integration::Start.new(base_branch: base_branch).run
       end
     end
