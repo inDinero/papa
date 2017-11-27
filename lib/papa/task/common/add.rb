@@ -53,8 +53,8 @@ module Papa
 
         def check_branches
           return unless @branches.empty?
-          require 'papa/helpers/vi'
-          vi_file_helper = Helpers::Vi.new
+          require 'papa/helper/vi'
+          vi_file_helper = Helper::Vi.new
           @branches = vi_file_helper.run
         end
 

@@ -1,7 +1,7 @@
 require 'securerandom'
 
 module Papa
-  module Helpers
+  module Helper
     class Path
       TMP_PATH = '/tmp/'
       VI_PREFIX = 'papa-vi-'

@@ -1,4 +1,4 @@
-require 'papa/helpers/path'
+require 'papa/helper/path'
 
 module Papa
   module Task
@@ -8,8 +8,8 @@ module Papa
 
         def initialize(options = {})
           @options = options
-          @remote_path = Helpers::Path.generate_sandbox_path('remote', options)
-          @local_path = Helpers::Path.generate_sandbox_path('local', options)
+          @remote_path = Helper::Path.generate_sandbox_path('remote', options)
+          @local_path = Helper::Path.generate_sandbox_path('local', options)
           @git_details = [
             {
               commit: 'APP-1 - Add butterfree gem',
