@@ -1,4 +1,5 @@
 require 'papa/helper/path'
+require 'papa/command/base'
 
 module Papa
   module Task
@@ -12,7 +13,8 @@ module Papa
 
         def run
           Helper::Output.stdout('Started cleaning sandbox directories...') unless options[:silent]
-          Command.new("rm -rf #{Helper::Path::SANDBOX_PREFIX}*").run
+          path = File.join(Helper::Path::TMP_PATH, Helper::Path::SANDBOX_PREFIX)
+          Command::Base.new("rm -rf #{path}*").run
           Helper::Output.success('Successfully removed sandbox directories.')
         end
       end

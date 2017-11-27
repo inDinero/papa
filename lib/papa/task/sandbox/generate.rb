@@ -1,4 +1,6 @@
 require 'papa/helper/path'
+require 'papa/helper/output'
+require 'papa/command/base'
 
 module Papa
   module Task
@@ -51,8 +53,8 @@ module Papa
 
         def run
           Helper::Output.stdout('Started generation of sandbox...') unless options[:silent]
-          @project_directory = File.expand_path(File.dirname(__dir__))
-          @branches_directory = File.join @project_directory, 'task', 'sandbox', 'branches'
+          task_directory = File.expand_path(File.dirname(__dir__))
+          @branches_directory = File.join(task_directory, 'sandbox', 'branches')
           setup_remote_repository
           setup_local_repository
           success_message unless options[:silent]
@@ -82,28 +84,28 @@ module Papa
         end
 
         def create_local_path
-          Command.new("rm -rf #{@local_path}", options).run
+          Command::Base.new("rm -rf #{@local_path}", options).run
           Dir.mkdir @local_path
         end
 
         def initialize_local_repository
           Dir.chdir @local_path
-          Command.new('git init', options).run
-          Command.new("git remote add origin #{options[:override_origin]}", options).run
+          Command::Base.new('git init', options).run
+          Command::Base.new("git remote add origin #{options[:override_origin]}", options).run
         end
 
         def create_remote_path
-          Command.new("rm -rf #{@remote_path}", options).run
+          Command::Base.new("rm -rf #{@remote_path}", options).run
           Dir.mkdir @remote_path
         end
 
         def initialize_remote_repository
           Dir.chdir @remote_path
-          Command.new('git init --bare', options).run
+          Command::Base.new('git init --bare', options).run
         end
 
         def clone_remote_repository
-          Command.new("git clone #{@remote_path} #{@local_path}", options).run
+          Command::Base.new("git clone #{@remote_path} #{@local_path}", options).run
           Dir.chdir @local_path
         end
 
