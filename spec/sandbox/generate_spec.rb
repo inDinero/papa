@@ -42,7 +42,7 @@ RSpec.describe  'papa sandbox generate' do
       remote_branches.each do |branch|
         expect(`git branch --remote`).to include("origin/#{branch}")
 
-        `git checkout #{branch} #{Papa::Output::REDIRECT_TO_NULL}`
+        `git checkout #{branch} #{Papa::Helper::Output::REDIRECT_TO_NULL}`
         expect(`git rev-list --count HEAD`.chomp).to eq('2')
       end
     end

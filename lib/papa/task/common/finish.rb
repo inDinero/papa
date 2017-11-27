@@ -1,3 +1,5 @@
+require 'papa/helper/output'
+
 module Papa
   module Task
     module Common
@@ -37,22 +39,22 @@ module Papa
         private
 
         def success_message
-          Output.stdout "Successfully merged #{@build_branch} to these branches:"
+          Helper::Output.stdout "Successfully merged #{@build_branch} to these branches:"
           @success_branches.each do |branch|
-            Output.stdout "  #{branch}"
+            Helper::Output.stdout "  #{branch}"
           end
         end
 
         def failure_message
           failed_branches = @base_branches - @success_branches
 
-          Output.stderr "Failed to merge #{@build_branch} to these branches:"
+          Helper::Output.stderr "Failed to merge #{@build_branch} to these branches:"
           failed_branches.each do |branch|
-            Output.stderr "  #{branch}"
+            Helper::Output.stderr "  #{branch}"
           end
           # TODO: Handle master or develop failure
-          # Output.stderr "When the above problems are resolved, you can re-run this with:"
-          # Output.stderr "  papa #{@build_type} finish -v #{@version} -b #{failed_branches.join(' ')}"
+          # Helper::Output.stderr "When the above problems are resolved, you can re-run this with:"
+          # Helper::Output.stderr "  papa #{@build_type} finish -v #{@version} -b #{failed_branches.join(' ')}"
         end
       end
     end

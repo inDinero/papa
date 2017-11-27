@@ -21,7 +21,7 @@ module Papa
       private
 
       def success_message
-        Output.stdout 'Successfully deployed larga instance.'
+        Helper::Output.stdout 'Successfully deployed larga instance.'
       end
 
       def failure_message

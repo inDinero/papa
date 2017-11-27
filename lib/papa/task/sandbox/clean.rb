@@ -11,9 +11,9 @@ module Papa
         end
 
         def run
-          Output.stdout('Started cleaning sandbox directories...') unless options[:silent]
+          Helper::Output.stdout('Started cleaning sandbox directories...') unless options[:silent]
           Command.new("rm -rf #{Helper::Path::SANDBOX_PREFIX}*").run
-          Output.success('Successfully removed sandbox directories.')
+          Helper::Output.success('Successfully removed sandbox directories.')
         end
       end
     end

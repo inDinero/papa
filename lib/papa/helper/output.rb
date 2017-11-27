@@ -2,7 +2,7 @@ require 'date'
 
 module Papa
   module Helper
-    class Output
+    class Helper::Output
       REDIRECT_TO_NULL = '> /dev/null 2>&1'
 
       def self.stdout(message, options = {})

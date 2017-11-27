@@ -50,7 +50,7 @@ module Papa
         end
 
         def run
-          Output.stdout('Started generation of sandbox...') unless options[:silent]
+          Helper::Output.stdout('Started generation of sandbox...') unless options[:silent]
           @project_directory = File.expand_path(File.dirname(__dir__))
           @branches_directory = File.join @project_directory, 'task', 'sandbox', 'branches'
           setup_remote_repository
@@ -114,7 +114,7 @@ module Papa
         end
 
         def remove_old_branches_from_origin
-          `git fetch #{Output::REDIRECT_TO_NULL}`
+          `git fetch #{Helper::Output::REDIRECT_TO_NULL}`
           ['hotfix', 'release'].each do |branch|
             `git branch -r | grep #{branch}`.split("\n").each do |branch|
               branch = branch.strip.split('origin/').last
@@ -132,7 +132,7 @@ module Papa
             'git checkout -b develop',
             'git push origin develop --force'
           ].each do |command|
-            `#{command} #{Output::REDIRECT_TO_NULL}`
+            `#{command} #{Helper::Output::REDIRECT_TO_NULL}`
           end
         end
 
@@ -150,20 +150,20 @@ module Papa
               "git commit -m \"#{commit}\"",
               "git push origin #{branch} --force"
             ].each do |command|
-              `#{command} #{Output::REDIRECT_TO_NULL}`
+              `#{command} #{Helper::Output::REDIRECT_TO_NULL}`
             end
           end
         end
 
         def cleanup
-          `git checkout develop #{Output::REDIRECT_TO_NULL}`
+          `git checkout develop #{Helper::Output::REDIRECT_TO_NULL}`
           @git_details.each do |detail|
-            `git branch -D #{detail[:branch]} #{Output::REDIRECT_TO_NULL}`
+            `git branch -D #{detail[:branch]} #{Helper::Output::REDIRECT_TO_NULL}`
           end
         end
 
         def success_message
-          Output.success "Your sandbox is now available at:\n  #{@local_path}"
+          Helper::Output.success "Your sandbox is now available at:\n  #{@local_path}"
         end
 
         def override_origin(origin)
@@ -171,7 +171,7 @@ module Papa
             'git remote remove origin',
             'git remote add origin #{origin}'
           ].each do |command|
-            `#{command} #{Output::REDIRECT_TO_NULL}`
+            `#{command} #{Helper::Output::REDIRECT_TO_NULL}`
           end
         end
       end

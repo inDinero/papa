@@ -27,7 +27,7 @@ RSpec.shared_examples 'start' do
         "git commit -m \"Add foo\"",
         "git push origin #{build_branch}"
       ].each do |command|
-        `#{command} #{Papa::Output::REDIRECT_TO_NULL}`
+        `#{command} #{Papa::Helper::Output::REDIRECT_TO_NULL}`
       end
     end
 

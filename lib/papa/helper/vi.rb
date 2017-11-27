@@ -53,7 +53,7 @@ module Papa
 
       def validate_branches
         if @branches.empty?
-          Output.failure 'No branches specified.'
+          Helper::Output.failure 'No branches specified.'
           exit 1
         end
       end

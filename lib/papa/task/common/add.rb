@@ -1,3 +1,5 @@
+require 'papa/helper/output'
+
 module Papa
   module Task
     module Common
@@ -11,10 +13,10 @@ module Papa
           @success_branches = []
           @failed_branches = []
 
-          Output.stdout "Started adding branches to #{@build_branch.bold}."
+          Helper::Output.stdout "Started adding branches to #{@build_branch.bold}."
 
           @branches.each_with_index do |branch, index|
-            Output.stdout "Adding branch #{branch.bold} (#{index + 1} of #{@branches.count})..."
+            Helper::Output.stdout "Adding branch #{branch.bold} (#{index + 1} of #{@branches.count})..."
             queue = Runner.new
             queue.add Git.fetch(remote: 'origin')
             queue.add Git.checkout(branch_name: @build_branch)
@@ -71,7 +73,7 @@ module Papa
           @success_branches.each_with_index do |branch, index|
             output << "  #{index + 1}.) #{branch}\n"
           end
-          Output.success output
+          Helper::Output.success output
         end
 
         def failure_cleanup
@@ -97,7 +99,7 @@ module Papa
           output << "When the above problems are resolved, you can re-run this with:\n"
           output << "  papa #{@build_type} add -v #{@version} -b #{branch_names.join(' ')}"
 
-          Output.failure output
+          Helper::Output.failure output
         end
       end
     end
