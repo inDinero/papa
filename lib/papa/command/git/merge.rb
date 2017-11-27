@@ -26,7 +26,7 @@ module Papa
         def failure_message
           super
           message = "Failed to merge #{@branch_name} into #{current_branch}. Merge conflict?"
-          Output.error message
+          Helper::Output.error message
           message
         end
       end

@@ -15,12 +15,12 @@ module Papa
         end
 
         def failed?
-          @output.include? 'Cowardly refusing'
+          stdout.include? 'Cowardly refusing'
         end
 
         def failure_message
           super
-          Output.stderr 'ERROR: Ensure that the branch exists before trying again'
+          Helper::Output.stderr 'ERROR: Ensure that the branch exists before trying again'
         end
 
         private

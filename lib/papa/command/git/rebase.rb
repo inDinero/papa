@@ -1,4 +1,6 @@
 require 'papa/command/base'
+require 'papa/command/git/rebase_abort'
+require 'papa/command/git/checkout'
 
 module Papa
   module Command
@@ -17,16 +19,18 @@ module Papa
 
         def cleanup
           super
-          queue = Runner.new
-          queue.add Git.rebase_abort
-          queue.add Git.checkout(branch_name: current_branch)
-          queue.run
+          queue = [
+            Git::RebaseAbort.new,
+            Git::Checkout.new(current_branch)
+          ]
+          runner = Runner.new(queue)
+          runner.run
         end
 
         def failure_message
           super
           message = "Failed to rebase #{current_branch} from #{@base_branch_name}. Merge conflict?"
-          Output.error message
+          Helper::Output.error message
           message
         end
       end

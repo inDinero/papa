@@ -1,4 +1,5 @@
 require 'open3'
+require 'papa/helper/output'
 
 module Papa
   module Command
@@ -12,7 +13,7 @@ module Papa
 
       def run
         return if command.nil?
-        Output.stdout "Running #{command.bold}..." unless silent
+        Helper::Output.stdout "Running #{command.bold}..." unless silent
         @stdout, @stderr, status = Open3.capture3(command)
         @exit_status = status.exitstatus
         self
@@ -20,8 +21,8 @@ module Papa
 
       def failure_message
         message = "Error while running #{command.bold}"
-        Output.error message
-        Output.error stderr
+        Helper::Output.error message
+        Helper::Output.error stderr
         message
       end
 

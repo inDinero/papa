@@ -5,12 +5,13 @@ module Papa
     module Larga
       class Type < Command
         def initialize
-          super('type larga')
+          command = 'type larga'
+          super(command)
         end
 
         def failure_message
           super
-          Output.stderr 'Larga is not installed in this system'
+          Helper::Output.stderr 'Larga is not installed in this system'
         end
       end
     end

@@ -13,7 +13,7 @@ module Papa
         def failure_message
           super
           message = "Failed to checkout #{@branch_name.bold}. Check whether this branch exists."
-          Output.error message
+          Helper::Output.error message
           message
         end
       end
