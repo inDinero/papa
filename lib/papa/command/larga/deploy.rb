@@ -4,13 +4,15 @@ module Papa
   module Command
     module Larga
       class Deploy < Command::Base
-        def initialize(options)
-          @branch = options[:branch]
-          @lifespan = options[:lifespan]
-          @protection = options[:protection]
-          @hostname = options[:hostname]
+        RELEASE_OR_HOTFIX_LIFESPAN = '3d'
+        DEFAULT_LIFESPAN = '4h'
+        RELEASE_OR_HOTFIX_PROTECTION = 'off'
+        DEFAULT_PROTECTION = 'on'
 
-          command = "larga #{build_options.join(' ')}"
+        def initialize(options)
+          @options = options
+
+          command = "larga #{larga_options.join(' ')}"
           super(command, silent: false)
         end
 
@@ -19,22 +21,41 @@ module Papa
         end
 
         def failure_message
-          super
-          Helper::Output.stderr 'ERROR: Ensure that the branch exists before trying again'
+          message = "Error while running #{command.bold}"
+          Helper::Output.error message
+          message = 'Larga output:' + @stdout
+          Helper::Output.stderr message
         end
 
         private
 
-        def build_options()
+        def larga_options
+          branch = @options[:branch]
+          lifespan =
+            if branch_is_release_or_hotfix?
+              RELEASE_OR_HOTFIX_LIFESPAN
+            else
+              DEFAULT_LIFESPAN
+            end
+          protection =
+            if branch_is_release_or_hotfix?
+              RELEASE_OR_HOTFIX_PROTECTION
+            else
+              DEFAULT_PROTECTION
+            end
+          hostname = @options[:hostname]
+
           options = []
           options << '-action deploy'
-          options << "-branch #{@branch}"
-          options << "-lifespan #{@lifespan}"
-          options << "-protection #{@protection}"
-          if @hostname
-            options << "-hostname #{@hostname}"
-          end
+          options << "-branch #{branch}"
+          options << "-lifespan #{lifespan}"
+          options << "-protection #{protection}"
+          options << "-hostname #{hostname}" if hostname
           options
+        end
+
+        def branch_is_release_or_hotfix?
+          ['release', 'hotfix'].any? { |s| @options[:branch].include?(s) }
         end
       end
     end
