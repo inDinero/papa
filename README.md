@@ -1,4 +1,4 @@
-# Papa [![Gem Version](https://badge.fury.io/rb/papa.svg)](https://badge.fury.io/rb/papa) [![Build Status](https://travis-ci.org/b-ggs/papa.svg?branch=master)](https://travis-ci.org/b-ggs/papa) [![Maintainability](https://api.codeclimate.com/v1/badges/cec506e3421dc3e08eeb/maintainability)](https://codeclimate.com/github/b-ggs/papa/maintainability)
+# Papa [![Gem Version](https://badge.fury.io/rb/papa.svg)](https://badge.fury.io/rb/papa) [![Build Status](https://travis-ci.org/b-ggs/papa.svg?branch=master)](https://travis-ci.org/b-ggs/papa)
 
 Helper tool for inDinero's git workflow. Ako ang papa mo.
 
@@ -149,6 +149,26 @@ $ papa integration start -b develop
 ```
 
 ### `papa deploy`
+
+#### Deploying a new environment
+
+This will create a new environment using `larga`.
+
+```
+$ papa deploy -b, --branch=BRANCH [-h, --hostname=HOSTNAME]
+```
+
+##### Sample Usage:
+
+```
+$ papa deploy -b feature/dunder-mifflin-this-is-pam
+```
+
+If you want to specify a hostname for this environment:
+
+```
+$ papa deploy -b feature/we-were-on-a-break -h ross-and-rachel
+```
 
 ### `papa sandbox`
 

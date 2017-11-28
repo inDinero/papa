@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+* Classes have been housed into their own modules
+* Minor change to how commands are run, but shouldn't affect functionality
+* Code cleanup
+
 ## 0.3.0
 * Used open3 for easier output and exit status handling
 * Added more descriptive output messages

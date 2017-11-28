@@ -5,7 +5,7 @@ RSpec.shared_examples 'start' do
   let(:command) { papa "#{build_type} start #{option} #{option_value}" }
 
   before do
-    generator = Papa::Sandbox::Generate.new(silent: true)
+    generator = Papa::Task::Sandbox::Generate.new(silent: true)
     generator.run
     Dir.chdir generator.local_path
   end
@@ -27,7 +27,7 @@ RSpec.shared_examples 'start' do
         "git commit -m \"Add foo\"",
         "git push origin #{build_branch}"
       ].each do |command|
-        `#{command} #{Papa::Output::REDIRECT_TO_NULL}`
+        `#{command} #{Papa::Helper::Output::REDIRECT_TO_NULL}`
       end
     end
 
