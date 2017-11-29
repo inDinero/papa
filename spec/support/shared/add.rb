@@ -10,14 +10,13 @@ RSpec.shared_examples 'add' do
   let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
 
   before do
-    generator = Papa::Sandbox::Generate.new
-    generator.run silent: true
-    Dir.chdir generator.local_repository_directory
+    generator = Papa::Task::Sandbox::Generate.new(silent: true)
+    generator.run
+    Dir.chdir generator.local_path
     papa "#{build_type} start -v #{version}"
   end
 
   it 'adds a branch to the build branch and pushes it to origin' do
-    expect(command[:stderr]).not_to include('There was a problem running')
     expect(command[:exit_status]).to eq(0)
 
     expect(`git branch`).to include(build_branch)
@@ -39,7 +38,6 @@ RSpec.shared_examples 'add' do
     let(:branches) { [ "#{build_type}/404-not-found" ] }
 
     it 'should not add to the build branch' do
-      expect(command[:stderr]).to include('There was a problem running')
       expect(command[:exit_status]).to eq(1)
     end
   end
@@ -62,16 +60,6 @@ RSpec.shared_examples 'add' do
       expect(command[:stderr]).to include('No value provided for required options \'--version\'')
     end
   end
-
-  context 'when branch(es) is(are) not specified' do
-    let(:command) { papa "#{build_type} add -v #{version}" }
-
-    it_behaves_like 'should not continue'
-
-    it 'should return a helpful error' do
-      expect(command[:stderr]).to include('No value provided for required options')
-    end
-  end
 end
 
 RSpec.shared_examples 'add with merge conflict' do
@@ -84,9 +72,9 @@ RSpec.shared_examples 'add with merge conflict' do
   let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
 
   before do
-    generator = Papa::Sandbox::Generate.new
-    generator.run silent: true
-    Dir.chdir generator.local_repository_directory
+    generator = Papa::Task::Sandbox::Generate.new(silent: true)
+    generator.run
+    Dir.chdir generator.local_path
     papa "#{build_type} start -v #{version}"
   end
 
