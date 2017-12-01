@@ -27,10 +27,12 @@ module Papa
         STDERR.puts message.strip.red
       end
 
-      def self.failure_reason(messages)
-        messages.each do |message|
-          STDERR.puts "  #{message}"
-        end
+      def self.success_info(message)
+        puts message
+      end
+
+      def self.failure_info(message)
+        STDERR.puts message
       end
 
       def self.build_output(message)

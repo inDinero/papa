@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.1
+* Check whether build branch exists before prompting vi
+* Add preceeding newlines in vi prompt
+* Make success and error messages easier to read
+
 ## 0.4.0
 * Classes have been housed into their own modules
 * Minor change to how commands are run, but shouldn't affect functionality
