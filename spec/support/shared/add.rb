@@ -34,6 +34,15 @@ RSpec.shared_examples 'add' do
     end
   end
 
+  context 'when build branch does not exist' do
+    let(:command) { papa "#{build_type} add -v dunder-mifflin-this-is-pam -b #{branches.join(' ')}" }
+
+    it 'should fail with an error' do
+      expect(command[:exit_status]).to eq(1)
+      expect(command[:stderr]).to include('Build branch does not exist.')
+    end
+  end
+
   context 'when branch does not exist' do
     let(:branches) { [ "#{build_type}/404-not-found" ] }
 

@@ -14,9 +14,10 @@ module Papa
     module Common
       class Add
         def run
-          check_branches
-
           @build_branch ||= "#{@build_type}/#{@version}"
+
+          check_if_build_branch_exists
+          check_if_branches_are_given
 
           success = true
           @success_branches = []
@@ -64,7 +65,18 @@ module Papa
 
         private
 
-        def check_branches
+        def check_if_build_branch_exists
+          queue = [
+            Command::Git::Fetch.new('origin'),
+            Command::Git::Checkout.new(@build_branch)
+          ]
+          runner = Runner.new(queue)
+          return if runner.run
+          Helper::Output.failure 'Build branch does not exist.'
+          exit 1
+        end
+
+        def check_if_branches_are_given
           return unless @branches.empty?
           require 'papa/helper/vi'
           vi_file_helper = Helper::Vi.new
