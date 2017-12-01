@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0
+* Deprecated `papa deploy`. Deployment will be triggered during `papa integration start`.
+* Simplified README.md and moved detailed command information into USAGE.md
+
 ## 0.4.1
 * Check whether build branch exists before prompting vi
 * Add preceeding newlines in vi prompt
