@@ -17,7 +17,7 @@ module Papa
         end
 
         def failed?
-          stdout.include? 'Cowardly refusing'
+          stdout.include?('Cowardly refusing') || stdout.include?('Error')
         end
 
         def failure_message
