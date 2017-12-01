@@ -10,10 +10,15 @@ RSpec.shared_examples 'add' do
   let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
 
   before do
-    generator = Papa::Task::Sandbox::Generate.new(silent: true)
-    generator.run
-    Dir.chdir generator.local_path
+    @generator = Papa::Task::Sandbox::Generate.new(silent: true)
+    @generator.run
+    Dir.chdir @generator.local_path
     papa "#{build_type} start -v #{version}"
+  end
+
+  after do
+    `rm -rf #{@generator.remote_path}`
+    `rm -rf #{@generator.local_path}`
   end
 
   it 'adds a branch to the build branch and pushes it to origin' do
@@ -81,10 +86,15 @@ RSpec.shared_examples 'add with merge conflict' do
   let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
 
   before do
-    generator = Papa::Task::Sandbox::Generate.new(silent: true)
-    generator.run
-    Dir.chdir generator.local_path
+    @generator = Papa::Task::Sandbox::Generate.new(silent: true)
+    @generator.run
+    Dir.chdir @generator.local_path
     papa "#{build_type} start -v #{version}"
+  end
+
+  after do
+    `rm -rf #{@generator.remote_path}`
+    `rm -rf #{@generator.local_path}`
   end
 
   it 'should merge the branches with no conflicts' do

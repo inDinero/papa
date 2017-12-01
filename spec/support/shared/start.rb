@@ -5,9 +5,14 @@ RSpec.shared_examples 'start' do
   let(:command) { papa "#{build_type} start #{option} #{option_value} #{extra_options}" }
 
   before do
-    generator = Papa::Task::Sandbox::Generate.new(silent: true)
-    generator.run
-    Dir.chdir generator.local_path
+    @generator = Papa::Task::Sandbox::Generate.new(silent: true)
+    @generator.run
+    Dir.chdir @generator.local_path
+  end
+
+  after do
+    `rm -rf #{@generator.remote_path}`
+    `rm -rf #{@generator.local_path}`
   end
 
   it "starts a new build branch and pushes it to origin" do
