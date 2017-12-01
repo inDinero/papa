@@ -7,15 +7,17 @@ module Papa
   module Task
     module Integration
       class Start < Common::Start
-        def initialize(base_branch:, hostname:)
+        def initialize(base_branch:, hostname:, skip_larga:)
           @build_type = 'integration'
           @base_branch = base_branch
           @hostname = hostname
+          @skip_larga = skip_larga
           @build_branch = generate_integration_branch_name
         end
 
         def run
           super
+          return if @skip_larga
           deploy_options = {
             branch: @build_branch,
             hostname: @hostname

@@ -9,6 +9,7 @@ RSpec.describe 'papa release add' do
       'feature/2-add-beedrill-gem'
     ]
   end
+  let(:extra_options) { '' }
 
   it_behaves_like 'add'
 

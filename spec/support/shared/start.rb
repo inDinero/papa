@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.shared_examples 'start' do
   let(:build_branch) { "#{build_type}/#{version}" }
-  let(:command) { papa "#{build_type} start #{option} #{option_value}" }
+  let(:command) { papa "#{build_type} start #{option} #{option_value} #{extra_options}" }
 
   before do
     generator = Papa::Task::Sandbox::Generate.new(silent: true)
