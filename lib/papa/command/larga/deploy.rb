@@ -46,7 +46,7 @@ module Papa
           hostname = @options[:hostname]
 
           options = []
-          options << '-action deploy'
+          options << '-action build'
           options << "-branch #{branch}"
           options << "-lifespan #{lifespan}"
           options << "-protection #{protection}"

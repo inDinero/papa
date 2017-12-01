@@ -15,18 +15,6 @@ module Papa
       desc 'integration [COMMAND]', 'Perform actions on integration branches'
       subcommand 'integration', CLI::Integration
 
-      desc 'deploy', 'Deploy a branch with larga'
-      option :branch, aliases: '-b', required: true
-      option :hostname, aliases: '-h'
-      def deploy
-        require 'papa/task/deploy'
-
-        branch = options[:branch]
-        hostname = options[:hostname]
-
-        Task::Deploy.new(branch: branch, hostname: hostname).run
-      end
-
       desc 'sandbox [COMMAND]', 'Test out papa in a sandboxed git environment'
       subcommand 'sandbox', CLI::Sandbox
     end
