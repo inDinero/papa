@@ -5,12 +5,17 @@ RSpec.shared_examples 'finish' do
   let(:command) { papa "#{build_type} finish -v #{version}" }
 
   before do
-    generator = Papa::Task::Sandbox::Generate.new(silent: true)
-    generator.run
-    Dir.chdir generator.local_path
+    @generator = Papa::Task::Sandbox::Generate.new(silent: true)
+    @generator.run
+    Dir.chdir @generator.local_path
     papa "#{build_type} start -v #{version}"
     papa "#{build_type} add -v #{version} -b #{branches.join(' ')}"
   end
+
+  # after do
+  #   `rm -rf #{@generator.remote_path}`
+  #   `rm -rf #{@generator.local_path}`
+  # end
 
   it 'merges the build branch to master and develop and pushes it to origin' do
     expect(command[:exit_status]).to eq(0)
