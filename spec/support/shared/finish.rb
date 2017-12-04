@@ -12,10 +12,10 @@ RSpec.shared_examples 'finish' do
     papa "#{build_type} add -v #{version} -b #{branches.join(' ')}"
   end
 
-  after do
-    `rm -rf #{@generator.remote_path}`
-    `rm -rf #{@generator.local_path}`
-  end
+  # after do
+  #   `rm -rf #{@generator.remote_path}`
+  #   `rm -rf #{@generator.local_path}`
+  # end
 
   it 'merges the build branch to master and develop and pushes it to origin' do
     expect(command[:exit_status]).to eq(0)

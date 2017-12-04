@@ -10,10 +10,10 @@ RSpec.shared_examples 'start' do
     Dir.chdir @generator.local_path
   end
 
-  after do
-    `rm -rf #{@generator.remote_path}`
-    `rm -rf #{@generator.local_path}`
-  end
+  # after do
+  #   `rm -rf #{@generator.remote_path}`
+  #   `rm -rf #{@generator.local_path}`
+  # end
 
   it "starts a new build branch and pushes it to origin" do
     expect(command[:exit_status]).to eq(0)

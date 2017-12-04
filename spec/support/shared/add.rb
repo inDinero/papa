@@ -16,10 +16,10 @@ RSpec.shared_examples 'add' do
     papa "#{build_type} start -v #{version}"
   end
 
-  after do
-    `rm -rf #{@generator.remote_path}`
-    `rm -rf #{@generator.local_path}`
-  end
+  # after do
+  #   `rm -rf #{@generator.remote_path}`
+  #   `rm -rf #{@generator.local_path}`
+  # end
 
   it 'adds a branch to the build branch and pushes it to origin' do
     expect(command[:exit_status]).to eq(0)
@@ -92,10 +92,10 @@ RSpec.shared_examples 'add with merge conflict' do
     papa "#{build_type} start -v #{version}"
   end
 
-  after do
-    `rm -rf #{@generator.remote_path}`
-    `rm -rf #{@generator.local_path}`
-  end
+  # after do
+  #   `rm -rf #{@generator.remote_path}`
+  #   `rm -rf #{@generator.local_path}`
+  # end
 
   it 'should merge the branches with no conflicts' do
     expect(command[:stderr]).to include(expected_failed_branches)
