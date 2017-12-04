@@ -10,11 +10,16 @@ RSpec.shared_examples 'add' do
   let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
 
   before do
-    generator = Papa::Task::Sandbox::Generate.new(silent: true)
-    generator.run
-    Dir.chdir generator.local_path
+    @generator = Papa::Task::Sandbox::Generate.new(silent: true)
+    @generator.run
+    Dir.chdir @generator.local_path
     papa "#{build_type} start -v #{version}"
   end
+
+  # after do
+  #   `rm -rf #{@generator.remote_path}`
+  #   `rm -rf #{@generator.local_path}`
+  # end
 
   it 'adds a branch to the build branch and pushes it to origin' do
     expect(command[:exit_status]).to eq(0)
@@ -31,6 +36,15 @@ RSpec.shared_examples 'add' do
 
     branches.each do |branch|
       expect(`git branch`).not_to include(branch)
+    end
+  end
+
+  context 'when build branch does not exist' do
+    let(:command) { papa "#{build_type} add -v dunder-mifflin-this-is-pam -b #{branches.join(' ')}" }
+
+    it 'should fail with an error' do
+      expect(command[:exit_status]).to eq(1)
+      expect(command[:stderr]).to include('Build branch does not exist.')
     end
   end
 
@@ -72,11 +86,16 @@ RSpec.shared_examples 'add with merge conflict' do
   let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
 
   before do
-    generator = Papa::Task::Sandbox::Generate.new(silent: true)
-    generator.run
-    Dir.chdir generator.local_path
+    @generator = Papa::Task::Sandbox::Generate.new(silent: true)
+    @generator.run
+    Dir.chdir @generator.local_path
     papa "#{build_type} start -v #{version}"
   end
+
+  # after do
+  #   `rm -rf #{@generator.remote_path}`
+  #   `rm -rf #{@generator.local_path}`
+  # end
 
   it 'should merge the branches with no conflicts' do
     expect(command[:stderr]).to include(expected_failed_branches)

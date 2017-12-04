@@ -17,7 +17,7 @@ module Papa
         end
 
         def failed?
-          stdout.include? 'Cowardly refusing'
+          stdout.include?('Cowardly refusing') || stdout.include?('Error')
         end
 
         def failure_message
@@ -46,7 +46,7 @@ module Papa
           hostname = @options[:hostname]
 
           options = []
-          options << '-action deploy'
+          options << '-action build'
           options << "-branch #{branch}"
           options << "-lifespan #{lifespan}"
           options << "-protection #{protection}"

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.0
+* Deprecated `papa deploy`. Deployment will be triggered during `papa integration start`.
+* Simplified README.md and moved detailed command information into USAGE.md
+* Changed integration branch naming scheme to include seconds in the branch name.
+
+## 0.4.1
+* Check whether build branch exists before prompting vi
+* Add preceeding newlines in vi prompt
+* Make success and error messages easier to read
+
 ## 0.4.0
 * Classes have been housed into their own modules
 * Minor change to how commands are run, but shouldn't affect functionality

@@ -24,6 +24,8 @@ module Papa
 
       def initialize_file
         content = <<-CONTENT
+
+
 # Add your branches here. One branch name per line.
 # Lines starting in pound (#) will be ignored
 # Sample:
@@ -45,7 +47,7 @@ module Papa
           else
             branch
           end
-        end.compact
+        end.compact.uniq
       end
 
       def delete_file
