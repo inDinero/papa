@@ -21,6 +21,14 @@ module Papa
         Task::Hotfix::Add.new(version: version, bugfix_branches: bugfix_branches).run
       end
 
+      desc 'deploy', 'Deploy the hotfix branch to hotfix.indinerocorp.com'
+      option :version, aliases: '-v', required: true
+      def deploy
+        version = options[:version]
+        require 'papa/task/hotfix/deploy'
+        Task::Hotfix::Deploy.new(version: version).run
+      end
+
       desc 'finish', 'Merge the hotfix branch to the base branches'
       option :version, aliases: '-v', required: true
       option :additional_branches, aliases: '-b', type: :array
