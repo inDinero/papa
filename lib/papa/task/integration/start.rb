@@ -10,13 +10,13 @@ module Papa
         def initialize(base_branch, options = {})
           @build_type = 'integration'
           @base_branch = base_branch
-          @build_branch = options[:override_branch_name] || generate_integration_branch_name
+          @build_branch = "#{@build_type}/#{options[:override_branch_name] || generate_integration_timestamp}"
         end
 
         private
 
-        def generate_integration_branch_name
-          "integration/#{DateTime.now.strftime('%y.%m.%d.%H.%M.%S').gsub('.0', '.')}"
+        def generate_integration_timestamp
+          DateTime.now.strftime('%y.%m.%d.%H.%M.%S').gsub('.0', '.')
         end
       end
     end
