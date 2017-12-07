@@ -8,7 +8,7 @@ module Papa
         hostname = options[:hostname]
 
         require 'papa/task/integration/start'
-        Task::Integration::Start.new(base_branch: base_branch).run
+        Task::Integration::Start.new(base_branch).run
       end
 
       desc 'add', 'Add branches to a integration branch'
@@ -28,7 +28,7 @@ module Papa
         version = options[:version]
 
         require 'papa/task/integration/deploy'
-        Task::Integration::Deploy.new(version: version).run
+        Task::Integration::Deploy.new(version).run
       end
     end
   end

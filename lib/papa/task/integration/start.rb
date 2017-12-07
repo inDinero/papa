@@ -7,7 +7,7 @@ module Papa
   module Task
     module Integration
       class Start < Common::Start
-        def initialize(base_branch:)
+        def initialize(base_branch)
           @build_type = 'integration'
           @base_branch = base_branch
           @build_branch = generate_integration_branch_name

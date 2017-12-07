@@ -4,7 +4,7 @@ module Papa
   module Task
     module Hotfix
       class Deploy < Common::Deploy
-        def initialize(version:)
+        def initialize(version)
           @build_type = 'hotfix'
           @version = version
           @hostname = 'hotfix'

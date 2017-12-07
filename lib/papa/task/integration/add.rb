@@ -4,7 +4,7 @@ module Papa
   module Task
     module Integration
       class Add < Common::Add
-        def initialize(version:, branches:)
+        def initialize(version, branches)
           @build_type = 'integration'
           @version = version
           @branches = branches

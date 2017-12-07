@@ -7,7 +7,7 @@ module Papa
         version = options[:version]
 
         require 'papa/task/hotfix/start'
-        Task::Hotfix::Start.new(version: version).run
+        Task::Hotfix::Start.new(version).run
       end
 
       desc 'add', 'Add bugfix branches to a hotfix branch'
@@ -18,7 +18,7 @@ module Papa
         bugfix_branches = options[:bugfix_branches] || []
 
         require 'papa/task/hotfix/add'
-        Task::Hotfix::Add.new(version: version, bugfix_branches: bugfix_branches).run
+        Task::Hotfix::Add.new(version, bugfix_branches).run
       end
 
       desc 'deploy', 'Deploy the hotfix branch to hotfix.indinerocorp.com'
@@ -26,7 +26,7 @@ module Papa
       def deploy
         version = options[:version]
         require 'papa/task/hotfix/deploy'
-        Task::Hotfix::Deploy.new(version: version).run
+        Task::Hotfix::Deploy.new(version).run
       end
 
       desc 'finish', 'Merge the hotfix branch to the base branches'
@@ -37,7 +37,7 @@ module Papa
         additional_branches = options[:additional_branches]
 
         require 'papa/task/hotfix/finish'
-        Task::Hotfix::Finish.new(version: version, additional_branches: additional_branches).run
+        Task::Hotfix::Finish.new(version, additional_branches).run
       end
     end
   end
