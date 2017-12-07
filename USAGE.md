@@ -148,7 +148,7 @@ $ papa integration start -f feature/dunder-mifflin-this-is-pam
 
 ### Adding branches to an integration branch
 
-This will rebase all branches from the integration branch and then subsequently merge the updated bugfix branch into the integration branch. The updated integration branch will be pushed to origin.
+This will rebase all branches from the integration branch (but will not push them to origin unlike hotfix and release!) and then subsequently merge the updated bugfix branch into the integration branch. The updated integration branch will be pushed to origin.
 
 ```
 $ papa integration add -v, --version=VERSION [-b, --branches=one two three]
