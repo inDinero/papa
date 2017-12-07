@@ -4,7 +4,7 @@ module Papa
   module Task
     module Release
       class Start < Common::Start
-        def initialize(version:)
+        def initialize(version)
           @build_type = 'release'
           @base_branch = 'develop'
           @version = version

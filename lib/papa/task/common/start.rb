@@ -12,13 +12,6 @@ module Papa
         def run
           @build_branch ||= "#{@build_type}/#{@version}"
 
-          queue = [
-            Command::Git::Fetch.new('origin'),
-            Command::Git::Checkout.new(@base_branch),
-            Command::Git::Branch.new(@build_branch),
-            Command::Git::Checkout.new(@build_branch),
-            Command::Git::Push.new('origin', @build_branch)
-          ]
           runner = Runner.new(queue)
 
           if runner.run
@@ -30,6 +23,16 @@ module Papa
         end
 
         private
+
+        def queue
+          [
+            Command::Git::Fetch.new('origin'),
+            Command::Git::Checkout.new(@base_branch),
+            Command::Git::Branch.new(@build_branch),
+            Command::Git::Checkout.new(@build_branch),
+            Command::Git::Push.new('origin', @build_branch)
+          ]
+        end
 
         def success_message
           Helper::Output.success "Successfully started new #{@build_type} branch #{@build_branch}"

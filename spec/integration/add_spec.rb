@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-RSpec.describe 'papa release add' do
-  let(:build_type) { 'release' }
-  let(:version) { '0.0.1' }
+RSpec.describe 'papa integration add' do
+  let(:build_type) { 'integration' }
+  let(:version) { 'dunder-mifflin' }
   let(:branches) do
     [
-      'feature/1-add-butterfree-gem',
-      'feature/2-add-beedrill-gem'
+      'bugfix/4-fix-charmeleon-spelling',
+      'bugfix/5-fix-gem-source'
     ]
   end
-  let(:start_command) { papa "#{build_type} start -v #{version}" }
+  let(:start_command) { papa "integration start -b develop --override-branch-name #{version}" }
 
   it_behaves_like 'add'
 
@@ -21,7 +21,7 @@ RSpec.describe 'papa release add' do
         'feature/1-add-butterfree-gem'
       ]
     end
-    let(:expected_success_branches) { 
+    let(:expected_success_branches) {
       [
         'feature/6-add-pidgeotto-gem',
         'feature/1-add-butterfree-gem'

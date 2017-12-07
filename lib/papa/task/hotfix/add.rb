@@ -4,7 +4,7 @@ module Papa
   module Task
     module Hotfix
       class Add < Common::Add
-        def initialize(version:, bugfix_branches:)
+        def initialize(version, bugfix_branches)
           @build_type = 'hotfix'
           @version = version
           @branches = bugfix_branches

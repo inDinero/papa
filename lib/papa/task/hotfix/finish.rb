@@ -4,7 +4,7 @@ module Papa
   module Task
     module Hotfix
       class Finish < Common::Finish
-        def initialize(version:, additional_branches:)
+        def initialize(version, additional_branches)
           @build_type = 'hotfix'
           @version = version
           additional_branches ||= []

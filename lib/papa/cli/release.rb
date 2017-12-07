@@ -7,7 +7,7 @@ module Papa
         version = options[:version]
 
         require 'papa/task/release/start'
-        Task::Release::Start.new(version: version).run
+        Task::Release::Start.new(version).run
       end
 
       desc 'add', 'Add feature branches to a release branch'
@@ -18,7 +18,7 @@ module Papa
         feature_branches = options[:feature_branches] || []
 
         require 'papa/task/release/add'
-        Task::Release::Add.new(version: version, feature_branches: feature_branches).run
+        Task::Release::Add.new(version, feature_branches).run
       end
 
       desc 'finish', 'Merge the release branch to master and develop'
@@ -27,7 +27,7 @@ module Papa
         version = options[:version]
 
         require 'papa/task/release/finish'
-        Task::Release::Finish.new(version: version).run
+        Task::Release::Finish.new(version).run
       end
     end
   end

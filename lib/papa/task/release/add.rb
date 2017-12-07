@@ -4,7 +4,7 @@ module Papa
   module Task
     module Release
       class Add < Common::Add
-        def initialize(version:, feature_branches:)
+        def initialize(version, feature_branches)
           @build_type = "release"
           @version = version
           @branches = feature_branches

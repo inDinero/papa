@@ -1,13 +1,13 @@
-require 'papa/task/common/start'
+require 'papa/task/common/deploy'
 
 module Papa
   module Task
     module Hotfix
-      class Start < Common::Start
+      class Deploy < Common::Deploy
         def initialize(version)
           @build_type = 'hotfix'
-          @base_branch = 'master'
           @version = version
+          @hostname = 'hotfix'
         end
       end
     end

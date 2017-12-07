@@ -7,13 +7,13 @@ RSpec.shared_examples 'add' do
       "Merge branch '#{branch}' into #{build_branch}"
     end
   end
-  let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')}" }
+  let(:command) { papa "#{build_type} add -v #{version} -b #{branches.join(' ')} " }
 
   before do
     @generator = Papa::Task::Sandbox::Generate.new(silent: true)
     @generator.run
     Dir.chdir @generator.local_path
-    papa "#{build_type} start -v #{version}"
+    start_command
   end
 
   # after do
@@ -89,7 +89,7 @@ RSpec.shared_examples 'add with merge conflict' do
     @generator = Papa::Task::Sandbox::Generate.new(silent: true)
     @generator.run
     Dir.chdir @generator.local_path
-    papa "#{build_type} start -v #{version}"
+    start_command
   end
 
   # after do
