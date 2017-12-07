@@ -72,7 +72,7 @@ This will create a new hotfix branch based on the current `master` branch. The h
 $ papa hotfix start -v, --version=VERSION
 ```
 
-##### Sample Usage:
+#### Sample Usage:
 
 ```
 $ papa hotfix start -v 17.12.0
@@ -88,7 +88,7 @@ $ papa hotfix add -v, --version=VERSION [-b, --bugfix-branches=one two three]
 
 If `--bugfix-branches` is not specified, it will prompt a vi session where you can enter the branch names separated by line breaks.
 
-##### Sample Usage:
+#### Sample Usage:
 
 If you want to specify the bugfix branches using `--bugfix-branches`:
 
@@ -100,6 +100,20 @@ If you want to use vi to specify the bugfix branches:
 
 ```
 $ papa hotfix add -v 17.12.0
+```
+
+### Deploying a hotfix branch to a hotfix environment
+
+This will deploy the specified hotfix branch to a hotfix environment.
+
+```
+$ papa hotfix deploy -v, --version=VERSION
+```
+
+#### Sample Usage:
+
+```
+$ papa hotfix deploy -v 17.12.0
 ```
 
 ### Finishing a hotfix branch
@@ -118,24 +132,56 @@ $ papa release hotfix -v 17.12.0
 
 ## `papa integration`
 
-### Starting and deploying an integration branch
+#### Starting an integration branch
 
-This will create a new integration branch based on the specified base branch. The integration branch will be pushed to origin. The new branch will then be deployed to Larga.
+This will create a new integration branch based on the specified base branch.
 
 ```
-$ papa integration start -b, --base-branch=BASE_BRANCH [-h, --hostname=HOSTNAME]
+$ papa integration start -f, --base-branch=BASE_BRANCH
 ```
 
 #### Sample Usage:
 
 ```
-$ papa integration start -b feature/dunder-mifflin-this-is-pam
+$ papa integration start -f feature/dunder-mifflin-this-is-pam
 ```
 
-If you want to specify a hostname for this environment:
+### Adding branches to an integration branch
+
+This will rebase all branches from the integration branch and then subsequently merge the updated bugfix branch into the integration branch. The updated integration branch will be pushed to origin.
 
 ```
-$ papa integration start -b feature/we-were-on-a-break -h ross-and-rachel
+$ papa integration add -v, --version=VERSION [-b, --branches=one two three]
+```
+
+If `--branches` is not specified, it will prompt a vi session where you can enter the branch names separated by line breaks.
+
+#### Sample Usage:
+
+If you want to specify the feature branches using `-b`:
+
+```
+$ papa integration add -v 17.12.0 -b feature/1 feature/2 feature/3
+```
+
+If you want to use vi to specify the feature branches:
+
+```
+$ papa integration add -v 17.12.0
+```
+
+### Deploying an integration branch to an integration environment
+
+This will deploy the specified integration branch to an integration environment.
+
+```
+$ papa integration deploy -v, --version=VERSION
+```
+
+#### Sample Usage:
+
+```
+$ papa integration deploy -v 17.12.7.18.20.30
 ```
 
 ## `papa sandbox`
