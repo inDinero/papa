@@ -10,10 +10,6 @@ module Papa
         def run
           @build_branch ||= "#{@build_type}/#{@version}"
 
-          queue = [
-            Command::Larga::Type.new,
-            Command::Larga::Deploy.new(deploy_options)
-          ]
           runner = Runner.new(queue)
 
           if runner.run
@@ -25,6 +21,13 @@ module Papa
         end
 
         private
+
+        def queue
+          [
+            Command::Larga::Type.new,
+            Command::Larga::Deploy.new(deploy_options)
+          ]
+        end
 
         def deploy_options
           {

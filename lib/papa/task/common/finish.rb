@@ -18,18 +18,7 @@ module Papa
           @success_branches = []
 
           @base_branches.each do |branch|
-            queue = [
-              Command::Git::Fetch.new('origin'),
-              Command::Git::Checkout.new(@build_branch),
-              Command::Git::Checkout.new(branch),
-              Command::Git::Merge.new(@build_branch),
-              Command::Git::Push.new('origin', branch)
-            ]
-            if @tag_name && branch == 'master'
-              queue << Command::Git::Tag.new(@tag_name)
-              queue << Command::Git::TagPush.new('origin', @tag_name)
-            end
-            runner = Runner.new(queue)
+            runner = Runner.new(queue(branch))
 
             if runner.run
               @success_branches << branch
@@ -47,6 +36,21 @@ module Papa
         end
 
         private
+
+        def queue(branch)
+          queue = [
+            Command::Git::Fetch.new('origin'),
+            Command::Git::Checkout.new(@build_branch),
+            Command::Git::Checkout.new(branch),
+            Command::Git::Merge.new(@build_branch),
+            Command::Git::Push.new('origin', branch)
+          ]
+          if @tag_name && branch == 'master'
+            queue << Command::Git::Tag.new(@tag_name)
+            queue << Command::Git::TagPush.new('origin', @tag_name)
+          end
+          queue
+        end
 
         def success_message
           Helper::Output.success "Successfully merged #{@build_branch} to these branches:\n"
