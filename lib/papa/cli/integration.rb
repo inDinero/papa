@@ -2,7 +2,7 @@ module Papa
   module CLI
     class Integration < Thor
       desc 'start', 'Start an integration branch'
-      option :base_branch, aliases: '-b', required: true
+      option :base_branch, aliases: ['-b', '-f'], required: true
       option :override_branch_name
       def start
         base_branch = options[:base_branch]
