@@ -54,9 +54,19 @@ module Papa
 
         private
 
+        def check_if_build_branch_exists
+          queue = [
+            Command::Git::Fetch.new('origin'),
+            Command::Git::Checkout.new(@build_branch)
+          ]
+          runner = Runner.new(queue)
+          return if runner.run
+          Helper::Output.failure 'Build branch does not exist.'
+          exit 1
+        end
+
         def queue(branch)
           [
-            Command::Git::Fetch.new('origin'),
             Command::Git::Checkout.new(@build_branch),
             Command::Git::Checkout.new(branch),
             Command::Git::ResetHard.new('origin', branch),
@@ -68,16 +78,6 @@ module Papa
           ]
         end
 
-        def check_if_build_branch_exists
-          queue = [
-            Command::Git::Fetch.new('origin'),
-            Command::Git::Checkout.new(@build_branch)
-          ]
-          runner = Runner.new(queue)
-          return if runner.run
-          Helper::Output.failure 'Build branch does not exist.'
-          exit 1
-        end
 
         def check_if_branches_are_given
           return unless @branches.empty?

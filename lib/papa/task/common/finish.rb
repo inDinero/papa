@@ -14,6 +14,8 @@ module Papa
         def run
           @build_branch ||= "#{@build_type}/#{@version}"
 
+          check_if_build_branch_exists
+
           success = true
           @success_branches = []
 
@@ -37,9 +39,19 @@ module Papa
 
         private
 
-        def queue(branch)
+        def check_if_build_branch_exists
           queue = [
             Command::Git::Fetch.new('origin'),
+            Command::Git::Checkout.new(@build_branch)
+          ]
+          runner = Runner.new(queue)
+          return if runner.run
+          Helper::Output.failure 'Build branch does not exist.'
+          exit 1
+        end
+
+        def queue(branch)
+          queue = [
             Command::Git::Checkout.new(@build_branch),
             Command::Git::Checkout.new(branch),
             Command::Git::Merge.new(@build_branch),
