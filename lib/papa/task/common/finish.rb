@@ -29,9 +29,9 @@ module Papa
             end
           end
 
-          success_message if !@success_branches.empty?
-
-          if !success
+          if success
+            success_message
+          else
             failure_message
             exit 1
           end

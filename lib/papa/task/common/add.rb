@@ -41,13 +41,9 @@ module Papa
             end
           end
 
-          success_message
-          failure_message
+          success_and_failure_messages
 
-          if success
-            success_cleanup
-          else
-            failure_cleanup
+          if !success
             exit 1
           end
         end
@@ -74,16 +70,21 @@ module Papa
             Command::Git::PushForce.new('origin', branch),
             Command::Git::Checkout.new(@build_branch),
             Command::Git::Merge.new(branch),
+            Command::Git::BranchDelete.new(branch),
             Command::Git::Push.new('origin', @build_branch)
           ]
         end
-
 
         def check_if_branches_are_given
           return unless @branches.empty?
           require 'papa/helper/vi'
           vi_file_helper = Helper::Vi.new
           @branches = vi_file_helper.run
+        end
+
+        def success_and_failure_messages
+          success_message
+          failure_message
         end
 
         def success_message
@@ -114,14 +115,6 @@ module Papa
           info << "  papa #{@build_type} add -v #{@version} -b #{branch_names.join(' ')}"
 
           Helper::Output.failure_info info
-        end
-
-        def success_cleanup
-          queue = @branches.map { |branch| Command::Git::BranchDelete.new(branch) }
-          Runner.new(queue).run
-        end
-
-        def failure_cleanup
         end
       end
     end
