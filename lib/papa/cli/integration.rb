@@ -3,12 +3,13 @@ module Papa
     class Integration < Thor
       desc 'start', 'Start an integration branch'
       option :base_branch, aliases: '-b', required: true
+      option :override_branch_name
       def start
         base_branch = options[:base_branch]
-        hostname = options[:hostname]
+        task_options = { override_branch_name: options[:override_branch_name] }
 
         require 'papa/task/integration/start'
-        Task::Integration::Start.new(base_branch).run
+        Task::Integration::Start.new(base_branch, task_options).run
       end
 
       desc 'add', 'Add branches to a integration branch'
