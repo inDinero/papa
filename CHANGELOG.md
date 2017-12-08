@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.6.1
+* Show output from `larga` in real time.
+
 ## 0.6.0
 * Added `papa hotfix deploy`
 * Edited `papa integration start` to only start a new branch and not deploy to an environment.
