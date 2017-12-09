@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.1
+* Show output from `larga` in real time.
+
+## 0.6.0
+* Added `papa hotfix deploy`
+* Edited `papa integration start` to only start a new branch and not deploy to an environment.
+* Added `papa integration add` and `papa integration deploy`
+* Edited tasks so that they only run `git fetch` once
+
 ## 0.5.0
 * Deprecated `papa deploy`. Deployment will be triggered during `papa integration start`.
 * Simplified README.md and moved detailed command information into USAGE.md

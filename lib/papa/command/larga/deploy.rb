@@ -16,15 +16,23 @@ module Papa
           super(command, silent: false)
         end
 
-        def failed?
-          stdout.include?('Cowardly refusing') || stdout.include?('Error')
+        def run
+          Helper::Output.stdout "Running #{command.bold}..."
+          @stdout = ''
+          IO.popen(command).each do |line|
+            @stdout << line
+            puts line
+          end
+          self
         end
 
         def failure_message
           message = "Error while running #{command.bold}"
           Helper::Output.error message
-          message = 'Larga output:' + @stdout
-          Helper::Output.stderr message
+        end
+
+        def failed?
+          stdout.include?('Cowardly refusing') || stdout.include?('Error')
         end
 
         private

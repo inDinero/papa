@@ -4,7 +4,7 @@ module Papa
   module Task
     module Release
       class Finish < Common::Finish
-        def initialize(version:)
+        def initialize(version)
           @build_type = 'release'
           @version = version
           @tag_name = version

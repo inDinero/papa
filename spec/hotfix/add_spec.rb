@@ -9,6 +9,7 @@ RSpec.describe 'papa hotfix add' do
       'bugfix/5-fix-gem-source'
     ]
   end
+  let(:start_command) { papa "#{build_type} start -v #{version}" }
 
   it_behaves_like 'add'
 
