@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.6.2
+* Reset build branch from origin every time a new branch is added
+
 ## 0.6.1
 * Show output from `larga` in real time.
 
