@@ -1,23 +1,13 @@
-require 'papa/helper/output'
+require 'papa/task/base'
 require 'papa/command/larga/type'
 require 'papa/command/larga/deploy'
-require 'papa/runner'
 
 module Papa
   module Task
     module Common
-      class Deploy
-        def run
-          @build_branch ||= "#{@build_type}/#{@version}"
-
-          runner = Runner.new(queue)
-
-          if runner.run
-            success_message
-          else
-            failure_message
-            exit 1
-          end
+      class Deploy < Base
+        def initialize
+          check_if_build_branch_exists
         end
 
         private
@@ -31,7 +21,7 @@ module Papa
 
         def deploy_options
           {
-            branch: @build_branch,
+            branch: build_branch,
             hostname: @hostname
           }
         end
@@ -39,7 +29,7 @@ module Papa
         def success_message
           Helper::Output.success 'Successfully deployed larga instance.'
           info = ''
-          info << "  Branch: #{@build_branch}\n"
+          info << "  Branch: #{build_branch}\n"
           info << "  URL: https://#{@hostname}.indinerocorp.com\n"
           Helper::Output.success_info info
         end
@@ -47,7 +37,7 @@ module Papa
         def failure_message
           Helper::Output.failure 'There was a problem deploying larga instance.'
           info = ''
-          info << "  Branch: #{@build_branch}\n"
+          info << "  Branch: #{build_branch}\n"
           Helper::Output.failure_info info
         end
       end

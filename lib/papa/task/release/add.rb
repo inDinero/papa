@@ -8,6 +8,7 @@ module Papa
           @build_type = "release"
           @version = version
           @branches = feature_branches
+          super()
         end
       end
     end
