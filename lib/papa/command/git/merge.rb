@@ -17,6 +17,9 @@ module Papa
 
         def cleanup
           super
+          require 'papa/command/git/merge_abort'
+          require 'papa/command/git/checkout'
+
           Command::Git::MergeAbort.new.run
           Command::Git::Checkout.new(current_branch).run
         end

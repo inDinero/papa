@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.3
+* Fixed bug when cleaning up after a failed `git merge`
+* Exit out of `papa [hotfix, release] finish` when one of the base branches fails to be merged on
+
 ## 0.6.2
 * Reset build branch from origin every time a new branch is added
 
