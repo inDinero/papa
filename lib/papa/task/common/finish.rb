@@ -1,6 +1,7 @@
 require 'papa/command/git/fetch'
 require 'papa/command/git/checkout'
 require 'papa/command/git/merge'
+require 'papa/command/git/reset_hard'
 require 'papa/command/git/push'
 require 'papa/command/git/tag'
 require 'papa/command/git/tag_push'
@@ -25,16 +26,12 @@ module Papa
             if runner.run
               @success_branches << branch
             else
-              success = false
+              failure_message
+              exit 1
             end
           end
 
-          if success
-            success_message
-          else
-            failure_message
-            exit 1
-          end
+          success_message
         end
 
         private
@@ -54,6 +51,7 @@ module Papa
           queue = [
             Command::Git::Checkout.new(@build_branch),
             Command::Git::Checkout.new(branch),
+            Command::Git::ResetHard.new('origin', branch),
             Command::Git::Merge.new(@build_branch),
             Command::Git::Push.new('origin', branch)
           ]
