@@ -47,6 +47,11 @@ module Papa
         Helper::Logger.log(message)
       end
 
+      def self.info(message)
+        puts message
+        Helper::Logger.log(message)
+      end
+
       def self.build_output(message)
         "[#{timestamp}] - #{message}"
       end
