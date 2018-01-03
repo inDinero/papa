@@ -8,6 +8,7 @@ module Papa
           @build_type = 'release'
           @base_branch = 'develop'
           @version = version
+          super()
         end
       end
     end

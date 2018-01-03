@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0
+* All output will be logged to a log file in the current working directory
+* Properly determine whether to build or redeploy an integration or hotfix environment
+* Destroy old outdated integration or hotfix environments if a different branch is to be deployed
+* Slack notifications for integration and hotfix deployments
+* Add documentation for the `-b` option in `papa hotfix finish`
+* Minor documentation formatting changes
+
 ## 0.6.3
 * Fixed bug when cleaning up after a failed `git merge`
 * Exit out of `papa [hotfix, release] finish` when one of the base branches fails to be merged on

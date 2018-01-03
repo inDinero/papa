@@ -8,6 +8,7 @@ module Papa
           @build_type = 'hotfix'
           @version = version
           @hostname = 'hotfix'
+          super()
         end
       end
     end

@@ -8,6 +8,7 @@ module Papa
           @build_type = 'hotfix'
           @version = version
           @branches = bugfix_branches
+          super()
         end
       end
     end

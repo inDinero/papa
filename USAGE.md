@@ -121,13 +121,21 @@ $ papa hotfix deploy -v 17.12.0
 The finished hotfix branch will be merged to `master` and `develop`. The updated `master` and `develop` branches will be pushed to origin.
 
 ```
-$ papa release hotfix -v, --version=VERSION
+$ papa release hotfix -v, --version=VERSION [-b, --additional-branches=one two three]
 ```
+
+If `--additional-branches` is specified, the hotfix branch will also be merged to the specified branches.
 
 #### Sample Usage:
 
 ```
 $ papa release hotfix -v 17.12.0
+```
+
+If the hotfix branch will also be merged to a release branch:
+
+```
+$ papa hotfix finish -v 17.12.0 -b release/17.11.0
 ```
 
 ## `papa integration`

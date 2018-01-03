@@ -9,6 +9,7 @@ module Papa
           @version = version
           @tag_name = version
           @base_branches = ['develop', 'master']
+          super()
         end
       end
     end

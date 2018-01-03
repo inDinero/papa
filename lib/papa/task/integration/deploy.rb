@@ -8,6 +8,7 @@ module Papa
           @build_type = 'integration'
           @version = version
           @hostname = 'integration'
+          super()
         end
       end
     end

@@ -8,6 +8,7 @@ module Papa
           @build_type = 'integration'
           @version = version
           @branches = branches
+          super()
         end
 
         def queue(branch)
