@@ -109,6 +109,10 @@ $ papa hotfix deploy -v 17.12.0
 $ papa hotfix finish -v 17.12.0
 ```
 
+```
+$ papa hotfix finish -v 17.12.0 -b release/17.11.0
+```
+
 ### `papa integration`
 
 #### Starting an integration branch
