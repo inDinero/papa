@@ -24,13 +24,23 @@ Helper tool for inDinero's git workflow. Ako ang papa mo.
 
 ## Getting Started
 
-Install `papa` from Rubygems.
+### Install `papa` from Rubygems
 
 ```
 $ gem install papa
 ```
 
-That's it, you're ready to go!
+### Set up configs
+
+Create a config file in `~/.papa.config.yml`.
+
+An example config file can be found in `.papa.config.yml.example`.
+
+tl;dr:
+
+```
+echo 'slack_webhook: YOUR_SLACK_WEBHOOK_URL_HERE' > ~/.papa.config.yml
+```
 
 ## Usage
 

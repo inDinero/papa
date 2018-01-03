@@ -1,6 +1,7 @@
 require 'papa/task/base'
 require 'papa/command/larga/type'
 require 'papa/command/larga/deploy'
+require 'papa/command/slack/send_message'
 
 module Papa
   module Task
@@ -15,7 +16,9 @@ module Papa
         def queue
           [
             Command::Larga::Type.new,
-            Command::Larga::Deploy.new(deploy_options)
+            Command::Slack::SendMessage.new(@build_type, @hostname, 'started'),
+            Command::Larga::Deploy.new(deploy_options),
+            Command::Slack::SendMessage.new(@build_type, @hostname, 'done')
           ]
         end
 
