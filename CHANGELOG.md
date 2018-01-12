@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.1
+* Add ability to specify subdomain/hostname when deploying integration branches
+* Fetch only once when adding feature or bugfix branches to an integration branch
+
 ## 0.7.0
 * All output will be logged to a log file in the current working directory
 * Properly determine whether to build or redeploy an integration or hotfix environment
