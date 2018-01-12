@@ -6,21 +6,21 @@ Helper tool for inDinero's git workflow. Ako ang papa mo.
 
 * [Getting Started](#getting-started)
 * [Commands](#commands)
-	* [papa release](#papa-release)
-	  * [start](#starting-a-release-branch)
-	  * [add](#adding-feature-branches-to-a-release-branch)
-	  * [finish](#finishing-a-release-branch)
-	* [papa hotfix](#papa-hotfix)
-	  * [start](#starting-a-hotfix-branch)
-	  * [add](#adding-bugfix-branches-to-a-hotfix-branch)
-	  * [deploy](#deploying-a-hotfix-branch-to-a-hotfix-environment)
-	  * [finish](#finishing-a-hotfix-branch)
-	* [papa integration](#papa-integration)
-	  * [start](#starting-an-integration-branch)
-	  * [add](#adding-branches-to-an-integration-branch)
-	  * [deploy](#deploying-an-integration-branch-to-an-integration-environment)
-	* [papa sandbox](#papa-sandbox)
-	  * [generate](#papa-sandbox)
+  * [papa release](#papa-release)
+    * [start](#starting-a-release-branch)
+    * [add](#adding-feature-branches-to-a-release-branch)
+    * [finish](#finishing-a-release-branch)
+  * [papa hotfix](#papa-hotfix)
+    * [start](#starting-a-hotfix-branch)
+    * [add](#adding-bugfix-branches-to-a-hotfix-branch)
+    * [deploy](#deploying-a-hotfix-branch-to-a-hotfix-environment)
+    * [finish](#finishing-a-hotfix-branch)
+  * [papa integration](#papa-integration)
+    * [start](#starting-an-integration-branch)
+    * [add](#adding-branches-to-an-integration-branch)
+    * [deploy](#deploying-an-integration-branch-to-an-integration-environment)
+  * [papa sandbox](#papa-sandbox)
+    * [generate](#papa-sandbox)
 
 ## Getting Started
 
@@ -109,6 +109,8 @@ $ papa hotfix deploy -v 17.12.0
 $ papa hotfix finish -v 17.12.0
 ```
 
+If the hotfix branch will also be merged to a release branch:
+
 ```
 $ papa hotfix finish -v 17.12.0 -b release/17.11.0
 ```
@@ -139,6 +141,12 @@ $ papa integration add -v 17.12.0
 
 ```
 $ papa integration deploy -v 17.12.7.18.20.30
+```
+
+If you want to specify a different subdomain for the environment:
+
+```
+$ papa integration deploy -v 17.12.7.18.20.30 -s diomar
 ```
 
 ### `papa sandbox`

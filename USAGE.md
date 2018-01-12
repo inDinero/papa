@@ -183,7 +183,7 @@ $ papa integration add -v 17.12.0
 This will deploy the specified integration branch to an integration environment.
 
 ```
-$ papa integration deploy -v, --version=VERSION
+$ papa integration deploy -v, --version=VERSION [-s, --subdomain=SUBDOMAIN]
 ```
 
 #### Sample Usage:
@@ -191,6 +191,13 @@ $ papa integration deploy -v, --version=VERSION
 ```
 $ papa integration deploy -v 17.12.7.18.20.30
 ```
+
+If you want to specify a different subdomain for the environment:
+
+```
+$ papa integration deploy -v 17.12.7.18.20.30 -s diomar
+```
+
 
 ## `papa sandbox`
 
