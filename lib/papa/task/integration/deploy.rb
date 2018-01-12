@@ -4,10 +4,10 @@ module Papa
   module Task
     module Integration
       class Deploy < Common::Deploy
-        def initialize(version)
+        def initialize(version, hostname)
           @build_type = 'integration'
           @version = version
-          @hostname = 'integration'
+          @hostname = hostname || 'integration'
           super()
         end
       end

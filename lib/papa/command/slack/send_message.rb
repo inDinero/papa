@@ -20,7 +20,7 @@ module Papa
         def payload
           url = "https://#{@hostname}.indinerocorp.com"
           {
-            'text' => "<!channel> Deployment to <#{url}|#{@build_type}> #{@action}."
+            'text' => "<!channel> Deployment to <#{url}|#{@hostname}> #{@action}."
           }
         end
 
