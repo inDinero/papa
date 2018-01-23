@@ -13,6 +13,7 @@ module Papa
         def initialize
           check_if_build_branch_exists
           check_if_branches_are_given
+          check_if_branches_are_valid
           @success_branches = []
           @failed_branches = []
         end
@@ -24,6 +25,18 @@ module Papa
           require 'papa/helper/vi'
           vi_file_helper = Helper::Vi.new
           @branches = vi_file_helper.run
+        end
+
+        def check_if_branches_are_valid
+          invalid_branch_prefixes = ['hotfix', 'release']
+          @branches.each do |branch|
+            has_invalid_branches = invalid_branch_prefixes.any? do |invalid_branch_prefix|
+              branch.start_with?(invalid_branch_prefix)
+            end
+            return unless has_invalid_branches
+            Helper::Output.failure "Branch #{branch.bold} cannot be added to #{@build_type.bold} build branches."
+            exit 1
+          end
         end
 
         def perform_task
