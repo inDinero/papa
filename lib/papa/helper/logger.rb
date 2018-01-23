@@ -11,7 +11,7 @@ module Papa
         return @log_path if defined?(@log_path)
         command = ARGV.first(2).join('_')
         timestamp = Time.now.strftime('%Y_%m_%d_%I_%M_%S')
-        @log_path = ['papa', command, timestamp].join('_') + '.log'
+        @log_path = [timestamp, 'papa', command].join('_') + '.log'
       end
     end
   end

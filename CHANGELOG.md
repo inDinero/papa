@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.2
+* Change log file file format to `{TIMESTAMP}_papa_{BUILD_TYPE}_{COMMAND}.log`
+* Disallow the use of `papa [hotfix, release] add` with release and hotfix branches
+
 ## 0.7.1
 * Add ability to specify subdomain/hostname when deploying integration branches
 * Fetch only once when adding feature or bugfix branches to an integration branch
