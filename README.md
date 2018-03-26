@@ -1,4 +1,4 @@
-# Papa [![Gem Version](https://badge.fury.io/rb/papa.svg)](https://badge.fury.io/rb/papa) [![Build Status](https://travis-ci.org/b-ggs/papa.svg?branch=master)](https://travis-ci.org/b-ggs/papa)
+# Papa [![Version](https://img.shields.io/gem/v/papa.svg?style=flat)](https://rubygems.org/gems/papa) [![Build Status](https://img.shields.io/travis/b-ggs/papa/master.svg?style=flat)](https://travis-ci.org/b-ggs/papa)
 
 Helper tool for inDinero's git workflow. Ako ang papa mo.
 
@@ -6,21 +6,41 @@ Helper tool for inDinero's git workflow. Ako ang papa mo.
 
 * [Getting Started](#getting-started)
 * [Commands](#commands)
-	* [papa release](#papa-release)
-	* [papa hotfix](#papa-hotfix)
-	* [papa integration](#papa-integration)
-	* [papa deploy](#papa-deploy)
-	* [papa sandbox](#papa-sandbox)
+  * [papa release](#papa-release)
+    * [start](#starting-a-release-branch)
+    * [add](#adding-feature-branches-to-a-release-branch)
+    * [finish](#finishing-a-release-branch)
+  * [papa hotfix](#papa-hotfix)
+    * [start](#starting-a-hotfix-branch)
+    * [add](#adding-bugfix-branches-to-a-hotfix-branch)
+    * [deploy](#deploying-a-hotfix-branch-to-a-hotfix-environment)
+    * [finish](#finishing-a-hotfix-branch)
+  * [papa integration](#papa-integration)
+    * [start](#starting-an-integration-branch)
+    * [add](#adding-branches-to-an-integration-branch)
+    * [deploy](#deploying-an-integration-branch-to-an-integration-environment)
+  * [papa sandbox](#papa-sandbox)
+    * [generate](#papa-sandbox)
 
 ## Getting Started
 
-Install `papa` from Rubygems.
+### Install `papa` from Rubygems
 
 ```
 $ gem install papa
 ```
 
-That's it, you're ready to go!
+### Set up configs
+
+Create a config file in `~/.papa.config.yml`.
+
+An example config file can be found in `.papa.config.yml.example`.
+
+tl;dr:
+
+```
+echo 'slack_webhook: YOUR_SLACK_WEBHOOK_URL_HERE' > ~/.papa.config.yml
+```
 
 ## Usage
 
@@ -86,7 +106,13 @@ $ papa hotfix deploy -v 17.12.0
 #### Finishing a hotfix branch
 
 ```
-$ papa release hotfix -v 17.12.0
+$ papa hotfix finish -v 17.12.0
+```
+
+If the hotfix branch will also be merged to a release branch:
+
+```
+$ papa hotfix finish -v 17.12.0 -b release/17.11.0
 ```
 
 ### `papa integration`
@@ -115,6 +141,12 @@ $ papa integration add -v 17.12.0
 
 ```
 $ papa integration deploy -v 17.12.7.18.20.30
+```
+
+If you want to specify a different subdomain for the environment:
+
+```
+$ papa integration deploy -v 17.12.7.18.20.30 -s diomar
 ```
 
 ### `papa sandbox`

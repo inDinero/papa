@@ -11,6 +11,7 @@ module Papa
           @build_type = 'integration'
           @base_branch = base_branch
           @build_branch = "#{@build_type}/#{options[:override_branch_name] || generate_integration_timestamp}"
+          super()
         end
 
         private

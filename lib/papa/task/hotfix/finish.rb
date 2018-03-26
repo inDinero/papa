@@ -10,6 +10,7 @@ module Papa
           additional_branches ||= []
           @tag_name = version
           @base_branches = ['develop', 'master'] + additional_branches
+          super()
         end
       end
     end

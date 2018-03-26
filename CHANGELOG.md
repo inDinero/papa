@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.7.2
+* Change log file file format to `{TIMESTAMP}_papa_{BUILD_TYPE}_{COMMAND}.log`
+* Disallow the use of `papa [hotfix, release] add` with release and hotfix branches
+
+## 0.7.1
+* Add ability to specify subdomain/hostname when deploying integration branches
+* Fetch only once when adding feature or bugfix branches to an integration branch
+
+## 0.7.0
+* All output will be logged to a log file in the current working directory
+* Properly determine whether to build or redeploy an integration or hotfix environment
+* Destroy old outdated integration or hotfix environments if a different branch is to be deployed
+* Slack notifications for integration and hotfix deployments
+* Add documentation for the `-b` option in `papa hotfix finish`
+* Minor documentation formatting changes
+
+## 0.6.3
+* Fixed bug when cleaning up after a failed `git merge`
+* Exit out of `papa [hotfix, release] finish` when one of the base branches fails to be merged on
+
 ## 0.6.2
 * Reset build branch from origin every time a new branch is added
 

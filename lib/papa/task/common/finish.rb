@@ -1,60 +1,41 @@
-require 'papa/command/git/fetch'
-require 'papa/command/git/checkout'
+require 'papa/task/base'
 require 'papa/command/git/merge'
+require 'papa/command/git/reset_hard'
 require 'papa/command/git/push'
 require 'papa/command/git/tag'
 require 'papa/command/git/tag_push'
-require 'papa/runner'
-require 'papa/helper/output'
 
 module Papa
   module Task
     module Common
-      class Finish
-        def run
-          @build_branch ||= "#{@build_type}/#{@version}"
-
+      class Finish < Base
+        def initialize
           check_if_build_branch_exists
-
-          success = true
           @success_branches = []
-
-          @base_branches.each do |branch|
-            runner = Runner.new(queue(branch))
-
-            if runner.run
-              @success_branches << branch
-            else
-              success = false
-            end
-          end
-
-          if success
-            success_message
-          else
-            failure_message
-            exit 1
-          end
+          @failed_branches = []
         end
 
         private
 
-        def check_if_build_branch_exists
-          queue = [
-            Command::Git::Fetch.new('origin'),
-            Command::Git::Checkout.new(@build_branch)
-          ]
-          runner = Runner.new(queue)
-          return if runner.run
-          Helper::Output.failure 'Build branch does not exist.'
-          exit 1
+        def perform_task
+          @success = true
+          @base_branches.each do |branch|
+            runner = Runner.new(queue(branch))
+            if runner.run
+              @success_branches << branch
+            else
+              @failed_branches << branch
+              @success = false
+            end
+          end
         end
 
         def queue(branch)
           queue = [
-            Command::Git::Checkout.new(@build_branch),
+            Command::Git::Checkout.new(build_branch),
             Command::Git::Checkout.new(branch),
-            Command::Git::Merge.new(@build_branch),
+            Command::Git::ResetHard.new('origin', branch),
+            Command::Git::Merge.new(build_branch),
             Command::Git::Push.new('origin', branch)
           ]
           if @tag_name && branch == 'master'
@@ -64,8 +45,18 @@ module Papa
           queue
         end
 
+        def result
+          if @success_branches.count > 0
+            success_message
+          end
+          if @failed_branches.count > 0
+            failure_message
+            exit 1
+          end
+        end
+
         def success_message
-          Helper::Output.success "Successfully merged #{@build_branch} to these branches:\n"
+          Helper::Output.success "Successfully merged #{build_branch} to these branches:\n"
           info = ''
           @success_branches.each_with_index do |branch, index|
             info << " #{index + 1}.) #{branch}\n"
@@ -74,10 +65,9 @@ module Papa
         end
 
         def failure_message
-          failed_branches = @base_branches - @success_branches
-          Helper::Output.failure "Failed to merge #{@build_branch} to these branches:\n"
+          Helper::Output.failure "Failed to merge #{build_branch} to these branches:\n"
           info = ''
-          failed_branches.each_with_index do |branch, index|
+          @failed_branches.each_with_index do |branch, index|
             info << " #{index + 1}.) #{branch}\n"
           end
           Helper::Output.failure_info info

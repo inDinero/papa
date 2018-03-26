@@ -23,13 +23,17 @@ module Papa
         Task::Integration::Add.new(version, branches).run
       end
 
-      desc 'deploy', 'Deploy the integration branch to integration.indinerocorp.com'
+      desc 'deploy', 'Deploy the integration branch to SUBDOMAIN.indinerocorp.com'
       option :version, aliases: '-v', required: true
+      option :subdomain, aliases: '-s'
       def deploy
         version = options[:version]
+        # Renamed to subdomain because `-h` is already assigned to `papa integration help`.
+        # Will still be referred to as `hostname` from here onwards.
+        hostname = options[:subdomain]
 
         require 'papa/task/integration/deploy'
-        Task::Integration::Deploy.new(version).run
+        Task::Integration::Deploy.new(version, hostname).run
       end
     end
   end
