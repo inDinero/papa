@@ -33,6 +33,7 @@ module Papa
         def queue(branch)
           queue = [
             Command::Git::Checkout.new(build_branch),
+            Command::Git::ResetHard.new('origin', build_branch),
             Command::Git::Checkout.new(branch),
             Command::Git::ResetHard.new('origin', branch),
             Command::Git::Merge.new(build_branch),

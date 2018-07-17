@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+* Add `whoami` and `hostname` to deployment message
+* Hard reset build branch before starting `papa [hotfix, release] finish`
+
 ## 0.7.2
 * Change log file file format to `{TIMESTAMP}_papa_{BUILD_TYPE}_{COMMAND}.log`
 * Disallow the use of `papa [hotfix, release] add` with release and hotfix branches
