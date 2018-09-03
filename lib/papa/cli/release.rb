@@ -23,11 +23,13 @@ module Papa
 
       desc 'finish', 'Merge the release branch to master and develop'
       option :version, aliases: '-v', required: true
+      option :additional_branches, aliases: '-b', type: :array
       def finish
         version = options[:version]
+        additional_branches = options[:additional_branches]
 
         require 'papa/task/release/finish'
-        Task::Release::Finish.new(version).run
+        Task::Release::Finish.new(version, additional_branches).run
       end
     end
   end
