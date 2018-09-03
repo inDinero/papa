@@ -1,6 +1,7 @@
 require 'papa/task/base'
 require 'papa/command/git/branch'
 require 'papa/command/git/push'
+require 'papa/command/git/reset_hard'
 
 module Papa
   module Task
@@ -12,6 +13,7 @@ module Papa
           [
             Command::Git::Fetch.new('origin'),
             Command::Git::Checkout.new(@base_branch),
+            Command::Git::ResetHard.new('origin', @base_branch),
             Command::Git::Branch.new(build_branch),
             Command::Git::Checkout.new(build_branch),
             Command::Git::Push.new('origin', build_branch)
