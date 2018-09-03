@@ -2,6 +2,7 @@
 
 ## 1.1.0
 * Allow merging release branches to other branches upon finishing by adding `-b` to `papa release finish`
+* Upon starting a new release or hotfix branch, reset base branch from origin after checking out
 
 ## 1.0.0
 * Add `whoami` and `hostname` to deployment message
