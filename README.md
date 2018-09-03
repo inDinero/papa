@@ -74,6 +74,12 @@ $ papa release add -v 17.12.0
 $ papa release finish -v 17.12.0
 ```
 
+If the release branch will also be merged to another branch:
+
+```
+$ papa release finish -v 17.12.0 -b release/17.11.0
+```
+
 ### `papa hotfix`
 
 #### Starting a hotfix branch
