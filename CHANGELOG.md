@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+* Allow adding release branches to integration branches
+* Hard reset build branch for integration-related tasks
+
 ## 1.1.0
 * Allow merging release branches to other branches upon finishing by adding `-b` to `papa release finish`
 * Upon starting a new release or hotfix branch, reset base branch from origin after checking out

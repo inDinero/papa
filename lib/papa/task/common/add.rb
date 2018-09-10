@@ -28,6 +28,7 @@ module Papa
         end
 
         def check_if_branches_are_valid
+          return if @build_type == 'integration'
           invalid_branch_prefixes = ['hotfix', 'release']
           @branches.each do |branch|
             has_invalid_branches = invalid_branch_prefixes.any? do |invalid_branch_prefix|
