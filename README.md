@@ -13,12 +13,10 @@ Helper tool for inDinero's git workflow. Ako ang papa mo.
   * [papa hotfix](#papa-hotfix)
     * [start](#starting-a-hotfix-branch)
     * [add](#adding-bugfix-branches-to-a-hotfix-branch)
-    * [deploy](#deploying-a-hotfix-branch-to-a-hotfix-environment)
     * [finish](#finishing-a-hotfix-branch)
   * [papa integration](#papa-integration)
     * [start](#starting-an-integration-branch)
     * [add](#adding-branches-to-an-integration-branch)
-    * [deploy](#deploying-an-integration-branch-to-an-integration-environment)
   * [papa sandbox](#papa-sandbox)
     * [generate](#papa-sandbox)
 
@@ -103,11 +101,7 @@ If you want to use vi to specify the bugfix branches:
 $ papa hotfix add -v 17.12.0
 ```
 
-#### Deploying a hotfix branch to a hotfix environment
 
-```
-$ papa hotfix deploy -v 17.12.0
-```
 
 #### Finishing a hotfix branch
 
@@ -143,17 +137,7 @@ If you want to use vi to specify the feature branches:
 $ papa integration add -v 17.12.0
 ```
 
-#### Deploying an integration branch to an integration environment
 
-```
-$ papa integration deploy -v 17.12.7.18.20.30
-```
-
-If you want to specify a different subdomain for the environment:
-
-```
-$ papa integration deploy -v 17.12.7.18.20.30 -s diomar
-```
 
 ### `papa sandbox`
 
